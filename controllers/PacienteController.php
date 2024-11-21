@@ -34,4 +34,3 @@ class PacienteController {
         echo json_encode($pacientes_arr);
     }
 }
-?>

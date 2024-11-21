@@ -21,4 +21,3 @@ class Paciente {
         return $stmt;
     }
 }
-?>
