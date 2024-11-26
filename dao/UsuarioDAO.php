@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE);
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../dto/Usuario.php';
+require_once __DIR__ . '/../config/Database.php';
+
 class UsuarioDAO {
     private $conn;
 
@@ -9,26 +10,30 @@ class UsuarioDAO {
         $this->conn = $database->getConnection();
     }
 
-    public function insert(Usuario $user) {
-        $query = "INSERT INTO usuarios (nome, especialidade, email, senha) VALUES (:nome, :especialidade, :email, :senha)";
-        $stmt = $this->conn->prepare($query);
-        
-        $stmt->bindParam(':nome', $user->getNome());
-        $stmt->bindParam(':especialidade', $user->getEspecialidade());
-        $stmt->bindParam(':email', $user->getEmail());
-        $stmt->bindParam(':senha', $user->getSenha());
-        
-        return $stmt->execute();
-    }
-
-    public function getAllUsuarios(){
-        $query = "SELECT * FROM usuarios";
+    public function insert(Usuario $usuario): bool {
+        $query = "INSERT INTO usuarios (nome, email, especialidade, senha) VALUES (:nome, :email, :especialidade, :senha)";
         $stmt = $this->conn->prepare($query);
     
-        if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':nome', $usuario->getNome());
+        $stmt->bindParam(':email', $usuario->getEmail());
+        $stmt->bindParam(':especialidade', $usuario->getEspecialidade());
+        $stmt->bindParam(':senha', $usuario->getSenha());
+    
+        return $stmt->execute();
+    }
+    
+
+    public function getAllUsuarios(): array {
+        $query = "SELECT id, nome, email, senha FROM usuarios";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        $result = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $result[] = Usuario::fromArray($row);
         }
-        return ['error' => 'Falha na consulta ao banco de dados'];
+
+        return $result;
     }
 }
 ?>
