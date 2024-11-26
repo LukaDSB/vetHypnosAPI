@@ -24,7 +24,7 @@ class UsuarioDAO {
     
 
     public function getAllUsuarios(): array {
-        $query = "SELECT id, nome, email, senha FROM usuarios";
+        $query = "SELECT id, nome, especialidade, email, senha FROM usuarios";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
