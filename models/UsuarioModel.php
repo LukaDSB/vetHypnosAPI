@@ -18,5 +18,9 @@ class UsuarioModel {
     public function getAllUsers(): array {
         return $this->userDAO->getAllUsuarios();
     }
+
+    public function getById(Int $id): array {
+        return $this->userDAO->getById($id);
+    }
 }
 ?>

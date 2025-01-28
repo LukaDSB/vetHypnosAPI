@@ -1,25 +1,23 @@
 <?php
-require_once __DIR__ . '/../models/UsuarioModel.php';
+require_once 'dto/Usuario.php';
+require_once 'models/UsuarioModel.php';
 
 class UsuarioFacade {
-    private $userModel;
-
+    private $usuarioModel;
     public function __construct() {
-        $this->userModel = new UsuarioModel();
+        $this->usuarioModel = new UsuarioModel();
     }
 
-    public function validateAndCreateUser(array $data): bool {
-        if (empty($data['nome']) || empty($data['email']) || empty($data['senha'])) {
-            throw new Exception("Campos nome, email e senha são obrigatórios.");
-        }
-
-        $user = Usuario::fromArray($data);
-
-        return $this->userModel->createUser($user);
+    public function validateAndCreateUser(Usuario $usuario): bool {
+        return $this->usuarioModel->createUser($usuario);
     }
 
     public function getUsers(): array {
-        return $this->userModel->getAllUsers();
+        return $this->usuarioModel->getAllUsers();
+    }
+
+    public function getById(Int $id): array {
+        return $this->usuarioModel->getById($id);
     }
 }
 ?>
