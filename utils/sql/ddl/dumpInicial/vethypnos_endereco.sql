@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: dosesanestesicas
+-- Host: 127.0.0.1    Database: vethypnos
 -- ------------------------------------------------------
 -- Server version	9.1.0
 
@@ -16,31 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `protocolo_farmaco`
+-- Table structure for table `endereco`
 --
 
-DROP TABLE IF EXISTS `protocolo_farmaco`;
+DROP TABLE IF EXISTS `endereco`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `protocolo_farmaco` (
-  `Protocolo_ID` int NOT NULL,
-  `Farmaco_ID` int NOT NULL,
-  `Volume_min` decimal(5,2) DEFAULT NULL,
-  `Volume_max` decimal(5,2) DEFAULT NULL,
-  PRIMARY KEY (`Protocolo_ID`,`Farmaco_ID`),
-  KEY `Farmaco_ID` (`Farmaco_ID`),
-  CONSTRAINT `protocolo_farmaco_ibfk_1` FOREIGN KEY (`Protocolo_ID`) REFERENCES `protocolos` (`ID`),
-  CONSTRAINT `protocolo_farmaco_ibfk_2` FOREIGN KEY (`Farmaco_ID`) REFERENCES `farmacos` (`ID`)
+CREATE TABLE `endereco` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `estado` varchar(255) DEFAULT NULL,
+  `cidade` varchar(255) DEFAULT NULL,
+  `rua` varchar(255) DEFAULT NULL,
+  `numero` varchar(255) DEFAULT NULL,
+  `bairro` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `protocolo_farmaco`
+-- Dumping data for table `endereco`
 --
 
-LOCK TABLES `protocolo_farmaco` WRITE;
-/*!40000 ALTER TABLE `protocolo_farmaco` DISABLE KEYS */;
-/*!40000 ALTER TABLE `protocolo_farmaco` ENABLE KEYS */;
+LOCK TABLES `endereco` WRITE;
+/*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
+/*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-16  8:23:00
+-- Dump completed on 2025-01-16  8:22:59

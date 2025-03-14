@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: dosesanestesicas
+-- Host: 127.0.0.1    Database: vethypnos
 -- ------------------------------------------------------
 -- Server version	9.1.0
 
@@ -16,33 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `prescricao_farmaco`
+-- Table structure for table `paciente`
 --
 
-DROP TABLE IF EXISTS `prescricao_farmaco`;
+DROP TABLE IF EXISTS `paciente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `prescricao_farmaco` (
-  `Prescricao_ID` int NOT NULL,
-  `Farmaco_ID` int NOT NULL,
-  `Dose_min` decimal(5,2) DEFAULT NULL,
-  `Dose_max` decimal(5,2) DEFAULT NULL,
-  `Volume_min` decimal(5,2) DEFAULT NULL,
-  `Volume_max` decimal(5,2) DEFAULT NULL,
-  PRIMARY KEY (`Prescricao_ID`,`Farmaco_ID`),
-  KEY `Farmaco_ID` (`Farmaco_ID`),
-  CONSTRAINT `prescricao_farmaco_ibfk_1` FOREIGN KEY (`Prescricao_ID`) REFERENCES `prescricoes` (`ID`),
-  CONSTRAINT `prescricao_farmaco_ibfk_2` FOREIGN KEY (`Farmaco_ID`) REFERENCES `farmacos` (`ID`)
+CREATE TABLE `paciente` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(100) DEFAULT NULL,
+  `Especie` varchar(50) DEFAULT NULL,
+  `Idade` int DEFAULT NULL,
+  `Sexo` varchar(10) DEFAULT NULL,
+  `Peso` decimal(5,2) DEFAULT NULL,
+  `idTutor` int DEFAULT NULL,
+  `obito` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fkPacienteTutor_idx` (`idTutor`),
+  CONSTRAINT `fkPacienteTutor` FOREIGN KEY (`idTutor`) REFERENCES `tutor` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `prescricao_farmaco`
+-- Dumping data for table `paciente`
 --
 
-LOCK TABLES `prescricao_farmaco` WRITE;
-/*!40000 ALTER TABLE `prescricao_farmaco` DISABLE KEYS */;
-/*!40000 ALTER TABLE `prescricao_farmaco` ENABLE KEYS */;
+LOCK TABLES `paciente` WRITE;
+/*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

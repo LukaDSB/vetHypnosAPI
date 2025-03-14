@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: dosesanestesicas
+-- Host: 127.0.0.1    Database: vethypnos
 -- ------------------------------------------------------
 -- Server version	9.1.0
 
@@ -16,34 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `contato`
+-- Table structure for table `protocolos`
 --
 
-DROP TABLE IF EXISTS `contato`;
+DROP TABLE IF EXISTS `protocolos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `contato` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `telefone` varchar(255) DEFAULT NULL,
-  `celular` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `facebook` varchar(255) DEFAULT NULL,
-  `twitter` varchar(255) DEFAULT NULL,
-  `instagram` varchar(255) DEFAULT NULL,
-  `linkedin` varchar(255) DEFAULT NULL,
-  `lattes` varchar(255) DEFAULT NULL,
-  `site` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `protocolos` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(100) DEFAULT NULL,
+  `Descricao` text,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `contato`
+-- Dumping data for table `protocolos`
 --
 
-LOCK TABLES `contato` WRITE;
-/*!40000 ALTER TABLE `contato` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contato` ENABLE KEYS */;
+LOCK TABLES `protocolos` WRITE;
+/*!40000 ALTER TABLE `protocolos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `protocolos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

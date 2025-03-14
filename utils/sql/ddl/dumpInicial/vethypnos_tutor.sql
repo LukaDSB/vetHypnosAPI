@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: dosesanestesicas
+-- Host: 127.0.0.1    Database: vethypnos
 -- ------------------------------------------------------
 -- Server version	9.1.0
 
@@ -16,34 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `paciente`
+-- Table structure for table `tutor`
 --
 
-DROP TABLE IF EXISTS `paciente`;
+DROP TABLE IF EXISTS `tutor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `paciente` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `Nome` varchar(100) DEFAULT NULL,
-  `Especie` varchar(50) DEFAULT NULL,
-  `Idade` int DEFAULT NULL,
-  `Sexo` varchar(10) DEFAULT NULL,
-  `Peso` decimal(5,2) DEFAULT NULL,
-  `idTutor` int DEFAULT NULL,
-  `obito` int DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `fkPacienteTutor_idx` (`idTutor`),
-  CONSTRAINT `fkPacienteTutor` FOREIGN KEY (`idTutor`) REFERENCES `tutor` (`id`)
+CREATE TABLE `tutor` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `cpf` varchar(255) DEFAULT NULL,
+  `idEndereco` int DEFAULT NULL,
+  `idContato` int DEFAULT NULL,
+  `idAnimal` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `paciente`
+-- Dumping data for table `tutor`
 --
 
-LOCK TABLES `paciente` WRITE;
-/*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
+LOCK TABLES `tutor` WRITE;
+/*!40000 ALTER TABLE `tutor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tutor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-16  8:23:00
+-- Dump completed on 2025-01-16  8:22:59

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: dosesanestesicas
+-- Host: 127.0.0.1    Database: vethypnos
 -- ------------------------------------------------------
 -- Server version	9.1.0
 
@@ -16,35 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `farmacos`
+-- Table structure for table `categoria_farmaco`
 --
 
-DROP TABLE IF EXISTS `farmacos`;
+DROP TABLE IF EXISTS `categoria_farmaco`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `farmacos` (
+CREATE TABLE `categoria_farmaco` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `Nome` varchar(100) DEFAULT NULL,
-  `Concentracao` decimal(8,6) DEFAULT NULL,
-  `Categoria_ID` int DEFAULT NULL,
-  `fabricante` varchar(255) DEFAULT NULL,
-  `lote` varchar(255) DEFAULT NULL,
-  `validade` date DEFAULT NULL,
-  `quantidade` int DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `Categoria_ID` (`Categoria_ID`),
-  CONSTRAINT `farmacos_ibfk_1` FOREIGN KEY (`Categoria_ID`) REFERENCES `categoria_farmaco` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `Descricao` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `farmacos`
+-- Dumping data for table `categoria_farmaco`
 --
 
-LOCK TABLES `farmacos` WRITE;
-/*!40000 ALTER TABLE `farmacos` DISABLE KEYS */;
-INSERT INTO `farmacos` VALUES (1,'Fentanil',0.050000,3,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `farmacos` ENABLE KEYS */;
+LOCK TABLES `categoria_farmaco` WRITE;
+/*!40000 ALTER TABLE `categoria_farmaco` DISABLE KEYS */;
+INSERT INTO `categoria_farmaco` VALUES (1,'Tranquilizantes maiores'),(2,'Tranquilizantes menores'),(3,'Opióides');
+/*!40000 ALTER TABLE `categoria_farmaco` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-16  8:22:59
+-- Dump completed on 2025-01-16  8:23:00
