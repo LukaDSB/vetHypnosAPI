@@ -1,36 +1,35 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../models/Paciente.php';
-
+require_once __DIR__ . '/../facade/PacienteFacade.php';
 
 class PacienteController {
-    private $conn;
-    private $paciente;
+    private $pacienteFacade;
 
     public function __construct() {
-        $database = new Database();
-        $this->conn = $database->getConnection();
-        $this->paciente = new Paciente($this->conn);
+        $this->pacienteFacade = new PacienteFacade();
     }
 
-    public function getAllPacientes() {
-        $stmt = $this->paciente->read();
-        $pacientes_arr = array();
-        
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            extract($row);
-            $paciente_item = array(
-                "id" => $id,
-                "nome" => $nome,
-                "especie" => $especie,
-                "idade" => $idade,
-                "sexo" => $sexo,
-                "peso" => $peso
-            );
-            array_push($pacientes_arr, $paciente_item);
+    public function createPaciente(array $data): void {
+        try {
+            $this->pacienteFacade->validateAndCreatePaciente($data);
+            http_response_code(201);
+            echo json_encode(["message" => "Paciente criado com sucesso."]);
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode(["message" => $e->getMessage()]);
         }
-
-        http_response_code(200);
-        echo json_encode($pacientes_arr);
     }
+
+    public function getAllPacientes(): void {
+        try {
+            $pacientes = $this->pacienteFacade->getPacientes();
+            $response = array_map(fn($paciente) => $paciente->toArray(), $pacientes);
+            http_response_code(200);
+            echo json_encode($response);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(["message" => $e->getMessage()]);
+        }
+    }
+    
 }
+?>

@@ -3,36 +3,49 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 require_once 'controllers/UsuarioController.php';
-require_once 'dto/Usuario.php';
+require_once 'controllers/PacienteController.php';
+require_once 'controllers/MedicamentoController.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 
-$usuarioController = new UsuarioController();
+$controllerUsuario = new UsuarioController();
+$controllerPaciente = new PacienteController();
+$controllerMedicamento = new MedicamentoController();
 
 switch ($request) {
     case '/minhaapi/usuarios':
         if ($method === 'POST') {
-            try {
-                $dados = json_decode(file_get_contents("php://input"), true);
-                $usuarioController->createUser($usuario = Usuario::fromArray($dados));
-            } catch (Exception $e) {
-                http_response_code(400);
-                echo json_encode(["message" => $e->getMessage()]);
-            }
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerUsuario->createUser($data);
         } elseif ($method === 'GET') {
-            $usuarioController->getAllUsers();
+            $controllerUsuario->getAllUsers();
         }
         break;
-        
-    case (preg_match('/^\/minhaapi\/usuarios\/\d+$/', $request) ? true : false):
-        if ($method === 'GET') {
-            $id = basename($request);
-            $usuarioController->getById($id);
-        }
+        case '/minhaapi/pacientes':
+            if ($method === 'POST') {
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerPaciente->createPaciente($data);
+            } elseif ($method === 'GET') {
+                $controllerPaciente->getAllPacientes();
+            }
         break;
-
+        case '/minhaapi/medicamentos':
+            if ($method === 'POST'){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerMedicamento->createMedicamento($data);
+            } elseif ($method === 'GET') {
+                $controllerMedicamento->getAllMedicamentos();
+            }elseif ($method === 'DELETE') {
+                $controllerMedicamento->deleteMedicamento();
+            }elseif ($method === 'PUT') {
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerMedicamento->updateMedicamento($data);
+            }
+            
+            break;
     default:
+
         http_response_code(404);
         echo json_encode(["message" => "Rota não encontrada."]);
 }
