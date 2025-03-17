@@ -1,6 +1,6 @@
 <?php
 class Database {
-    private $host = 'localhost:3306';
+    private $host = 'localhost';
     private $db_name = 'vethypnos';
     private $username = 'root';
     private $password = 'root';
