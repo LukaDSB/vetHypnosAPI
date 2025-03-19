@@ -24,7 +24,14 @@ public function validateAndUpdateCategoria_Medicamento(array $data): bool {
     $categoria_medicamento = Categoria_Medicamento::fromArray($data);
     return $this->categoria_medicamentoModel->updateCategoria_Medicamento($id, $categoria_medicamento);
 }
-public function validateAndDeleteCategoria_Medicamento(int $id): bool {
+public function validateAndDeleteCategoria_Medicamento(array $data): bool {
+    if (empty($data['ID'])) {
+        throw new InvalidArgumentException("O ID da categoria é obrigatório para a exclusão.");
+    }
+ 
+    $id = (int) $data['ID'];
+
+    // Se necessário, verifique se o ID existe antes de deletar
     return $this->categoria_medicamentoModel->deleteCategoria_Medicamento($id);
 }
 

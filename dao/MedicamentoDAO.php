@@ -32,13 +32,14 @@ class MedicamentoDAO {
         
         $stmt = $this->conn->prepare($sql);
     
-        $stmt->bindParam(':nome', $data['nome'], PDO::PARAM_STR);
-        $stmt->bindParam(':concentracao', $data['concentracao'], PDO::PARAM_STR);
-        $stmt->bindParam(':categoria_id', $data['categoria_id'], PDO::PARAM_INT);
-        $stmt->bindParam(':fabricante', $data['fabricante'], PDO::PARAM_STR);
-        $stmt->bindParam(':lote', $data['lote'], PDO::PARAM_STR);
-        $stmt->bindParam(':validade', $data['validade'], PDO::PARAM_STR);
-        $stmt->bindParam(':quantidade', $data['quantidade'], PDO::PARAM_INT);
+        // Vincula os parâmetros
+        $stmt->bindParam(':Nome', $medicamento->getNome());
+        $stmt->bindParam(':Concentracao', $medicamento->getConcentracao());
+        $stmt->bindParam('Categoria_ID', $medicamento->getCategoria_id());
+        $stmt->bindParam('fabricante', $medicamento->getFabricante());
+        $stmt->bindParam('lote', $medicamento->getLote());
+        $stmt->bindParam('validade', $medicamento->getValidade());
+        $stmt->bindParam('quantidade', $medicamento->getQuantidade());
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     
         

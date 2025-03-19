@@ -6,7 +6,6 @@ require_once 'controllers/UsuarioController.php';
 require_once 'controllers/PacienteController.php';
 require_once 'controllers/MedicamentoController.php';
 require_once 'controllers/Categoria_MedicamentoController.php';
-require_once 'controllers/ContatoController.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -16,7 +15,6 @@ $controllerUsuario = new UsuarioController();
 $controllerPaciente = new PacienteController();
 $controllerMedicamento = new MedicamentoController();
 $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
-$controllerContato = new ContatoController();
 
 switch (true) { // Usar switch(true) para condições dinâmicas
     case ($path === '/minhaapi/usuarios'):
@@ -47,6 +45,21 @@ switch (true) { // Usar switch(true) para condições dinâmicas
                 $data = json_decode(file_get_contents("php://input"), true);
                 $controllerMedicamento->updateMedicamento($data);
             }
+            break;
+
+        case '/minhaapi/categoria_medicamento':
+            if($method === 'POST'){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerCategoria_Medicamento->createCategoria_Medicamento($data);
+            }elseif($method === 'GET'){
+                $controllerCategoria_Medicamento->getAllCategoria_Medicamento();
+            }elseif($method === 'DELETE'){
+                $controllerCategoria_Medicamento->deleteCategoria_Medicamento();
+            }elseif($method === 'PUT'){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerCategoria_Medicamento->updateCategoria_Medicamento($data);
+            }
+
             break;
     default:
 
