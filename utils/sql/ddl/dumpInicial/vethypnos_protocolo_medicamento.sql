@@ -16,31 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `protocolo_farmaco`
+-- Table structure for table `protocolo_medicamento`
 --
 
-DROP TABLE IF EXISTS `protocolo_farmaco`;
+DROP TABLE IF EXISTS `protocolo_medicamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `protocolo_farmaco` (
+CREATE TABLE `protocolo_medicamento` (
   `Protocolo_ID` int NOT NULL,
-  `Farmaco_ID` int NOT NULL,
+  `Medicamento_ID` int NOT NULL,
   `Volume_min` decimal(5,2) DEFAULT NULL,
   `Volume_max` decimal(5,2) DEFAULT NULL,
-  PRIMARY KEY (`Protocolo_ID`,`Farmaco_ID`),
-  KEY `Farmaco_ID` (`Farmaco_ID`),
-  CONSTRAINT `protocolo_farmaco_ibfk_1` FOREIGN KEY (`Protocolo_ID`) REFERENCES `protocolos` (`ID`),
-  CONSTRAINT `protocolo_farmaco_ibfk_2` FOREIGN KEY (`Farmaco_ID`) REFERENCES `farmacos` (`ID`)
+  PRIMARY KEY (`Protocolo_ID`,`Medicamento_ID`),
+  KEY `Medicamento_ID` (`Medicamento_ID`),
+  CONSTRAINT `protocolo_medicamento_ibfk_1` FOREIGN KEY (`Protocolo_ID`) REFERENCES `protocolos` (`ID`),
+  CONSTRAINT `protocolo_medicamento_ibfk_2` FOREIGN KEY (`Medicamento_ID`) REFERENCES `medicamentos` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `protocolo_farmaco`
+-- Dumping data for table `protocolo_medicamento`
 --
 
-LOCK TABLES `protocolo_farmaco` WRITE;
-/*!40000 ALTER TABLE `protocolo_farmaco` DISABLE KEYS */;
-/*!40000 ALTER TABLE `protocolo_farmaco` ENABLE KEYS */;
+LOCK TABLES `protocolo_medicamento` WRITE;
+/*!40000 ALTER TABLE `protocolo_medicamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `protocolo_medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

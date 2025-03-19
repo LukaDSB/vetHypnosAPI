@@ -18,7 +18,7 @@ class MedicamentoController {
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
-
+ 
     public function updateMedicamento(array $data): void {
         try {
             $this->medicamentoFacade->validateAndUpdateMedicamento($data);

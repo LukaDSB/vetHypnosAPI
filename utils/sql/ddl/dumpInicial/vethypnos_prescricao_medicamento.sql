@@ -16,27 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `categoria_farmaco`
+-- Table structure for table `prescricao_medicamento`
 --
 
-DROP TABLE IF EXISTS `categoria_farmaco`;
+DROP TABLE IF EXISTS `prescricao_medicamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `categoria_farmaco` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `Descricao` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `prescricao_medicamento` (
+  `Prescricao_ID` int NOT NULL,
+  `Medicamento_ID` int NOT NULL,
+  `Dose_min` decimal(5,2) DEFAULT NULL,
+  `Dose_max` decimal(5,2) DEFAULT NULL,
+  `Volume_min` decimal(5,2) DEFAULT NULL,
+  `Volume_max` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`Prescricao_ID`,`Medicamento_ID`),
+  KEY `Medicamento_ID` (`Medicamento_ID`),
+  CONSTRAINT `prescricao_medicamento_ibfk_1` FOREIGN KEY (`Prescricao_ID`) REFERENCES `prescricoes` (`ID`),
+  CONSTRAINT `prescricao_medicamento_ibfk_2` FOREIGN KEY (`Medicamento_ID`) REFERENCES `medicamentos` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `categoria_farmaco`
+-- Dumping data for table `prescricao_medicamento`
 --
 
-LOCK TABLES `categoria_farmaco` WRITE;
-/*!40000 ALTER TABLE `categoria_farmaco` DISABLE KEYS */;
-INSERT INTO `categoria_farmaco` VALUES (1,'Tranquilizantes maiores'),(2,'Tranquilizantes menores'),(3,'Opióides');
-/*!40000 ALTER TABLE `categoria_farmaco` ENABLE KEYS */;
+LOCK TABLES `prescricao_medicamento` WRITE;
+/*!40000 ALTER TABLE `prescricao_medicamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prescricao_medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
