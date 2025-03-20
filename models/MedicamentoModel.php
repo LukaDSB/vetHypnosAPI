@@ -23,6 +23,10 @@ class MedicamentoModel {
     public function findById(int $id): ?array {
         return $this->medicamentoDAO->findById($id);
     }
+
+    public function updateMedicamento(int $id, $medicamento): bool {
+        return $this->medicamentoDAO->update($id, $medicamento);
+    }
     
 }
 

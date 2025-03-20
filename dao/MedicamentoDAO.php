@@ -11,15 +11,15 @@ class MedicamentoDAO {
     }
 
     public function delete(Int $id) : bool{
-        $query = "DELETE FROM farmacos WHERE ID = :id";
+        $query = "DELETE FROM medicamentos WHERE ID = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
-    public function update(int $id, array $data): bool {
+ 
+    public function update(int $id, Medicamento $medicamento): bool {
         
-        $sql = "UPDATE farmacos SET 
+        $sql = "UPDATE medicamentos SET 
                     Nome = :Nome, 
                     Concentracao = :Concentracao, 
                     Categoria_ID = :Categoria_ID, 
@@ -33,13 +33,13 @@ class MedicamentoDAO {
         $stmt = $this->conn->prepare($sql);
     
         // Vincula os parâmetros
-        $stmt->bindParam(':Nome', $data['Nome'], PDO::PARAM_STR);
-        $stmt->bindParam(':Concentracao', $data['Concentracao'], PDO::PARAM_STR);
-        $stmt->bindParam(':Categoria_ID', $data['Categoria_ID'], PDO::PARAM_INT);
-        $stmt->bindParam(':fabricante', $data['fabricante'], PDO::PARAM_STR);
-        $stmt->bindParam(':lote', $data['lote'], PDO::PARAM_STR);
-        $stmt->bindParam(':validade', $data['validade'], PDO::PARAM_STR);
-        $stmt->bindParam(':quantidade', $data['quantidade'], PDO::PARAM_INT);
+        $stmt->bindParam(':Nome', $medicamento->getNome());
+        $stmt->bindParam(':Concentracao', $medicamento->getConcentracao());
+        $stmt->bindParam('Categoria_ID', $medicamento->getCategoria_id());
+        $stmt->bindParam('fabricante', $medicamento->getFabricante());
+        $stmt->bindParam('lote', $medicamento->getLote());
+        $stmt->bindParam('validade', $medicamento->getValidade());
+        $stmt->bindParam('quantidade', $medicamento->getQuantidade());
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     
         
@@ -48,7 +48,7 @@ class MedicamentoDAO {
      
 
     public function insert(Medicamento $medicamento): bool {
-        $query = "INSERT INTO farmacos (Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade) VALUES (:Nome, :Concentracao, :Categoria_ID, :fabricante, :lote, :validade, :quantidade)";
+        $query = "INSERT INTO medicamentos (Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade) VALUES (:Nome, :Concentracao, :Categoria_ID, :fabricante, :lote, :validade, :quantidade)";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(':Nome', $medicamento->getNome());
@@ -64,7 +64,7 @@ class MedicamentoDAO {
     
 
     public function getAllMedicamentos(): array {
-        $query = "SELECT ID, Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade FROM farmacos";
+        $query = "SELECT ID, Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade FROM medicamentos";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
@@ -76,7 +76,7 @@ class MedicamentoDAO {
         return $result;
     }
     public function findById(int $id): ?array {
-        $query = "SELECT * FROM farmacos WHERE ID = :ID";
+        $query = "SELECT * FROM medicamentos WHERE ID = :ID";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':ID', $id, PDO::PARAM_INT);
         $stmt->execute();
