@@ -32,7 +32,7 @@ switch ($request) {
                 $controllerPaciente->getAllPacientes();
             }
         break;
-        case '/minhaapi/medicamentos':
+        case '/minhaapi/medicamento':
             if ($method === 'POST'){
                 $data = json_decode(file_get_contents("php://input"), true);
                 $controllerMedicamento->createMedicamento($data);
@@ -60,6 +60,19 @@ switch ($request) {
                 $controllerCategoria_Medicamento->updateCategoria_Medicamento($data);
             }
 
+            break;
+        case '/minhaapi/contato':
+            if($method === 'POST'){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerContato->createContato($data);
+            }elseif($method === 'GET'){
+                $controllerContato->getAllContatos();
+            }elseif($method === 'DELETE'){
+                $controllerContato->deleteContato();
+            }elseif($method === 'PUT'){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerContato->updateContato($data);
+            }
             break;
     default:
 
