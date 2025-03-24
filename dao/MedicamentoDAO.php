@@ -32,7 +32,7 @@ class MedicamentoDAO {
         
         $stmt = $this->conn->prepare($sql);
     
-        // Vincula os parâmetros
+    
         $stmt->bindParam(':Nome', $medicamento->getNome());
         $stmt->bindParam(':Concentracao', $medicamento->getConcentracao());
         $stmt->bindParam('Categoria_ID', $medicamento->getCategoria_id());

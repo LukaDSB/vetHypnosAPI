@@ -61,6 +61,19 @@ switch (true) { // Usar switch(true) para condições dinâmicas
             }
 
             break;
+        case '/minhaapi/contato':
+            if($method === 'POST'){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerContato->createContato($data);
+            }elseif($method === 'GET'){
+                $controllerContato->getAllContatos();
+            }elseif($method === 'DELETE'){
+                $controllerContato->deleteContato();
+            }elseif($method === 'PUT'){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerContato->updateContato($data);
+            }
+            break;
     default:
 
     case ($path === '/minhaapi/pacientes'):
