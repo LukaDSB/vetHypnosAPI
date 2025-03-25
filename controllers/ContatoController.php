@@ -41,19 +41,10 @@ class ContatoController{
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
-    public function deleteContato(): void {
+    public function deleteContato(int $id): void {
 
-        $requestData = json_decode(file_get_contents("php://input"), true);
-    
-        // Verifica se o ID foi passado
-        if (empty($requestData['ID'])) {
-            http_response_code(400); // Bad Request
-            echo json_encode(["error" => "ID do contato é obrigatório."]);
-            return;
-        }
-    
         try {
-            $deletado = $this->contatoFacade->validateAndDeleteContato($requestData);
+            $deletado = $this->contatoFacade->validateAndDeleteContato($id);
     
             if ($deletado) {
                 http_response_code(200); // OK

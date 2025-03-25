@@ -20,7 +20,7 @@ class ContatoDAO{
 
     public function update(int $id, Contato $contato): bool {
          
-        $sql = "UPDATE protocolos SET 
+        $sql = "UPDATE contato SET 
                     telefone = :telefone,
                     celular = :celular,
                     email = :email,
