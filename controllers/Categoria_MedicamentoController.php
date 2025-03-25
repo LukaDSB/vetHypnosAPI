@@ -41,19 +41,10 @@ class Categoria_MedicamentoController{
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
-    public function deleteCategoria_Medicamento(): void {
-        // Captura o corpo da requisição (esperando um JSON)
-        $requestData = json_decode(file_get_contents("php://input"), true);
-    
-        // Verifica se o ID foi passado
-        if (empty($requestData['ID'])) {
-            http_response_code(400); // Bad Request
-            echo json_encode(["error" => "ID do medicamento é obrigatório."]);
-            return;
-        }
-    
+    public function deleteCategoria_Medicamento(int $id): void {
+ 
         try {
-            $deletado = $this->categoria_medicamentoFacade->validateAndDeleteCategoria_Medicamento($requestData);
+            $deletado = $this->categoria_medicamentoFacade->validateAndDeleteCategoria_Medicamento($id);
     
             if ($deletado) {
                 http_response_code(200); // OK

@@ -4,13 +4,13 @@ class Medicamento {
     private string $Nome;
     private float $Concentracao;
     private ?int $Categoria_ID;
-    private string $fabricante;
-    private string $lote;
-    private string $validade;
-    private int $quantidade;
+    private ?string $fabricante;
+    private ?string $lote;
+    private ?string $validade;
+    private ?int $quantidade;
 
 
-    public function __construct(?int $ID, string $Nome, float $Concentracao, ?int $Categoria_ID, string $fabricante, string $lote, string $validade, int $quantidade) {
+    public function __construct(?int $ID, string $Nome, float $Concentracao, ?int $Categoria_ID, ?string $fabricante, ?string $lote, ?string $validade, ?int $quantidade) {
         $this->ID = $ID;
         $this->Nome = $Nome;
         $this->Concentracao = $Concentracao;

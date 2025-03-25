@@ -11,7 +11,7 @@ class MedicamentoDAO {
     }
 
     public function delete(Int $id) : bool{
-        $query = "DELETE FROM medicamentos WHERE ID = :id";
+        $query = "DELETE FROM medicamento WHERE ID = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
@@ -19,7 +19,7 @@ class MedicamentoDAO {
  
     public function update(int $id, Medicamento $medicamento): bool {
         
-        $sql = "UPDATE medicamentos SET 
+        $sql = "UPDATE medicamento SET 
                     Nome = :Nome, 
                     Concentracao = :Concentracao, 
                     Categoria_ID = :Categoria_ID, 
@@ -32,7 +32,7 @@ class MedicamentoDAO {
         
         $stmt = $this->conn->prepare($sql);
     
-        // Vincula os parâmetros
+    
         $stmt->bindParam(':Nome', $medicamento->getNome());
         $stmt->bindParam(':Concentracao', $medicamento->getConcentracao());
         $stmt->bindParam('Categoria_ID', $medicamento->getCategoria_id());
@@ -48,7 +48,7 @@ class MedicamentoDAO {
      
 
     public function insert(Medicamento $medicamento): bool {
-        $query = "INSERT INTO medicamentos (Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade) VALUES (:Nome, :Concentracao, :Categoria_ID, :fabricante, :lote, :validade, :quantidade)";
+        $query = "INSERT INTO medicamento (Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade) VALUES (:Nome, :Concentracao, :Categoria_ID, :fabricante, :lote, :validade, :quantidade)";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(':Nome', $medicamento->getNome());
@@ -64,7 +64,7 @@ class MedicamentoDAO {
     
 
     public function getAllMedicamentos(): array {
-        $query = "SELECT ID, Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade FROM medicamentos";
+        $query = "SELECT * FROM medicamento";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
@@ -76,7 +76,7 @@ class MedicamentoDAO {
         return $result;
     }
     public function findById(int $id): ?array {
-        $query = "SELECT * FROM medicamentos WHERE ID = :ID";
+        $query = "SELECT * FROM medicamento WHERE ID = :ID";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':ID', $id, PDO::PARAM_INT);
         $stmt->execute();
