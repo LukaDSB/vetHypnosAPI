@@ -27,6 +27,29 @@ switch (true) { // Usar switch(true) para condições dinâmicas
             $controllerUsuario->getAllUsers();
         }
         break;
+        case '/minhaapi/pacientes':
+            if ($method === 'POST') {
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerPaciente->createPaciente($data);
+            } elseif ($method === 'GET') {
+                $controllerPaciente->getAllPacientes();
+            }
+        break;
+        case '/minhaapi/medicamento':
+            if ($method === 'POST'){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerMedicamento->createMedicamento($data);
+            } elseif ($method === 'GET') {
+                $controllerMedicamento->getAllMedicamentos();
+            }elseif ($method === 'DELETE') {
+                $controllerMedicamento->deleteMedicamento();
+            }elseif ($method === 'PUT') {
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerMedicamento->updateMedicamento($data);
+            }
+            
+            break;
+    default:
 
     case ($path === '/minhaapi/pacientes'):
         if ($method === 'POST') {
