@@ -30,7 +30,7 @@ switch ($request) {
                 $controllerPaciente->getAllPacientes();
             }
         break;
-        case '/minhaapi/medicamentos':
+        case '/minhaapi/medicamento':
             if ($method === 'POST'){
                 $data = json_decode(file_get_contents("php://input"), true);
                 $controllerMedicamento->createMedicamento($data);

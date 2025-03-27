@@ -11,7 +11,7 @@ class MedicamentoDAO {
     }
 
     public function delete(Int $id) : bool{
-        $query = "DELETE FROM farmacos WHERE ID = :id";
+        $query = "DELETE FROM medicamento WHERE ID = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
@@ -19,7 +19,7 @@ class MedicamentoDAO {
 
     public function update(int $id, array $data): bool {
         
-        $sql = "UPDATE farmacos SET 
+        $sql = "UPDATE medicamento SET 
                     Nome = :Nome, 
                     Concentracao = :Concentracao, 
                     Categoria_ID = :Categoria_ID, 
@@ -48,7 +48,7 @@ class MedicamentoDAO {
      
 
     public function insert(Medicamento $medicamento): bool {
-        $query = "INSERT INTO farmacos (Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade) VALUES (:Nome, :Concentracao, :Categoria_ID, :fabricante, :lote, :validade, :quantidade)";
+        $query = "INSERT INTO medicamento (Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade) VALUES (:Nome, :Concentracao, :Categoria_ID, :fabricante, :lote, :validade, :quantidade)";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(':Nome', $medicamento->getNome());
@@ -64,7 +64,7 @@ class MedicamentoDAO {
     
 
     public function getAllMedicamentos(): array {
-        $query = "SELECT ID, Nome, Concentracao, Categoria_ID, fabricante, lote, validade, quantidade FROM farmacos";
+        $query = "SELECT id, nome, concentracao, Categoria_ID, fabricante, lote, validade, quantidade FROM medicamento";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
@@ -76,7 +76,7 @@ class MedicamentoDAO {
         return $result;
     }
     public function findById(int $id): ?array {
-        $query = "SELECT * FROM farmacos WHERE ID = :ID";
+        $query = "SELECT * FROM medicamento WHERE ID = :ID";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':ID', $id, PDO::PARAM_INT);
         $stmt->execute();

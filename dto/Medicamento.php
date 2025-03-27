@@ -1,8 +1,8 @@
 <?php
 class Medicamento {
-    private ?int  $ID;
-    private string $Nome;
-    private float $Concentracao;
+    private ?int  $id;
+    private string $nome;
+    private float $concentracao;
     private ?int $Categoria_ID;
     private string $fabricante;
     private string $lote;
@@ -10,10 +10,11 @@ class Medicamento {
     private int $quantidade;
 
 
-    public function __construct(?int $ID, string $Nome, float $Concentracao, ?int $Categoria_ID, string $fabricante, string $lote, string $validade, int $quantidade) {
-        $this->ID = $ID;
-        $this->Nome = $Nome;
-        $this->Concentracao = $Concentracao;
+    public function __construct(?int $id, string $nome, float $concentracao, ?int $Categoria_ID, string $fabricante, string $lote, string $validade, int $quantidade) {
+        $this->id = $concentracao;
+        $this->nome = $nome;
+        $this->concentracao = $concentracao;
+        
         $this->Categoria_ID = $Categoria_ID;
         $this->fabricante = $fabricante;
         $this->lote = $lote;
@@ -23,9 +24,9 @@ class Medicamento {
 
     public static function fromArray(array $data): self {
         return new self(
-            isset($data['ID']) ? (int) $data['ID'] : null,
-            $data['Nome'],
-            $data['Concentracao'],
+            isset($data['id']) ? (int) $data['id'] : null,
+            $data['nome'],
+            $data['concentracao'],
             $data['Categoria_ID'],
             $data['fabricante'],
             $data['lote'],
@@ -36,9 +37,9 @@ class Medicamento {
 
     public function toArray(): array {
         return [
-            'ID' => $this->ID,
-            'Nome' => $this->Nome,
-            'Concentracao' => $this->Concentracao,
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'concentracao' => $this->concentracao,
             'Categoria_ID' => $this->Categoria_ID,
             'fabricante' => $this->fabricante,
             'lote' => $this->lote,
@@ -47,13 +48,13 @@ class Medicamento {
         ];
     }
 
-    public function getId() { return $this->ID; }
-    public function setId($ID) { $this->ID = $ID; }
+    public function getId() { return $this->id; }
+    public function setId($id) { $this->id = $id; }
 
-    public function getNome() { return $this->Nome; }
-    public function setNome($Nome) { $this->Nome = $Nome; }
-    public function getConcentracao() { return $this->Concentracao; }
-    public function setConcentracao($Concentracao) { $this->Concentracao = $Concentracao; }
+    public function getNome() { return $this->nome; }
+    public function setNome($nome) { $this->nome = $nome; }
+    public function getConcentracao() { return $this->concentracao;}
+    public function setConcentracao($concentracao) { $this->concentracao = $concentracao; }
     public function getCategoria_id() { return $this->Categoria_ID; }
     public function setCategoria_id($Categoria_ID) { $this->Categoria_ID = $Categoria_ID; }
     public function getFabricante() { return $this->fabricante; }
