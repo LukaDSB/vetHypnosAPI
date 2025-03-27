@@ -1,8 +1,12 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for macos15 (arm64)
 --
+<<<<<<< HEAD:utils/sql/ddl/dump2/dosesanestesicas_categoria_farmaco.sql
 -- Host: 127.0.0.1    Database: vethypnos
+=======
+-- Host: localhost    Database: vethypnos
+>>>>>>> fa4ebf0 (Base sprint 4):utils/sql/ddl/base_sprint_4/vethypnos_categoria_farmaco.sql
 -- ------------------------------------------------------
--- Server version	9.1.0
+-- Server version	9.2.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,32 +20,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `clinica`
+-- Table structure for table `categoria_farmaco`
 --
 
-DROP TABLE IF EXISTS `clinica`;
+DROP TABLE IF EXISTS `categoria_farmaco`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `clinica` (
+CREATE TABLE `categoria_farmaco` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `idEndereco` int DEFAULT NULL,
-  `idContato` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fkClinicaEndereco_idx` (`idEndereco`),
-  KEY `fkClinicaContato_idx` (`idContato`),
-  CONSTRAINT `fkClinicaContato` FOREIGN KEY (`idContato`) REFERENCES `contato` (`id`),
-  CONSTRAINT `fkClinicaEndereco` FOREIGN KEY (`idEndereco`) REFERENCES `endereco` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `descricao` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `clinica`
+-- Dumping data for table `categoria_farmaco`
 --
 
-LOCK TABLES `clinica` WRITE;
-/*!40000 ALTER TABLE `clinica` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clinica` ENABLE KEYS */;
+LOCK TABLES `categoria_farmaco` WRITE;
+/*!40000 ALTER TABLE `categoria_farmaco` DISABLE KEYS */;
+INSERT INTO `categoria_farmaco` VALUES (1,'Tranquilizantes maiores'),(2,'Tranquilizantes menores'),(3,'Opióides');
+/*!40000 ALTER TABLE `categoria_farmaco` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18  7:42:07
+-- Dump completed on 2025-03-27 12:23:08

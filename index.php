@@ -47,7 +47,6 @@ switch (true) { // Usar switch(true) para condições dinâmicas
                 $data = json_decode(file_get_contents("php://input"), true);
                 $controllerMedicamento->updateMedicamento($data);
             }
-            
             break;
     default:
 

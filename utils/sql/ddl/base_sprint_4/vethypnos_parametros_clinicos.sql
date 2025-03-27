@@ -16,27 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `categoria_farmaco`
+-- Table structure for table `parametros_clinicos`
 --
 
-DROP TABLE IF EXISTS `categoria_farmaco`;
+DROP TABLE IF EXISTS `parametros_clinicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `categoria_farmaco` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `parametros_clinicos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fc` decimal(6,3) DEFAULT NULL,
+  `fr` decimal(6,3) DEFAULT NULL,
+  `spo2` decimal(6,3) DEFAULT NULL,
+  `etco2` decimal(6,3) DEFAULT NULL,
+  `pa` decimal(6,3) DEFAULT NULL,
+  `globo` decimal(6,3) DEFAULT NULL,
+  `palpebra` decimal(6,3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `categoria_farmaco`
+-- Dumping data for table `parametros_clinicos`
 --
 
-LOCK TABLES `categoria_farmaco` WRITE;
-/*!40000 ALTER TABLE `categoria_farmaco` DISABLE KEYS */;
-INSERT INTO `categoria_farmaco` VALUES (1,'Tranquilizantes maiores'),(2,'Tranquilizantes menores'),(3,'Opióides');
-/*!40000 ALTER TABLE `categoria_farmaco` ENABLE KEYS */;
+LOCK TABLES `parametros_clinicos` WRITE;
+/*!40000 ALTER TABLE `parametros_clinicos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `parametros_clinicos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-27 10:20:29
+-- Dump completed on 2025-03-27 12:23:08

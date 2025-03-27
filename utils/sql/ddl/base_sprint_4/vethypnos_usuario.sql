@@ -1,8 +1,12 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for macos15 (arm64)
 --
+<<<<<<< HEAD:utils/sql/ddl/dump2/dosesanestesicas_usuario.sql
 -- Host: 127.0.0.1    Database: vethypnos
+=======
+-- Host: localhost    Database: vethypnos
+>>>>>>> fa4ebf0 (Base sprint 4):utils/sql/ddl/base_sprint_4/vethypnos_usuario.sql
 -- ------------------------------------------------------
--- Server version	9.1.0
+-- Server version	9.2.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,19 +27,19 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `Nome` varchar(100) NOT NULL,
-  `Especialidade` varchar(100) DEFAULT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Senha` varchar(255) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `especialidade` varchar(100) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(255) NOT NULL,
   `usuarioscol` varchar(45) DEFAULT NULL,
   `crmv` int DEFAULT NULL,
   `cpf` varchar(255) DEFAULT NULL,
-  `idClinica` int DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `Email` (`Email`),
-  KEY `fkUsuarioClinica_idx` (`idClinica`),
-  CONSTRAINT `fkUsuarioClinica` FOREIGN KEY (`idClinica`) REFERENCES `clinica` (`id`)
+  `clinica_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Email` (`email`),
+  KEY `fkUsuarioClinica_idx` (`clinica_id`),
+  CONSTRAINT `fkUsuarioClinica` FOREIGN KEY (`clinica_id`) REFERENCES `clinica` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -58,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18  7:42:07
+-- Dump completed on 2025-03-27 12:23:08

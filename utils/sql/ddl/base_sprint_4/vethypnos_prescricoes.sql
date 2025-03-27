@@ -1,8 +1,12 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for macos15 (arm64)
 --
+<<<<<<< HEAD:utils/sql/ddl/dump2/dosesanestesicas_prescricoes.sql
 -- Host: 127.0.0.1    Database: vethypnos
+=======
+-- Host: localhost    Database: vethypnos
+>>>>>>> fa4ebf0 (Base sprint 4):utils/sql/ddl/base_sprint_4/vethypnos_prescricoes.sql
 -- ------------------------------------------------------
--- Server version	9.1.0
+-- Server version	9.2.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,33 +20,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tutor`
+-- Table structure for table `prescricoes`
 --
 
-DROP TABLE IF EXISTS `tutor`;
+DROP TABLE IF EXISTS `prescricoes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tutor` (
+CREATE TABLE `prescricoes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `cpf` varchar(255) DEFAULT NULL,
-  `idEndereco` int DEFAULT NULL,
-  `idContato` int DEFAULT NULL,
+  `paciente_id` int DEFAULT NULL,
+  `usuario_id` int DEFAULT NULL,
+  `data_prescricao` datetime DEFAULT NULL,
+  `observacoes` text,
+  `protocolo_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fkTutorContato_idx` (`idContato`),
-  KEY `fkTutorEndereco_idx` (`idEndereco`),
-  CONSTRAINT `fkTutorContato` FOREIGN KEY (`idContato`) REFERENCES `contato` (`id`),
-  CONSTRAINT `fkTutorEndereco` FOREIGN KEY (`idEndereco`) REFERENCES `endereco` (`id`)
+  KEY `Paciente_ID` (`paciente_id`),
+  KEY `Usuario_ID` (`usuario_id`),
+  KEY `Protocolo_ID` (`protocolo_id`),
+  CONSTRAINT `prescricoes_ibfk_1` FOREIGN KEY (`paciente_id`) REFERENCES `animal` (`id`),
+  CONSTRAINT `prescricoes_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
+  CONSTRAINT `prescricoes_ibfk_3` FOREIGN KEY (`protocolo_id`) REFERENCES `protocolos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tutor`
+-- Dumping data for table `prescricoes`
 --
 
-LOCK TABLES `tutor` WRITE;
-/*!40000 ALTER TABLE `tutor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tutor` ENABLE KEYS */;
+LOCK TABLES `prescricoes` WRITE;
+/*!40000 ALTER TABLE `prescricoes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prescricoes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18  7:42:08
+-- Dump completed on 2025-03-27 12:23:08

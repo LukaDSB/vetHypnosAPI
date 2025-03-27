@@ -11,7 +11,7 @@ class MedicamentoDAO {
     }
 
     public function delete(Int $id) : bool{
-        $query = "DELETE FROM medicamento WHERE ID = :id";
+        $query = "DELETE FROM medicamento WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
@@ -22,7 +22,7 @@ class MedicamentoDAO {
         $sql = "UPDATE medicamento SET 
                     nome = :nome, 
                     concentracao = :concentracao, 
-                    categoria_ID = :categoria_id, 
+                    categoria_id = :categoria_id, 
                     fabricante = :fabricante, 
                     lote = :lote, 
                     validade = :validade, 
@@ -32,7 +32,6 @@ class MedicamentoDAO {
         
         $stmt = $this->conn->prepare($sql);
     
-        // Vincula os parâmetros
         $stmt->bindParam(':nome', $data['nome'], PDO::PARAM_STR);
         $stmt->bindParam(':concentracao', $data['concentracao'], PDO::PARAM_STR);
         $stmt->bindParam(':categoria_id', $data['categoria_id'], PDO::PARAM_INT);
@@ -76,9 +75,9 @@ class MedicamentoDAO {
         return $result;
     }
     public function findById(int $id): ?array {
-        $query = "SELECT * FROM medicamento WHERE ID = :ID";
+        $query = "SELECT * FROM medicamento WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':ID', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     
         $medicamento = $stmt->fetch(PDO::FETCH_ASSOC);

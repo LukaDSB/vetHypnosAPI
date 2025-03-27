@@ -3,19 +3,19 @@ class Medicamento {
     private ?int  $id;
     private string $nome;
     private float $concentracao;
-    private ?int $Categoria_ID;
+    private ?int $categoria_id;
     private ?string $fabricante;
     private ?string $lote;
     private ?string $validade;
     private ?int $quantidade;
 
 
-    public function __construct(?int $id, string $nome, float $concentracao, ?int $Categoria_ID, string $fabricante, string $lote, string $validade, int $quantidade) {
-        $this->id = $concentracao;
+    public function __construct(?int $id, string $nome, float $concentracao, ?int $categoria_id, ?string $fabricante, ?string $lote, ?string $validade, ?int $quantidade) {
+        $this->id = $id;
         $this->nome = $nome;
         $this->concentracao = $concentracao;
         
-        $this->Categoria_ID = $Categoria_ID;
+        $this->categoria_id = $categoria_id;
         $this->fabricante = $fabricante;
         $this->lote = $lote;
         $this->validade = $validade;
@@ -27,7 +27,7 @@ class Medicamento {
             isset($data['id']) ? (int) $data['id'] : null,
             $data['nome'],
             $data['concentracao'],
-            $data['Categoria_ID'],
+            $data['categoria_id'],
             $data['fabricante'],
             $data['lote'],
             $data['validade'],
@@ -40,7 +40,7 @@ class Medicamento {
             'id' => $this->id,
             'nome' => $this->nome,
             'concentracao' => $this->concentracao,
-            'Categoria_ID' => $this->Categoria_ID,
+            'categoria_id' => $this->categoria_id,
             'fabricante' => $this->fabricante,
             'lote' => $this->lote,
             'validade' => $this->validade,
@@ -56,7 +56,7 @@ class Medicamento {
     public function getConcentracao() { return $this->concentracao;}
     public function setConcentracao($concentracao) { $this->concentracao = $concentracao; }
     public function getCategoria_id() { return $this->Categoria_ID; }
-    public function setCategoria_id($Categoria_ID) { $this->Categoria_ID = $Categoria_ID; }
+    public function setCategoria_id($categoria_id) { $this->categoria_id = $categoria_id; }
     public function getFabricante() { return $this->fabricante; }
     public function setFabricante($fabricante) { $this->fabricante = $fabricante;}
     public function getLote() { return $this->lote; }
