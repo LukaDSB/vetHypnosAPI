@@ -16,34 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `animal`
+-- Table structure for table `dosagem`
 --
 
-DROP TABLE IF EXISTS `animal`;
+DROP TABLE IF EXISTS `dosagem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `animal` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) DEFAULT NULL,
-  `especie` varchar(50) DEFAULT NULL,
-  `idade` int DEFAULT NULL,
-  `sexo` varchar(10) DEFAULT NULL,
-  `peso` decimal(5,2) DEFAULT NULL,
-  `tutor_id` int DEFAULT NULL,
-  `obito` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fkPacienteTutor_idx` (`tutor_id`),
-  CONSTRAINT `fkPacienteTutor` FOREIGN KEY (`tutor_id`) REFERENCES `tutor` (`id`)
+CREATE TABLE `dosagem` (
+  `prescricao_id` int NOT NULL,
+  `medicamento_id` int NOT NULL,
+  `dose_min` decimal(5,2) DEFAULT NULL,
+  `dose_max` decimal(5,2) DEFAULT NULL,
+  `volume_min` decimal(5,2) DEFAULT NULL,
+  `volume_max` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`prescricao_id`,`medicamento_id`),
+  KEY `fkDosagemMedicamento` (`medicamento_id`),
+  CONSTRAINT `fkDosagemMedicamento` FOREIGN KEY (`medicamento_id`) REFERENCES `medicamento` (`id`),
+  CONSTRAINT `fkDosagemPrescricao` FOREIGN KEY (`prescricao_id`) REFERENCES `prescricoes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `animal`
+-- Dumping data for table `dosagem`
 --
 
-LOCK TABLES `animal` WRITE;
-/*!40000 ALTER TABLE `animal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `animal` ENABLE KEYS */;
+LOCK TABLES `dosagem` WRITE;
+/*!40000 ALTER TABLE `dosagem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dosagem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-27 10:20:30
+-- Dump completed on 2025-03-27 12:23:08

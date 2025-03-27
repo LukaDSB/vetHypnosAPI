@@ -16,27 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `estoque`
+-- Table structure for table `animal`
 --
 
-DROP TABLE IF EXISTS `estoque`;
+DROP TABLE IF EXISTS `animal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `estoque` (
+CREATE TABLE `animal` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `quantidade` int DEFAULT NULL,
-  `medicamento_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `nome` varchar(100) NOT NULL,
+  `especie` varchar(50) DEFAULT NULL,
+  `idade` int DEFAULT NULL,
+  `sexo` varchar(10) DEFAULT NULL,
+  `peso` decimal(5,2) NOT NULL,
+  `tutor_id` int DEFAULT NULL,
+  `obito` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fkPacienteTutor_idx` (`tutor_id`),
+  CONSTRAINT `fkAnimalTutor` FOREIGN KEY (`tutor_id`) REFERENCES `tutor` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `estoque`
+-- Dumping data for table `animal`
 --
 
-LOCK TABLES `estoque` WRITE;
-/*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
-/*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
+LOCK TABLES `animal` WRITE;
+/*!40000 ALTER TABLE `animal` DISABLE KEYS */;
+/*!40000 ALTER TABLE `animal` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-27 10:20:29
+-- Dump completed on 2025-03-27 12:23:08

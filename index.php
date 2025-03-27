@@ -42,7 +42,6 @@ switch ($request) {
                 $data = json_decode(file_get_contents("php://input"), true);
                 $controllerMedicamento->updateMedicamento($data);
             }
-            
             break;
     default:
 

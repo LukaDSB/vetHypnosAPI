@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for macos15 (arm64)
 --
--- Host: 127.0.0.1    Database: dosesanestesicas
+-- Host: localhost    Database: vethypnos
 -- ------------------------------------------------------
--- Server version	9.1.0
+-- Server version	9.2.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,36 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `prescricoes`
+-- Table structure for table `parametros_clinicos`
 --
 
-DROP TABLE IF EXISTS `prescricoes`;
+DROP TABLE IF EXISTS `parametros_clinicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `prescricoes` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `Paciente_ID` int DEFAULT NULL,
-  `Usuario_ID` int DEFAULT NULL,
-  `DataPrescricao` datetime DEFAULT NULL,
-  `Observacoes` text,
-  `Protocolo_ID` int DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `Paciente_ID` (`Paciente_ID`),
-  KEY `Usuario_ID` (`Usuario_ID`),
-  KEY `Protocolo_ID` (`Protocolo_ID`),
-  CONSTRAINT `prescricoes_ibfk_1` FOREIGN KEY (`Paciente_ID`) REFERENCES `animal` (`ID`),
-  CONSTRAINT `prescricoes_ibfk_2` FOREIGN KEY (`Usuario_ID`) REFERENCES `usuario` (`ID`),
-  CONSTRAINT `prescricoes_ibfk_3` FOREIGN KEY (`Protocolo_ID`) REFERENCES `protocolos` (`ID`)
+CREATE TABLE `parametros_clinicos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fc` decimal(6,3) DEFAULT NULL,
+  `fr` decimal(6,3) DEFAULT NULL,
+  `spo2` decimal(6,3) DEFAULT NULL,
+  `etco2` decimal(6,3) DEFAULT NULL,
+  `pa` decimal(6,3) DEFAULT NULL,
+  `globo` decimal(6,3) DEFAULT NULL,
+  `palpebra` decimal(6,3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `prescricoes`
+-- Dumping data for table `parametros_clinicos`
 --
 
-LOCK TABLES `prescricoes` WRITE;
-/*!40000 ALTER TABLE `prescricoes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `prescricoes` ENABLE KEYS */;
+LOCK TABLES `parametros_clinicos` WRITE;
+/*!40000 ALTER TABLE `parametros_clinicos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `parametros_clinicos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18  7:42:08
+-- Dump completed on 2025-03-27 12:23:08

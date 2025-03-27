@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for macos15 (arm64)
 --
--- Host: 127.0.0.1    Database: dosesanestesicas
+-- Host: localhost    Database: vethypnos
 -- ------------------------------------------------------
--- Server version	9.1.0
+-- Server version	9.2.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,29 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `estoque`
+-- Table structure for table `contato`
 --
 
-DROP TABLE IF EXISTS `estoque`;
+DROP TABLE IF EXISTS `contato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `estoque` (
+CREATE TABLE `contato` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `quantidade` int DEFAULT NULL,
-  `idMedicamento` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fkEstoqueMedicamento_idx` (`idMedicamento`),
-  CONSTRAINT `fkEstoqueMedicamento` FOREIGN KEY (`idMedicamento`) REFERENCES `medicamento` (`ID`)
+  `telefone` varchar(255) DEFAULT NULL,
+  `celular` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL,
+  `lattes` varchar(255) DEFAULT NULL,
+  `site` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `estoque`
+-- Dumping data for table `contato`
 --
 
-LOCK TABLES `estoque` WRITE;
-/*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
-/*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
+LOCK TABLES `contato` WRITE;
+/*!40000 ALTER TABLE `contato` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contato` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18  7:42:06
+-- Dump completed on 2025-03-27 12:23:08
