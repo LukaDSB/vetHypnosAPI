@@ -6,6 +6,7 @@ require_once 'controllers/UsuarioController.php';
 require_once 'controllers/PacienteController.php';
 require_once 'controllers/MedicamentoController.php';
 require_once 'controllers/Categoria_MedicamentoController.php';
+require_once 'controllers/ContatoController.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -15,6 +16,7 @@ $controllerUsuario = new UsuarioController();
 $controllerPaciente = new PacienteController();
 $controllerMedicamento = new MedicamentoController();
 $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
+$controllerContato = new ContatoController();
 
 switch (true) {
     case ($path === '/minhaapi/usuarios'):

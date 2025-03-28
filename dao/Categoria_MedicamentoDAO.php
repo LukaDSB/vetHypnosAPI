@@ -44,12 +44,12 @@ class Categoria_MedicamentoDAO{
         return $stmt->execute();
     }
     public function selectById(int $id): array {
-        $query = "SELECT * FROM categoria_medicamento WHERE ID = :id";
+        $query = "SELECT * FROM categoria_medicamento WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $categoria = new Categoria_Medicamento($result['ID'], $result['Descricao']);
+        $categoria = new Categoria_Medicamento($result['id'], $result['Descricao']);
         return $categoria->toArray();
     }
 

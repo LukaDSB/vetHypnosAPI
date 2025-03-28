@@ -32,14 +32,14 @@ class MedicamentoDAO {
         
         $stmt = $this->conn->prepare($sql);
  
-        $stmt->bindParam(':Nome', $medicamento->getNome());
-        $stmt->bindParam(':Concentracao', $medicamento->getConcentracao());
-        $stmt->bindParam('Categoria_ID', $medicamento->getCategoria_id());
+        $stmt->bindParam(':nome', $medicamento->getNome());
+        $stmt->bindParam(':concentracao', $medicamento->getConcentracao());
+        $stmt->bindParam('categoria_id', $medicamento->getCategoria_id());
         $stmt->bindParam('fabricante', $medicamento->getFabricante());
         $stmt->bindParam('lote', $medicamento->getLote());
         $stmt->bindParam('validade', $medicamento->getValidade());
         $stmt->bindParam('quantidade', $medicamento->getQuantidade());
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, $medicamento->getId());
     
         
         return $stmt->execute();
@@ -47,7 +47,7 @@ class MedicamentoDAO {
      
 
     public function insert(Medicamento $medicamento): bool {
-        $query = "INSERT INTO medicamento (nome, concentracao, categoria_id, fabricante, lote, validade, quantidade) VALUES (:Nome, :Concentracao, :Categoria_ID, :fabricante, :lote, :validade, :quantidade)";
+        $query = "INSERT INTO medicamento (nome, concentracao, categoria_id, fabricante, lote, validade, quantidade) VALUES (:nome, :concentracao, :categoria_id, :fabricante, :lote, :validade, :quantidade)";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(':nome', $medicamento->getNome());

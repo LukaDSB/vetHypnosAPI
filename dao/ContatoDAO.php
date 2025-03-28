@@ -31,12 +31,9 @@ class ContatoDAO{
                     lattes = :lattes,
                     site = :site
                 WHERE id = :id";
-        
-        
         $stmt = $this->conn->prepare($sql);
     
         $stmt->bindParam(':telefone', $contato->getTelefone());
-        
         $stmt->bindParam(':celular', $contato->getCelular());
         $stmt->bindParam(':email', $contato->getEmail());
         $stmt->bindParam(':facebook', $contato->getFacebook());
@@ -45,7 +42,7 @@ class ContatoDAO{
         $stmt->bindParam(':linkedin', $contato->getLinkedin());
         $stmt->bindParam(':lattes', $contato->getLattes());
         $stmt->bindParam(':site', $contato->getSite());
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id);
     
         
         return $stmt->execute();

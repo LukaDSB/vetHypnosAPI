@@ -28,11 +28,11 @@ class MedicamentoFacade {
     }
 
     public function validateAndUpdateMedicamento(array $data): bool {
-        if (empty($data['ID'])) {
-            throw new InvalidArgumentException("O ID do medicamento é obrigatório para a atualização.");
+        if (empty($data['id'])) {
+            throw new InvalidArgumentException("O id do medicamento é obrigatório para a atualização.");
         }
 
-        $id = (int) $data['ID'];
+        $id = (int) $data['id'];
         $medicamento = Medicamento::fromArray($data);
 
         return $this->medicamentoModel->updateMedicamento($id, $medicamento);

@@ -1,8 +1,9 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
 class Medicamento {
     private ?int  $id;
     private string $nome;
-    private float $concentracao;
+    private ?float $concentracao;
     private ?int $categoria_id;
     private ?string $fabricante;
     private ?string $lote;
@@ -10,7 +11,7 @@ class Medicamento {
     private ?int $quantidade;
 
 
-    public function __construct(?int $id, string $nome, float $concentracao, ?int $categoria_id, ?string $fabricante, ?string $lote, ?string $validade, ?int $quantidade) {
+    public function __construct(?int $id, string $nome, ?float $concentracao, ?int $categoria_id, ?string $fabricante, ?string $lote, ?string $validade, ?int $quantidade) {
         $this->id = $id;
         $this->nome = $nome;
         $this->concentracao = $concentracao;
@@ -55,7 +56,7 @@ class Medicamento {
     public function setNome($nome) { $this->nome = $nome; }
     public function getConcentracao() { return $this->concentracao;}
     public function setConcentracao($concentracao) { $this->concentracao = $concentracao; }
-    public function getCategoria_id() { return $this->Categoria_ID; }
+    public function getCategoria_id() { return $this->categoria_id; }
     public function setCategoria_id($categoria_id) { $this->categoria_id = $categoria_id; }
     public function getFabricante() { return $this->fabricante; }
     public function setFabricante($fabricante) { $this->fabricante = $fabricante;}
