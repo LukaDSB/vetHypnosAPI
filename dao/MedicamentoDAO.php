@@ -61,6 +61,14 @@ class MedicamentoDAO {
         return $stmt->execute();
     }
     
+    public function checkId(int $id): bool {
+        $query = "SELECT * FROM medicamento WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? true : false;
+    }
 
     public function getAllMedicamentos(): array {
         $query = "SELECT id, nome, concentracao, categoria_id, fabricante, lote, validade, quantidade FROM medicamento";
@@ -74,16 +82,7 @@ class MedicamentoDAO {
 
         return $result;
     }
-    public function findById(int $id): ?array {
-        $query = "SELECT * FROM medicamento WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-    
-        $medicamento = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        return $medicamento ?: null;
-    }
+   
     
 }
 ?>

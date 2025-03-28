@@ -26,7 +26,12 @@ class Categoria_MedicamentoModel{
     public function getAllCategorias(){
         return $this->categoria_medicamentoDAO->getAllCategorias();
     }
+
+    public function checkId($id){
+        return $this->categoria_medicamentoDAO->checkId($id);
+    }
 }
+
 
 
 

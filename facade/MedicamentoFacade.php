@@ -18,7 +18,10 @@ class MedicamentoFacade {
         if (empty($id) || $id <= 0) {
             throw new InvalidArgumentException("O ID do medicamento é obrigatório e deve ser um valor válido para a exclusão.");
         }
-        return $this->medicamentoModel->deleteMedicamento($id);
+        if($this->medicamentoModel->checkId($id)) {
+            return $this->medicamentoModel->deleteMedicamento($id);
+    }
+    return throw new InvalidArgumentException("O medicamento com este id nao existe.");
     }
 
 

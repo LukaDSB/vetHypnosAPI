@@ -12,45 +12,45 @@ class Categoria_MedicamentoDAO{
     }
 
     public function delete(Int $id) : bool{
-        $query = "DELETE FROM categoria_medicamento WHERE ID = :id";
+        $query = "DELETE FROM categoria_medicamento WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
 
     public function update(int $id, Categoria_Medicamento $categoria_medicamento): bool {
          
         $sql = "UPDATE categoria_medicamento SET 
-                    Descricao = :Descricao
-                WHERE ID = :id";
+                    descricao = :descricao
+                WHERE id = :id";
         
         
         $stmt = $this->conn->prepare($sql);
     
-        // Vincula os parâmetros
-        $stmt->bindParam(':Descricao', $categoria_medicamento->getDescricao());
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':descricao', $categoria_medicamento->getDescricao());
+        $stmt->bindParam(':id', $id);
     
         
         return $stmt->execute();
     }
 
     public function insert(Categoria_Medicamento $categoria_medicamento): bool {
-        $query = "INSERT INTO categoria_medicamento (Descricao) VALUES (:Descricao)";
+        $query = "INSERT INTO categoria_medicamento (descricao) VALUES (:descricao)";
         $stmt = $this->conn->prepare($query);
     
-        $stmt->bindParam(':Descricao', $categoria_medicamento->getDescricao());
+        $stmt->bindParam(':descricao', $categoria_medicamento->getDescricao());
         
         return $stmt->execute();
     }
-    public function selectById(int $id): array {
-        $query = "SELECT * FROM categoria_medicamento WHERE id = :id";
+    
+    public function checkId($id) : bool{
+        $query = 'SELECT 8 FROM categoria_medicamento WHERE id = :id';
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $categoria = new Categoria_Medicamento($result['id'], $result['Descricao']);
-        return $categoria->toArray();
+        return $result ? true : false;
+
     }
 
     public function getAllCategorias(): array {
