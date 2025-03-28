@@ -1,18 +1,7 @@
 -- MySQL dump 10.13  Distrib 8.0.41, for macos15 (arm64)
 --
-<<<<<<< HEAD
-<<<<<<< HEAD:utils/sql/ddl/dump2/dosesanestesicas_clinica.sql
 -- Host: 127.0.0.1    Database: vethypnos
-=======
--- Host: localhost    Database: vethypnos
->>>>>>> fa4ebf0 (Base sprint 4):utils/sql/ddl/base_sprint_4/vethypnos_clinica.sql
-=======
-<<<<<<< HEAD:utils/sql/ddl/base_sprint_4/vethypnos_clinica.sql
--- Host: localhost    Database: vethypnos
-=======
--- Host: 127.0.0.1    Database: vethypnos
->>>>>>> 89a1afc (Contato nao testado):utils/sql/ddl/dump2/dosesanestesicas_clinica.sql
->>>>>>> db62bd3 (Contato nao testado)
+
 -- ------------------------------------------------------
 -- Server version	9.2.0
 

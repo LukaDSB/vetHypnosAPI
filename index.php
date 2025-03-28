@@ -34,7 +34,6 @@ switch (true) { // Usar switch(true) para condições dinâmicas
             $controllerPaciente->getAllPacientes();
         }
         break;
-
     case (strpos($path, '/minhaapi/medicamento') === 0):
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
@@ -88,7 +87,6 @@ switch (true) { // Usar switch(true) para condições dinâmicas
             $controllerContato->updateContato($data);
         }
         break;
-
     default:
 
     case ($path === '/minhaapi/pacientes'):
