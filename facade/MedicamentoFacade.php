@@ -14,19 +14,12 @@ class MedicamentoFacade {
         return $this->medicamentoModel->createMedicamento($medicamento);
     }
 
-public function validateAndDeleteMedicamento(int $id): bool {
-    if (empty($id) || $id <= 0) {
-        throw new InvalidArgumentException("O ID do medicamento é obrigatório e deve ser um valor válido para a exclusão.");
+    public function validateAndDeleteMedicamento(int $id): bool {
+        if (empty($id) || $id <= 0) {
+            throw new InvalidArgumentException("O ID do medicamento é obrigatório e deve ser um valor válido para a exclusão.");
+        }
+        return $this->medicamentoModel->deleteMedicamento($id);
     }
- 
-    $id = (int) $data['ID'];
-
-public function validateAndDeleteMedicamento(int $id): bool {
-    if (empty($id) || $id <= 0) {
-        throw new InvalidArgumentException("O ID do medicamento é obrigatório e deve ser um valor válido para a exclusão.");
-    }
-    return $this->medicamentoModel->deleteMedicamento($id);
-}
 
 
 
