@@ -14,7 +14,7 @@ class ContatoDAO{
     public function delete(Int $id) : bool{
         $query = "DELETE FROM contato WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
 
@@ -68,12 +68,23 @@ class ContatoDAO{
     public function selectById(int $id): array {
         $query = "SELECT * FROM contato WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $contato = new Contato($result['id'],$result['telefone'], $result['celular'], $result['email'], $result['facebook'], $result['twitter'], $result['instagram'], $result['linkedin'], $result['lattes'], $result['site']);
         return $contato->toArray();
     }
+
+    public function checkId(int $id): bool {
+        $query = "SELECT * FROM contato WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? true : false;
+    }
+
+
 
     public function getAllContatos(): array {
         $query = "SELECT * FROM contato";

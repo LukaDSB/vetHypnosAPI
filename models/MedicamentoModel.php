@@ -20,8 +20,8 @@ class MedicamentoModel {
         return $this->medicamentoDAO->getAllMedicamentos();
     }
 
-    public function findById(int $id): ?array {
-        return $this->medicamentoDAO->findById($id);
+    public function checkId(int $id) {
+        return $this->medicamentoDAO->checkId($id);
     }
 
     public function updateMedicamento(int $id, $medicamento): bool {

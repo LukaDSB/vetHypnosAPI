@@ -24,15 +24,18 @@ public function validateAndUpdateContato(array $data): bool {
     $contato = Contato::fromArray($data);
     return $this->contatoModel->updateContato($id, $contato);
 }
-public function validateAndDeleteContato(array $data): bool {
-    if (empty($data['id'])) {
+public function validateAndDeleteContato(int $id): bool {
+    if (empty($id)) {
         throw new InvalidArgumentException("O id do contato é obrigatório para a exclusão.");
     }
+    if($this->contatoModel->findById($id)) {
+        // Se necessário, verifique se o ID existe antes de deletar
+        return $this->contatoModel->deleteContato($id);
+        
+    }
+    return throw new InvalidArgumentException("O contato com este id nao existe.");
  
-    $id = (int) $data['id'];
 
-    // Se necessário, verifique se o ID existe antes de deletar
-    return $this->contatoModel->deleteContato($id);
 }
 
 

@@ -18,6 +18,9 @@ class ContatoModel{
     }
 
 
+    public function checkId(int $id){
+        return $this->contatoDAO->checkId($id);
+    }
     public function updateContato(int $id, $contato){
         return $this->contatoDAO->update($id, $contato);
     }

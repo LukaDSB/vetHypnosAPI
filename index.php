@@ -62,28 +62,32 @@ switch (true) {
         }
         break;
 
-    case ($path === '/minhaapi/categoria_medicamento'):
+    case (strpos($path, '/minhaapi/categoria_medicamento')===0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerCategoria_Medicamento->createCategoria_Medicamento($data);
         } elseif ($method === 'GET') {
             $controllerCategoria_Medicamento->getAllCategoria_Medicamento();
         } elseif ($method === 'DELETE') {
-            $controllerCategoria_Medicamento->deleteCategoria_Medicamento();
+            $controllerCategoria_Medicamento->deleteCategoria_Medicamento($id);
         } elseif ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerCategoria_Medicamento->updateCategoria_Medicamento($data);
         }
         break;
 
-    case ($path === '/minhaapi/contato'):
+    case (strpos($path ,'/minhaapi/contato')=== 0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerContato->createContato($data);
         } elseif ($method === 'GET') {
             $controllerContato->getAllContatos();
         } elseif ($method === 'DELETE') {
-            $controllerContato->deleteContato();
+            $controllerContato->deleteContato($id);
         } elseif ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerContato->updateContato($data);
