@@ -1,6 +1,7 @@
 -- MySQL dump 10.13  Distrib 8.0.41, for macos15 (arm64)
 --
--- Host: localhost    Database: vethypnos
+-- Host: 127.0.0.1    Database: vethypnos
+
 -- ------------------------------------------------------
 -- Server version	9.2.0
 

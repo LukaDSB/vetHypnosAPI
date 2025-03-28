@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dosagem`
+-- Table structure for table `prescricao_medicamento`
 --
 
-DROP TABLE IF EXISTS `dosagem`;
+DROP TABLE IF EXISTS `prescricao_medicamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `dosagem` (
+CREATE TABLE `prescricao_medicamento` (
   `Prescricao_ID` int NOT NULL,
   `Medicamento_ID` int NOT NULL,
   `Dose_min` decimal(5,2) DEFAULT NULL,
@@ -30,19 +30,19 @@ CREATE TABLE `dosagem` (
   `Volume_min` decimal(5,2) DEFAULT NULL,
   `Volume_max` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`Prescricao_ID`,`Medicamento_ID`),
-  KEY `fkDosagemMedicamento` (`Medicamento_ID`),
-  CONSTRAINT `fkDosagemMedicamento` FOREIGN KEY (`Medicamento_ID`) REFERENCES `medicamento` (`ID`),
-  CONSTRAINT `fkDosagemPrescricao` FOREIGN KEY (`Prescricao_ID`) REFERENCES `prescricoes` (`ID`)
+  KEY `Medicamento_ID` (`Medicamento_ID`),
+  CONSTRAINT `prescricao_medicamento_ibfk_1` FOREIGN KEY (`Prescricao_ID`) REFERENCES `prescricoes` (`ID`),
+  CONSTRAINT `prescricao_medicamento_ibfk_2` FOREIGN KEY (`Medicamento_ID`) REFERENCES `medicamentos` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dosagem`
+-- Dumping data for table `prescricao_medicamento`
 --
 
-LOCK TABLES `dosagem` WRITE;
-/*!40000 ALTER TABLE `dosagem` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dosagem` ENABLE KEYS */;
+LOCK TABLES `prescricao_medicamento` WRITE;
+/*!40000 ALTER TABLE `prescricao_medicamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prescricao_medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18  7:42:08
+-- Dump completed on 2025-01-16  8:23:00
