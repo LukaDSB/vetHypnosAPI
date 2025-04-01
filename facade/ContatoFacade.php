@@ -28,7 +28,7 @@ public function validateAndDeleteContato(int $id): bool {
     if (empty($id)) {
         throw new InvalidArgumentException("O id do contato é obrigatório para a exclusão.");
     }
-    if($this->contatoModel->findById($id)) {
+    if($this->contatoModel->checkId($id)) {
         // Se necessário, verifique se o ID existe antes de deletar
         return $this->contatoModel->deleteContato($id);
         

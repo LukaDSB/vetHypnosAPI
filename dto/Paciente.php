@@ -6,18 +6,18 @@ class Paciente {
     private int $idade;
     private string $sexo;
     private float $peso;
-    private int $idTutor;
+    private int $tutor_id;
     private int $obito;
 
 
-    public function __construct(?int $id, string $nome, string $especie, int $idade, string $sexo, float $peso, int $idTutor, int $obito) {
+    public function __construct(?int $id, string $nome, string $especie, int $idade, string $sexo, float $peso, int $tutor_id, int $obito) {
         $this->id = $id;
         $this->nome = $nome;
         $this->especie = $especie;
         $this->idade = $idade;
         $this->sexo = $sexo;
         $this->peso = $peso;
-        $this->idTutor = $idTutor;
+        $this->tutor_id = $tutor_id;
         $this->obito = $obito;
     }
 
@@ -42,7 +42,7 @@ class Paciente {
             'idade'=> $this->idade,
             'sexo'=> $this->sexo,
             'peso'=> $this->peso,
-            'idTutor'=> $this->idTutor,
+            'idTutor'=> $this->tutor_id,
             'obito'=> $this->obito
         ];
     }
@@ -56,8 +56,8 @@ class Paciente {
     public function setEspecie($especie) { $this->especie = $especie; }
     public function getPeso() { return $this->peso; }
     public function setPeso($peso) { $this->peso = $peso; }
-    public function getIdTutor() { return $this->idTutor; }
-    public function setIdTutor($idTutor) { $this->idTutor = $idTutor;}
+    public function getIdTutor() { return $this->tutor_id; }
+    public function setIdTutor($tutor_id) { $this->tutor_id = $tutor_id;}
     public function getObito() { return $this->obito; }
     public function setObito($obito) { $this->obito = $obito; }
     public function getIdade() { return $this->idade; }
