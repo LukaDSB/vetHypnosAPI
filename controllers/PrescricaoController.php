@@ -30,6 +30,10 @@ class PrescricaoController {
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
+
+    public function deletePrescricao($id){
+        $this->prescricaoFacade->deletePrescricao($id);
+    }
     
 }
 ?>

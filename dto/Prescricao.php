@@ -30,7 +30,9 @@ class Prescricao {
         return [
             'id' => $this->id,
             'paciente_id' => $this->paciente_id,
-            'usuario_id' => $this->usuario_id
+            'usuario_id' => $this->usuario_id,
+            'data_prescricao' => $this->data_prescricao,
+            'observacoes' => $this->observacoes
         ];
     }
 
@@ -42,9 +44,12 @@ class Prescricao {
     
     public function getUsuario_id() { return $this->usuario_id; }
     public function setUsuario_id($usuario_id) { $this->usuario_id = $usuario_id;}
+
     public function getData_prescricao() { return $this->data_prescricao; }
     public function setData_prescricao($data_prescricao) { $this->data_prescricao = $data_prescricao;}
+
     public function getObservacoes(){return $this->observacoes;}
+    public function setObservacoes($observacoes){$this->observacoes = $observacoes;}
 
 
 }

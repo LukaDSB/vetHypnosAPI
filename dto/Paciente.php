@@ -6,11 +6,11 @@ class Paciente {
     private int $idade;
     private string $sexo;
     private float $peso;
-    private int $tutor_id;
+    private ?int $tutor_id;
     private int $obito;
 
 
-    public function __construct(?int $id, string $nome, string $especie, int $idade, string $sexo, float $peso, int $tutor_id, int $obito) {
+    public function __construct(?int $id, string $nome, string $especie, int $idade, string $sexo, float $peso, ?int $tutor_id, int $obito) {
         $this->id = $id;
         $this->nome = $nome;
         $this->especie = $especie;
@@ -29,7 +29,7 @@ class Paciente {
             $data['idade'],
             $data['sexo'],
             $data['peso'],
-            $data['idTutor'],
+            $data['tutor_id'],
             $data['obito']
         );
     }
@@ -42,7 +42,7 @@ class Paciente {
             'idade'=> $this->idade,
             'sexo'=> $this->sexo,
             'peso'=> $this->peso,
-            'idTutor'=> $this->tutor_id,
+            'tutor_id'=> $this->tutor_id,
             'obito'=> $this->obito
         ];
     }

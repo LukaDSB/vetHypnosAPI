@@ -21,5 +21,10 @@ class PrescricaoFacade {
     public function getPrescricao(): array {
         return $this->prescricaoModel->getAllPrescricoes();
     }
+
+
+    public function validateAndDeletePrescricao($id){
+        return $this->prescricaoModel->deletePrescricao($id);
+    }
 }
 ?>

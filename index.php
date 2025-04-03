@@ -104,7 +104,7 @@ switch (true) {
             } elseif ($method === 'GET') {
                 $controllerPrescricao->getAllPrescricoes();
             } elseif ($method === 'DELETE') {
-                $controllerPrescricao;
+                $controllerPrescricao->deletePrescricao($id);
             } elseif ($method === 'PUT') {
                 $data = json_decode(file_get_contents("php://input"), true);
                 $controllerContato->updateContato($data);

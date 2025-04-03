@@ -11,7 +11,7 @@ class PrescricaoDAO {
     }
 
     public function insert(Prescricao $prescricao): bool {
-        $query = "INSERT INTO prescricoes (paciente_id, usuario_id, data_precricao, observacoes) VALUES (:paciente_id, :usuario_id, :data_precricao, :observacoes)";
+        $query = "INSERT INTO prescricoes (paciente_id, usuario_id, data_prescricao, observacoes) VALUES (:paciente_id, :usuario_id, :data_prescricao, :observacoes)";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(":paciente_id", $prescricao->getPaciente_id());
