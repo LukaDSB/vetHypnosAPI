@@ -13,18 +13,23 @@ class PrescricaoModel{
         return $this->prescricaoDAO->insert($prescricao);
     }
 
-    public function detelePrescricao(int $id){
+    public function deletePrescricao(int $id){
         return $this->prescricaoDAO->delete($id);
     }
 
 
-    public function updatePrescricao(int $ID, $prescricao){
-        return $this->prescricaoDAO->update($ID, $prescricao);
+    public function updatePrescricao($prescricao){
+        return $this->prescricaoDAO->update($prescricao);
     }
 
 
     public function getAllPrescricoes(){
         return $this->prescricaoDAO->getAllPrescricoes();
+    }
+
+    
+    public function checkId(int $id) {
+        return $this->prescricaoDAO->checkId($id);
     }
 }
 

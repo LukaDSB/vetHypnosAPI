@@ -71,7 +71,7 @@ class MedicamentoDAO {
     }
 
     public function getAllMedicamentos(): array {
-        $query = "SELECT id, nome, concentracao, categoria_id, fabricante, lote, validade, quantidade FROM medicamento";
+        $query = "SELECT * FROM medicamento";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 

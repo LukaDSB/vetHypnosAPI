@@ -24,7 +24,26 @@ class PrescricaoFacade {
 
 
     public function validateAndDeletePrescricao($id){
-        return $this->prescricaoModel->deletePrescricao($id);
+        if (empty($id) || $id <= 0) {
+            throw new InvalidArgumentException("O ID da prescricao é obrigatório e deve ser um valor válido para a exclusão.");
+        }
+        if($this->prescricaoModel->checkId($id)) {
+            return $this->prescricaoModel->deletePrescricao($id);
+    }
+    return throw new InvalidArgumentException("A prescricao com este id nao existe.");
+    }
+
+    public function validateAndUpdatePrescricao($data){
+
+        $prescricao = Prescricao::fromArray($data);
+        $id = $prescricao->getId();
+        if (empty($id) || $id <= 0) {
+            throw new InvalidArgumentException("O ID da prescricao é obrigatório e deve ser um valor válido para a atualizacao.");
+        }
+        if($this->prescricaoModel->checkId($id)) {
+            return $this->prescricaoModel->updatePrescricao($prescricao);
+    }
+    return throw new InvalidArgumentException("A prescricao com este id nao existe.");
     }
 }
 ?>
