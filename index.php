@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 require_once 'controllers/UsuarioController.php';
-require_once 'controllers/PacienteController.php';
+require_once 'controllers/AnimalController.php';
 require_once 'controllers/MedicamentoController.php';
 require_once 'controllers/Categoria_MedicamentoController.php';
 require_once 'controllers/ContatoController.php';
@@ -13,42 +13,46 @@ $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($request, PHP_URL_PATH);
 
 $controllerUsuario = new UsuarioController();
-$controllerPaciente = new PacienteController();
+$controllerAnimal = new AnimalController();
 $controllerMedicamento = new MedicamentoController();
 $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
 $controllerContato = new ContatoController();
 
 switch (true) {
-    case ($path === '/minhaapi/usuarios'):
+    case ($path === '/minhaapi/usuario'):
+        $method == 'GET' ? $controllerUsuario->getAllUsers() : null;
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerUsuario->createUser($data);
-        } elseif ($method === 'GET') {
-            $controllerUsuario->getAllUsers();
         }
         break;
 
-    case ($path === '/minhaapi/pacientes'):
+    case(strpos($path, '/minhaapi/animal') === 0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+        $method == 'GET' ? $controllerAnimal->getAllAnimais() : null;
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerPaciente->createPaciente($data);
-        } elseif ($method === 'GET') {
-            $controllerPaciente->getAllPacientes();
+            $controllerAnimal->createAnimal($data);
         }
+        if ($method === 'DELETE') {
+            if ($id === null || $id <= 0) {
+                http_response_code(400);
+                echo json_encode(['error' => 'ID é obrigatório para exclusão']);
+                break;
+            }
+            $controllerAnimal->delete($id);
+        } 
         break;
     case (strpos($path, '/minhaapi/medicamento') === 0):
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
+        $method == 'GET' ? $controllerMedicamento->getAllMedicamentos() : null;
+        
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerMedicamento->createMedicamento($data);
-        } elseif ($method === 'GET') {
-            if ($id !== null) {
-                $controllerMedicamento->getAllMedicamentos();
-            } else {
-                $controllerMedicamento->getAllMedicamentos();
-            }
         } elseif ($method === 'DELETE') {
             if ($id === null || $id <= 0) {
                 http_response_code(400);
