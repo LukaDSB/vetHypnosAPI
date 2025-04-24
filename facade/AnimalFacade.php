@@ -1,0 +1,25 @@
+<?php
+require_once __DIR__ . '/../models/AnimalModel.php';
+
+class AnimalFacade {
+    private $animalModel;
+
+    public function __construct() {
+        $this->animalModel = new AnimalModel();
+    }
+
+    public function createAnimal(array $data): bool {
+        $animal = Animal::fromArray($data);
+
+        return $this->animalModel->createAnimal($animal);
+    }
+
+    public function getAnimais(): array {
+        return $this->animalModel->getAllAnimais();
+    }
+
+    public function delete(int $id): bool {
+        return $this->animalModel->delete($id);
+    }
+}
+?>
