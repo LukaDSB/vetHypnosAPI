@@ -15,6 +15,7 @@ class ContatoFacade{
         return $this->contatoModel->createContato($contato);
     }
  
+
     public function getContato(): array {
         return $this->contatoModel->getAllContatos();
     }
@@ -34,11 +35,7 @@ public function validateAndDeleteContato(int $id): bool {
         
     }
     return throw new InvalidArgumentException("O contato com este id nao existe.");
- 
-
 }
-
-
 }
 
 

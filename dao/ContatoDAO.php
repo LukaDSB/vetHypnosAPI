@@ -1,9 +1,6 @@
 <?php
-
-
 require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../dto/Contato.php';
-
 class ContatoDAO{
     private $conn;
     public function __construct(){
@@ -29,7 +26,8 @@ class ContatoDAO{
                     instagram = :instagram,
                     linkedin = :linkedin,
                     lattes = :lattes,
-                    site = :site
+                    site = :site,
+                    tipo_contato_id = :tipo_contato_id
                 WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
     
@@ -42,6 +40,7 @@ class ContatoDAO{
         $stmt->bindParam(':linkedin', $contato->getLinkedin());
         $stmt->bindParam(':lattes', $contato->getLattes());
         $stmt->bindParam(':site', $contato->getSite());
+        $stmt->bindParam('tipo_contato_id', $contato->getTipo_contato_id());
         $stmt->bindParam(':id', $id);
     
         
@@ -49,31 +48,19 @@ class ContatoDAO{
     }
 
     public function insert(Contato $contato): bool {
-        $query = "INSERT INTO contato (telefone, celular, email, facebook, twitter, instagram, linkedin, lattes, site) VALUES (:telefone, :celular, :email, :facebook, :twitter, :instagram, :linkedin, :lattes, :site)";
+        $query = "INSERT INTO contato (
+        descricao,
+        tipo_contato_id
+        ) VALUES (
+        :descricao,
+        :tipo_contato_id
+        )";
         $stmt = $this->conn->prepare($query);
-        
-        $stmt->bindParam(':telefone', $contato->getTelefone());
-        $stmt->bindParam(':celular', $contato->getCelular());
-        $stmt->bindParam(':email', $contato->getEmail());
-        $stmt->bindParam(':facebook', $contato->getFacebook());
-        $stmt->bindParam(':twitter', $contato->getTwitter());
-        $stmt->bindParam(':instagram', $contato->getInstagram());
-        $stmt->bindParam(':linkedin', $contato->getLinkedin());
-        $stmt->bindParam(':lattes', $contato->getLattes());
-        $stmt->bindParam(':site', $contato->getSite());
-
-        
+        $stmt->bindParam(':descricao', $contato->getDescricao());
+        $stmt->bindParam('tipo_contato_id', $contato->getTipo_contato_id());
         return $stmt->execute();
     }
-    public function selectById(int $id): array {
-        $query = "SELECT * FROM contato WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $contato = new Contato($result['id'],$result['telefone'], $result['celular'], $result['email'], $result['facebook'], $result['twitter'], $result['instagram'], $result['linkedin'], $result['lattes'], $result['site']);
-        return $contato->toArray();
-    }
+    
 
     public function checkId(int $id): bool {
         $query = "SELECT * FROM contato WHERE id = :id";
@@ -85,16 +72,17 @@ class ContatoDAO{
     }
 
 
-
     public function getAllContatos(): array {
-        $query = "SELECT * FROM contato";
+        $query = "SELECT c.*, 
+              t.descricao as tipo_contato_descricao
+              FROM contato c LEFT JOIN tipo_contato t ON c.tipo_contato_id = t.id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
+
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $result[] = Contato::fromArray($row);
         }
-
         return $result;
     }
 
