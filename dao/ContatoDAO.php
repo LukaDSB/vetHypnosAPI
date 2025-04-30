@@ -18,28 +18,12 @@ class ContatoDAO{
     public function update(int $id, Contato $contato): bool {
          
         $sql = "UPDATE contato SET 
-                    telefone = :telefone,
-                    celular = :celular,
-                    email = :email,
-                    facebook = :facebook,
-                    twitter = :twitter,
-                    instagram = :instagram,
-                    linkedin = :linkedin,
-                    lattes = :lattes,
-                    site = :site,
+                    descricao = :descricao,
                     tipo_contato_id = :tipo_contato_id
                 WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
     
-        $stmt->bindParam(':telefone', $contato->getTelefone());
-        $stmt->bindParam(':celular', $contato->getCelular());
-        $stmt->bindParam(':email', $contato->getEmail());
-        $stmt->bindParam(':facebook', $contato->getFacebook());
-        $stmt->bindParam(':twitter', $contato->getTwitter());
-        $stmt->bindParam(':instagram', $contato->getInstagram());
-        $stmt->bindParam(':linkedin', $contato->getLinkedin());
-        $stmt->bindParam(':lattes', $contato->getLattes());
-        $stmt->bindParam(':site', $contato->getSite());
+        $stmt->bindParam(':descricao', $contato->getDescricao());
         $stmt->bindParam('tipo_contato_id', $contato->getTipo_contato_id());
         $stmt->bindParam(':id', $id);
     
