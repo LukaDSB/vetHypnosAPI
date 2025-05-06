@@ -8,7 +8,7 @@ class MedicamentoModel {
         $this->medicamentoDAO = new MedicamentoDAO();
     }
 
-    public function createMedicamento  ( $medicamento): bool {
+    public function createMedicamento  (MedicamentoDTO $medicamento): bool {
         return $this->medicamentoDAO->insert($medicamento);
     }
 

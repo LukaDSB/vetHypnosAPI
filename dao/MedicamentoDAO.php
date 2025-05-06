@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../dto/Medicamento.php';
+require_once __DIR__ . '/../dto/MedicamentoDTO.php';
 require_once __DIR__ . '/../config/Database.php';
 
 class MedicamentoDAO {
@@ -17,12 +17,12 @@ class MedicamentoDAO {
         return $stmt->execute();
     }
  
-    public function update(int $id, Medicamento $medicamento): bool {
+    public function update(int $id, MedicamentoDTO $medicamento): bool {
         
         $sql = "UPDATE medicamento SET 
                     nome = :nome, 
                     concentracao = :concentracao, 
-                    categoria_id = :categoria_id, 
+                    categoria_medicamento_id = :categoria_medicamento_id, 
                     fabricante = :fabricante, 
                     lote = :lote, 
                     validade = :validade, 
@@ -32,32 +32,29 @@ class MedicamentoDAO {
         
         $stmt = $this->conn->prepare($sql);
  
+        $stmt->bindParam(':id', $id, $medicamento->getId());
         $stmt->bindParam(':nome', $medicamento->getNome());
         $stmt->bindParam(':concentracao', $medicamento->getConcentracao());
-        $stmt->bindParam('categoria_id', $medicamento->getCategoria_id());
+        $stmt->bindParam('categoria_medicamento_id', $medicamento->getCategoria_medicamento_id());
         $stmt->bindParam('fabricante', $medicamento->getFabricante());
         $stmt->bindParam('lote', $medicamento->getLote());
         $stmt->bindParam('validade', $medicamento->getValidade());
         $stmt->bindParam('quantidade', $medicamento->getQuantidade());
-        $stmt->bindParam(':id', $id, $medicamento->getId());
-    
-        
         return $stmt->execute();
     }
      
 
-    public function insert(Medicamento $medicamento): bool {
-        $query = "INSERT INTO medicamento (nome, concentracao, categoria_id, fabricante, lote, validade, quantidade) VALUES (:nome, :concentracao, :categoria_id, :fabricante, :lote, :validade, :quantidade)";
+    public function insert(MedicamentoDTO $medicamento): bool {
+        $query = "INSERT INTO medicamento (nome, concentracao, categoria_medicamento_id, fabricante, lote, validade, quantidade) VALUES (:nome, :concentracao, :categoria_medicamento_id, :fabricante, :lote, :validade, :quantidade)";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(':nome', $medicamento->getNome());
         $stmt->bindParam(':concentracao', $medicamento->getConcentracao());
-        $stmt->bindParam('categoria_id', $medicamento->getCategoria_id());
+        $stmt->bindParam('categoria_medicamento_id', $medicamento->getCategoria_medicamento_id());
         $stmt->bindParam('fabricante', $medicamento->getFabricante());
         $stmt->bindParam('lote', $medicamento->getLote());
         $stmt->bindParam('validade', $medicamento->getValidade());
         $stmt->bindParam('quantidade', $medicamento->getQuantidade());
-    
         return $stmt->execute();
     }
     
@@ -71,18 +68,18 @@ class MedicamentoDAO {
     }
 
     public function getAllMedicamentos(): array {
-        $query = "SELECT * FROM medicamento";
+        $query = "SELECT m.*, 
+        c.descricao as categoria_medicamento_descricao
+        FROM medicamento m LEFT JOIN categoria_medicamento c ON m.categoria_medicamento_id = c.id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = Medicamento::fromArray($row);
+            $result[] = MedicamentoDTO::fromArray($row);
         }
 
         return $result;
     }
-   
-    
 }
 ?>
