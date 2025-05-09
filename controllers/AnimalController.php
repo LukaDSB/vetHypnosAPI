@@ -31,6 +31,17 @@ class AnimalController {
         }
     }
 
+    public function atualizarAnimal(array $data): void {
+        try {
+            $this->animalFacade->atualizarAnimal($data);
+            http_response_code(200);
+            echo json_encode(["message" => "Animal atualizado com sucesso."]);
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode(["message" => $e->getMessage()]);
+        }
+    }
+
     public function delete(int $id){
         try {
             $this->animalFacade->delete($id);

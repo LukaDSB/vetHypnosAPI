@@ -31,7 +31,7 @@ class Animal {
         $this->sexo = $sexo;
         $this->peso = $peso;
         $this->tutor_id = $tutor_id;
-        $this->obito = $obito;
+        $this->obito = $obito ? (int) $obito : null;
         $this->especie = $especie;
     }
 
@@ -44,12 +44,12 @@ class Animal {
                 null
             );
         }
-        
+
         return new self(
             isset($data['id']) ? (int) $data['id'] : null,
             $data['nome'],
+            isset($data['especie_id']) ? (int) $data['especie_id'] : null,
             isset($data['data_nascimento']) ? $data['data_nascimento'] : null,
-            $data['data_nascimento'],
             $data['sexo'],
             $data['peso'],
             isset($data['tutor_id']) ? (int) $data['tutor_id'] : null,

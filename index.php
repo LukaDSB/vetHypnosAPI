@@ -35,6 +35,11 @@ switch (true) {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerAnimal->createAnimal($data);
         }
+        if ($method === 'PUT') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $json = file_get_contents("php://input");
+            $controllerAnimal->atualizarAnimal($data);
+        }
         if ($method === 'DELETE') {
             if ($id === null || $id <= 0) {
                 http_response_code(400);
