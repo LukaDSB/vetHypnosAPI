@@ -22,7 +22,6 @@ class ProntuarioDTO {
             $data['usuario_id'],
             $data['data_prontuario'],
             $data['observacoes']
-            
         );
     }
 
@@ -50,7 +49,5 @@ class ProntuarioDTO {
 
     public function getObservacoes(){return $this->observacoes;}
     public function setObservacoes($observacoes){$this->observacoes = $observacoes;}
-
-
 }
 ?>

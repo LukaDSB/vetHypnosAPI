@@ -6,19 +6,19 @@ class ProntuarioModel{
 
     private $prontuarioDAO;
     public function __construct(){
-        $this->prontuarioDAO = new prontuarioDAO();
+        $this->prontuarioDAO = new ProntuarioDAO();
     }
 
-    public function createProntuario($prontuario){
+    public function createprontuario($prontuario){
         return $this->prontuarioDAO->insert($prontuario);
     }
 
-    public function deleteProntuario(int $id){
+    public function deleteprontuario(int $id){
         return $this->prontuarioDAO->delete($id);
     }
 
 
-    public function updateProntuario($prontuario){
+    public function updateprontuario($prontuario){
         return $this->prontuarioDAO->update($prontuario);
     }
 

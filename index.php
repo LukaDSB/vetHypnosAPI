@@ -109,14 +109,14 @@ switch (true) {
             $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
             if ($method === 'POST') {
                 $data = json_decode(file_get_contents("php://input"), true);
-                $controllerProntuario->createProntuario($data);
+                $controllerProntuario->createprontuario($data);
             } elseif ($method === 'GET') {
-                $controllerProntuario->getAllProntuarios();
+                $controllerProntuario->getAllPrescricoes();
             } elseif ($method === 'DELETE') {
-                $controllerProntuario->deleteProntuario($id);
+                $controllerProntuario->deleteprontuario($id);
             } elseif ($method === 'PUT') {
                 $data = json_decode(file_get_contents("php://input"), true);
-                $controllerProntuario->updateProntuario($data);
+                $controllerProntuario->updateprontuario($data);
             }
             break;
 
