@@ -7,7 +7,7 @@ require_once 'controllers/PacienteController.php';
 require_once 'controllers/MedicamentoController.php';
 require_once 'controllers/Categoria_MedicamentoController.php';
 require_once 'controllers/ContatoController.php';
-require_once 'controllers/PrescricaoController.php';
+require_once 'controllers/ProntuarioController.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -18,7 +18,7 @@ $controllerPaciente = new PacienteController();
 $controllerMedicamento = new MedicamentoController();
 $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
 $controllerContato = new ContatoController();
-$controllerPrescricao = new PrescricaoController();
+$controllerProntuario = new ProntuarioController();
 
 switch (true) {
     case ($path === '/minhaapi/usuarios'):
@@ -95,19 +95,19 @@ switch (true) {
             $controllerContato->updateContato($data);
         }
         break;
-        case(strpos($path, '/minhaapi/prescricao')===0):
+        case(strpos($path, '/minhaapi/prontuario')===0):
             $parts = explode('/', $path);
             $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
             if ($method === 'POST') {
                 $data = json_decode(file_get_contents("php://input"), true);
-                $controllerPrescricao->createPrescricao($data);
+                $controllerProntuario->createprontuario($data);
             } elseif ($method === 'GET') {
-                $controllerPrescricao->getAllPrescricoes();
+                $controllerProntuario->getAllPrescricoes();
             } elseif ($method === 'DELETE') {
-                $controllerPrescricao->deletePrescricao($id);
+                $controllerProntuario->deleteprontuario($id);
             } elseif ($method === 'PUT') {
                 $data = json_decode(file_get_contents("php://input"), true);
-                $controllerPrescricao->updatePrescricao($data);
+                $controllerProntuario->updateprontuario($data);
             }
             break;
 
