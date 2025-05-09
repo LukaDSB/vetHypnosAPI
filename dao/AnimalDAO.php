@@ -43,6 +43,31 @@ class AnimalDAO {
         return $result;
     }
 
+    public function atualizarAnimal(Animal $animal){
+        $sql = "UPDATE animal SET 
+                    nome = :nome,
+                    especie_id = :especie_id, 
+                    data_nascimento = :data_nascimento, 
+                    sexo = :sexo, 
+                    peso = :peso, 
+                    tutor_id = :tutor_id, 
+                    obito = :obito
+                WHERE id = :id";
+        
+        $stmt = $this->conn->prepare($sql);
+ 
+        $stmt->bindValue(':nome', $animal->getNome());
+        $stmt->bindValue(':especie_id', $animal->getEspecieId());
+        $stmt->bindValue(':data_nascimento', $animal->getDataNascimento());
+        $stmt->bindValue(':sexo', $animal->getSexo());
+        $stmt->bindValue(':peso', $animal->getPeso());
+        $stmt->bindValue(':tutor_id', $animal->getTutorId());
+        $stmt->bindValue(':obito', $animal->getObito());
+        $stmt->bindValue(':id', $animal->getId());
+        
+        return $stmt->execute();
+    }
+
     public function delete(Int $id) : bool{
         $query = "DELETE FROM animal WHERE id = :id";
         $stmt = $this->conn->prepare($query);

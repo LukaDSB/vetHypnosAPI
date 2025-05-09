@@ -18,6 +18,16 @@ class AnimalFacade {
         return $this->animalModel->getAllAnimais();
     }
 
+    public function atualizarAnimal(array $data): bool {
+        if (empty($data['id'])) {
+            throw new InvalidArgumentException("O id do animal é obrigatório para a atualização.");
+        }
+
+        $animal = Animal::fromArray($data);
+
+        return $this->animalModel->atualizarAnimal($animal);
+    }
+
     public function delete(int $id): bool {
         return $this->animalModel->delete($id);
     }
