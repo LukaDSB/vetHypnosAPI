@@ -2,7 +2,7 @@
 
 
 require_once __DIR__ . '/../config/Database.php';
-require_once __DIR__ . '/../dto/Categoria_Medicamento.php';
+require_once __DIR__ . '/../dto/Categoria_MedicamentoDTO.php';
 
 class Categoria_MedicamentoDAO{
     private $conn;

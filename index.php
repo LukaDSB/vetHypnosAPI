@@ -19,7 +19,7 @@ $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
 $controllerContato = new ContatoController();
 
 switch (true) {
-    case ($path === '/minhaapi/usuarios'):
+    case ($path === '/minhaapi/usuario'):
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerUsuario->createUser($data);
@@ -28,7 +28,7 @@ switch (true) {
         }
         break;
 
-    case ($path === '/minhaapi/pacientes'):
+    case ($path === '/minhaapi/paciente'):
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerPaciente->createPaciente($data);
