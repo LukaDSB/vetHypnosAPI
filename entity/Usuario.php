@@ -38,7 +38,7 @@ class Usuario {
     }
 
     public static function fromArray(array $data): self {
-        if (!empty($data['especialidade_id'])) {
+        if (!empty($data['e_id'])) {
             $especialidade = Especialidade::fromArray($data);
             
         } else {

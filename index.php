@@ -7,6 +7,7 @@ require_once 'controllers/PacienteController.php';
 require_once 'controllers/MedicamentoController.php';
 require_once 'controllers/Categoria_MedicamentoController.php';
 require_once 'controllers/ContatoController.php';
+require_once 'controllers/EspecialidadeController.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -17,15 +18,32 @@ $controllerPaciente = new PacienteController();
 $controllerMedicamento = new MedicamentoController();
 $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
 $controllerContato = new ContatoController();
+$controllerEspecialidade = new EspecialidadeController();
 
 switch (true) {
-    case ($path === '/minhaapi/usuario'):
+     case (strpos($path, '/minhaapi/usuario') === 0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerUsuario->createUser($data);
         } elseif ($method === 'GET') {
-            $controllerUsuario->getAllUsers();
+            if ($id == null){
+                $controllerUsuario->getAllUsers();
+                break;
+            }
+            $controllerUsuario->getUser($id);
+        }elseif ($method === 'DELETE') {
+            $controllerUsuario->deleteUser($id);
+        }elseif($method === 'PUT'){
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerUsuario->updateUser($data, $id);
         }
+
+
+
+
         break;
 
     case ($path === '/minhaapi/paciente'):
@@ -89,6 +107,22 @@ switch (true) {
             $controllerContato->updateContato($data);
         }
         break;
+
+        case (strpos($path, '/minhaapi/especialidade') === 0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
+        if ($method === 'GET') {
+            if ($id !== null) {
+                $controllerEspecialidade->getEspecialidade($id);
+            } else {
+                $controllerEspecialidade->getAllEspecialidades();
+            }
+        } 
+        break;
+
+
+
     default:
         http_response_code(404);
         echo json_encode(["message" => "Rota não encontrada."]);

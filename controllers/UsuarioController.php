@@ -14,9 +14,20 @@ class UsuarioController {
             http_response_code(201);
             echo json_encode(["message" => "Usuário criado com sucesso."]);
         } catch (Exception $e) {
-            http_response_code(400);
+            http_response_code($e->getCode());
             echo json_encode(["message" => $e->getMessage()]);
         }
+    }
+
+    public function updateUser(array $data, int $id){
+       try {
+            $this->userFacade->validateAndUpdateUser($data, $id);
+            http_response_code(201);
+            echo json_encode(["message" => "Usuário alterado com sucesso."]);
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            echo json_encode(["message" => $e->getMessage()]);
+        } 
     }
 
     public function getAllUsers(): void {
@@ -30,6 +41,19 @@ class UsuarioController {
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
+
+    public function getUser($id): void {
+        $user = $this->userFacade->getUser($id);
+        $response = $user->toArray();
+        http_response_code(200);
+        echo json_encode($response);
+    }
+
+    public function deleteUser($id):void{
+        $this->userFacade->deleteUser($id);
+    }
+
+
     
 }
 ?>
