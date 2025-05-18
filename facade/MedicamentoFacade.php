@@ -19,10 +19,10 @@ class MedicamentoFacade {
         if (empty($id) || $id <= 0) {
             throw new InvalidArgumentException("O ID do medicamento é obrigatório e deve ser um valor válido para a exclusão.");
         }
-        if($this->medicamentoModel->checkId($id)) {
-            return $this->medicamentoModel->deleteMedicamento($id);
-    }
-    return throw new InvalidArgumentException("O medicamento com este id nao existe.");
+        if(!$this->medicamentoModel->checkId($id)) {
+                throw new InvalidArgumentException("O medicamento com este id nao existe."); 
+        }
+    return $this->medicamentoModel->deleteMedicamento($id);
     }
 
 
@@ -31,19 +31,26 @@ class MedicamentoFacade {
         return $this->medicamentoModel->getAllMedicamentos(); 
     }
 
-    public function validateAndUpdateMedicamento(array $data): bool {
-        $id = (int) $data['id'];
+    public function getMedicamentoByuId(int $id) {
+        if(empty($id)){
+            throw new Exception("O id do medicamento eh obrigatorio");
+        }
+        if(!$this->medicamentoModel->checkId($id)){
+            throw new Exception("Nenhum medicamento com este id foi encontrado!");        
+        }
+        return $this->medicamentoModel->getMedicamentoById($id);
+    }
+    
+
+    public function validateAndUpdateMedicamento(array $data, int $id): bool {
         if (empty($id)) {
             throw new InvalidArgumentException("O id do medicamento é obrigatório para a atualização.");
         }
-        if ($this->medicamentoModel->checkId($id)) {
-            $medicamento = Medicamento::fromArray($data);
-            return $this->medicamentoModel->updateMedicamento($id, $medicamento);
-        }
-        else{
+        if (!$this->medicamentoModel->checkId($id)) {
             throw new InvalidArgumentException("O medicamento com esse id não existe");
         }
-
+       $medicamento = Medicamento::fromArray($data);
+        return $this->medicamentoModel->updateMedicamento($id, $medicamento);
         
     }
 

@@ -19,9 +19,9 @@ class MedicamentoController {
         }
     }
  
-    public function updateMedicamento(array $data): void {
+    public function updateMedicamento(array $data, int $id): void {
         try {
-            $this->medicamentoFacade->validateAndUpdateMedicamento($data);
+            $this->medicamentoFacade->validateAndUpdateMedicamento($data, $id);
             http_response_code(200);
             echo json_encode(["message" => "Medicamento atualizado com sucesso."]);
         } catch (Exception $e) {
@@ -42,21 +42,34 @@ class MedicamentoController {
         }
     }
 
+
     public function deleteMedicamento(int $id): void {
 
         try {
             $deletado = $this->medicamentoFacade->validateAndDeleteMedicamento($id);
     
-            if ($deletado) {
-                http_response_code(200); // OK
-                echo json_encode(["message" => "Medicamento deletado com sucesso."]);
-            } else {
+            if (!$deletado) {
                 http_response_code(404); // Not Found
                 echo json_encode(["error" => "Medicamento não encontrado."]);
             }
+            http_response_code(200); // OK
+            echo json_encode(["message" => "Medicamento deletado com sucesso."]);
         } catch (Exception $e) {
             http_response_code(500); // Internal Server Error
             echo json_encode(["error" => $e->getMessage()]);
+        }
+    }
+
+    public function getMedicamentoById(int $id){
+        try {
+            $medicamento = $this->medicamentoFacade->getMedicamentoByuId($id);
+            $response = $medicamento->toArray();
+            http_response_code(200);
+            echo json_encode($response);
+        }
+        catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(["message" => $e->getMessage()]);
         }
     }
     

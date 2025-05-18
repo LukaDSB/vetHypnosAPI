@@ -19,20 +19,23 @@ class Categoria_MedicamentoFacade{
         return $this->categoria_medicamentoModel->getAllCategorias();
     }
 
-public function validateAndUpdateCategoria_Medicamento(array $data): bool {
-    $id = (int) $data['id'];
+public function validateAndUpdateCategoria_Medicamento(array $data, int $id): bool {
+    if(empty($id || $id<0)){
+        throw new InvalidArgumentException('O id é obrigatório necessário e deve ser válido');
+    }
+    if(!$this->categoria_medicamentoModel->checkId($id)){
+        throw new InvalidArgumentException('A categoria com este id não existe');
+    }
     $categoria_medicamento = Categoria_Medicamento::fromArray($data);
     return $this->categoria_medicamentoModel->updateCategoria_Medicamento($id, $categoria_medicamento);
 }
 public function validateAndDeleteCategoria_Medicamento(int $id): bool{
-    if(empty($id || $id<0)){
-        throw new InvalidArgumentException('O id é obrigatório necessário e deve ser válido');
+    
+    if(!$this->categoria_medicamentoModel->checkId($id)){
+        throw new InvalidArgumentException('A categoria com este id não existe');
     }
-    if($this->categoria_medicamentoModel->checkId($id)){
+    return $this->categoria_medicamentoModel->deleteCategoria_Medicamento($id);
 
-        return $this->categoria_medicamentoModel->deleteCategoria_Medicamento($id);
-    }
-    return throw new InvalidArgumentException('A categoria com este id não existe');
 }
 
 

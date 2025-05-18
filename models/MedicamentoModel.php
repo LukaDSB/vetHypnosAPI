@@ -20,6 +20,10 @@ class MedicamentoModel {
         return $this->medicamentoDAO->getAllMedicamentos();
     }
 
+    public function getMedicamentoById(int $id){
+        return $this->medicamentoDAO->getMedicamentoById($id);
+    }
+
     public function checkId(int $id) {
         return $this->medicamentoDAO->checkId($id);
     }

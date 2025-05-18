@@ -20,9 +20,9 @@ class Categoria_MedicamentoController{
         }
     }
 
-    public function updateCategoria_Medicamento(array $data){
+    public function updateCategoria_Medicamento(array $data, int $id){
         try{
-            $this->categoria_medicamentoFacade->validateAndUpdateCategoria_Medicamento($data);
+            $this->categoria_medicamentoFacade->validateAndUpdateCategoria_Medicamento($data, $id);
             http_response_code(200);
             echo json_encode(["message" => "Categoria de medicamento atualizada com sucesso."]);
         }catch(Exception $e){
@@ -47,19 +47,18 @@ class Categoria_MedicamentoController{
         if (empty($id)) {
             http_response_code(400); // Bad Request
             echo json_encode(["error" => "id do medicamento é obrigatório."]);
-            return;
         }
     
         try {
             $deletado = $this->categoria_medicamentoFacade->validateAndDeleteCategoria_Medicamento($id);
     
-            if ($deletado) {
-                http_response_code(200); // OK
-                echo json_encode(["message" => "Categoria deletado com sucesso."]);
-            } else {
+            if (!$deletado) {
                 http_response_code(404); // Not Found
                 echo json_encode(["error" => "Categoria não encontrado."]);
-            }
+                } 
+                http_response_code(200); // OK
+                echo json_encode(["message" => "Categoria deletado com sucesso."]);
+            
         } catch (Exception $e) {
             http_response_code(500); // Internal Server Error
             echo json_encode(["error" => $e->getMessage()]);

@@ -32,7 +32,7 @@ class MedicamentoDAO {
         
         $stmt = $this->conn->prepare($sql);
  
-        $stmt->bindParam(':id', $id, $medicamento->getId());
+        $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nome', $medicamento->getNome());
         $stmt->bindParam(':concentracao', $medicamento->getConcentracao());
         $stmt->bindParam('categoria_medicamento_id', $medicamento->getCategoria_medicamento_id());
@@ -79,6 +79,19 @@ class MedicamentoDAO {
             $result[] = MedicamentoDTO::fromArray($row);
         }
 
+        return $result;
+    }
+
+    public function getMedicamentoById(int $id){
+        $query = "SELECT m.*, 
+        c.descricao as categoria_medicamento_descricao
+        FROM medicamento m LEFT JOIN categoria_medicamento c ON m.categoria_medicamento_id = c.id
+        where m.id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = MedicamentoDTO::fromArray($row);
         return $result;
     }
 }

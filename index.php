@@ -47,7 +47,7 @@ switch (true) {
             $controllerMedicamento->createMedicamento($data);
         } elseif ($method === 'GET') {
             if ($id !== null) {
-                $controllerMedicamento->getAllMedicamentos();
+                $controllerMedicamento->getMedicamentoById($id);
             } else {
                 $controllerMedicamento->getAllMedicamentos();
             }
@@ -60,7 +60,7 @@ switch (true) {
             $controllerMedicamento->deleteMedicamento($id);
         } elseif ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerMedicamento->updateMedicamento($data);
+            $controllerMedicamento->updateMedicamento($data, $id);
         }
         break;
 
@@ -76,7 +76,7 @@ switch (true) {
             $controllerCategoria_Medicamento->deleteCategoria_Medicamento($id);
         } elseif ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerCategoria_Medicamento->updateCategoria_Medicamento($data);
+            $controllerCategoria_Medicamento->updateCategoria_Medicamento($data, $id);
         }
         break;
 
