@@ -3,8 +3,8 @@
 require_once __DIR__ . '/../dao/ContatoDAO.php';
 
 class ContatoModel{
-
     private $contatoDAO;
+
     public function __construct(){
         $this->contatoDAO = new ContatoDAO();
     }
@@ -17,20 +17,15 @@ class ContatoModel{
         return $this->contatoDAO->delete($id);
     }
 
-
     public function checkId(int $id){
         return $this->contatoDAO->checkId($id);
     }
+
     public function updateContato(int $id, $contato){
         return $this->contatoDAO->update($id, $contato);
     }
-
 
     public function getAllContatos(){
         return $this->contatoDAO->getAllContatos();
     }
 }
-
-
-
-?>

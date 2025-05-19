@@ -3,6 +3,7 @@ require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../dto/Contato.php';
 class ContatoDAO{
     private $conn;
+
     public function __construct(){
         $database = new Database();
         $this->conn = $database->getConnection();
@@ -16,17 +17,14 @@ class ContatoDAO{
     }
 
     public function update(int $id, Contato $contato): bool {
-         
         $sql = "UPDATE contato SET 
                     descricao = :descricao,
                     tipo_contato_id = :tipo_contato_id
                 WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
-    
         $stmt->bindParam(':descricao', $contato->getDescricao());
         $stmt->bindParam('tipo_contato_id', $contato->getTipo_contato_id());
         $stmt->bindParam(':id', $id);
-    
         
         return $stmt->execute();
     }
@@ -45,7 +43,6 @@ class ContatoDAO{
         return $stmt->execute();
     }
     
-
     public function checkId(int $id): bool {
         $query = "SELECT * FROM contato WHERE id = :id";
         $stmt = $this->conn->prepare($query);
@@ -54,7 +51,6 @@ class ContatoDAO{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? true : false;
     }
-
 
     public function getAllContatos(): array {
         $query = "SELECT c.*, 
@@ -69,19 +65,4 @@ class ContatoDAO{
         }
         return $result;
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-?>

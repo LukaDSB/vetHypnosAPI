@@ -38,6 +38,7 @@ switch (true) {
             $controllerPaciente->getAllPacientes();
         }
         break;
+
     case (strpos($path, '/minhaapi/medicamento') === 0):
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
@@ -83,18 +84,19 @@ switch (true) {
     case (strpos($path ,'/minhaapi/contato')=== 0):
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
+        $method === 'GET' ? $controllerContato->getAllContatos() : null;
+        $method === 'DELETE' ? $controllerContato->deleteContato($id) : null;
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerContato->createContato($data);
-        } elseif ($method === 'GET') {
-            $controllerContato->getAllContatos();
-        } elseif ($method === 'DELETE') {
-            $controllerContato->deleteContato($id);
-        } elseif ($method === 'PUT') {
+        }
+        if ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerContato->updateContato($data);
         }
         break;
+
         case(strpos($path, '/minhaapi/prontuario')===0):
             $parts = explode('/', $path);
             $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
@@ -111,8 +113,8 @@ switch (true) {
             }
             break;
 
-    default:
-        http_response_code(404);
-        echo json_encode(["message" => "Rota não encontrada."]);
+        default:
+            http_response_code(404);
+            echo json_encode(["message" => "Rota não encontrada."]);
 }
 ?>
