@@ -1,7 +1,5 @@
 <?php
-
 require_once __DIR__ .'/../facade/Categoria_MedicamentoFacade.php';
-
 
 class Categoria_MedicamentoController{
     private $categoria_medicamentoFacade;
@@ -45,37 +43,31 @@ class Categoria_MedicamentoController{
 
     
         if (empty($id)) {
-            http_response_code(400); // Bad Request
+            http_response_code(400);
             echo json_encode(["error" => "id do medicamento é obrigatório."]);
         }
     
         try {
             $deletado = $this->categoria_medicamentoFacade->validateAndDeleteCategoria_Medicamento($id);
     
+<<<<<<< HEAD
             if (!$deletado) {
                 http_response_code(404); // Not Found
+=======
+            if ($deletado) {
+                http_response_code(200);
+                echo json_encode(["message" => "Categoria deletado com sucesso."]);
+            } else {
+                http_response_code(404);
+>>>>>>> 0096c58 (Ajustes de comentário)
                 echo json_encode(["error" => "Categoria não encontrado."]);
                 } 
                 http_response_code(200); // OK
                 echo json_encode(["message" => "Categoria deletado com sucesso."]);
             
         } catch (Exception $e) {
-            http_response_code(500); // Internal Server Error
+            http_response_code(500);
             echo json_encode(["error" => $e->getMessage()]);
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

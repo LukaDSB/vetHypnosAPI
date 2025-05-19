@@ -42,26 +42,12 @@ class ContatoController{
         }
     }
     public function deleteContato($id): void {
-    
-        // Verifica se o ID foi passado
-        if (empty($id)) {
-            http_response_code(400); // Bad Request
-            echo json_encode(["error" => "id do contato é obrigatório."]);
-            return;
-        }
-    
         try {
             $deletado = $this->contatoFacade->validateAndDeleteContato($id);
-    
-            if ($deletado) {
-                http_response_code(200); // OK
-                echo json_encode(["message" => "Contato deletado com sucesso."]);
-            } else {
-                http_response_code(404); // Not Found
-                echo json_encode(["error" => "Contato não encontrado."]);
-            }
+            http_response_code(200);
+            echo json_encode(["message" => "Contato deletado com sucesso."]);
         } catch (Exception $e) {
-            http_response_code(500); // Internal Server Error
+            http_response_code(500);
             echo json_encode(["error" => $e->getMessage()]);
         }
     }

@@ -24,6 +24,7 @@ class ContatoFacade{
         $contato = Contato::fromArray($data);
         return $this->contatoModel->updateContato($id, $contato);
     }
+<<<<<<< HEAD
 
     public function validateAndDeleteContato(int $id): bool {
         if (empty($id)) {
@@ -33,6 +34,12 @@ class ContatoFacade{
             throw new InvalidArgumentException("O contato com este id nao existe.");
         }
         return $this->contatoModel->deleteContato($id);
+=======
+    if(!$this->contatoModel->checkId($id)) {
+        throw new InvalidArgumentException("O contato com este id nao existe.");
+    }
+    return $this->contatoModel->deleteContato($id);
+>>>>>>> 0096c58 (Ajustes de comentário)
     }
 }
 

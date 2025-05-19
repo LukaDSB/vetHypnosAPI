@@ -44,21 +44,25 @@ class MedicamentoController {
 
 
     public function deleteMedicamento(int $id): void {
-
         try {
             $deletado = $this->medicamentoFacade->validateAndDeleteMedicamento($id);
+<<<<<<< HEAD
     
             if (!$deletado) {
                 http_response_code(404); // Not Found
                 echo json_encode(["error" => "Medicamento não encontrado."]);
             }
             http_response_code(200); // OK
+=======
+            http_response_code(200);
+>>>>>>> 0096c58 (Ajustes de comentário)
             echo json_encode(["message" => "Medicamento deletado com sucesso."]);
         } catch (Exception $e) {
-            http_response_code(500); // Internal Server Error
+            http_response_code(500);
             echo json_encode(["error" => $e->getMessage()]);
         }
     }
+<<<<<<< HEAD
 
     public function getMedicamentoById(int $id){
         try {
@@ -77,3 +81,6 @@ class MedicamentoController {
     
 }
 ?>
+=======
+}
+>>>>>>> 0096c58 (Ajustes de comentário)
