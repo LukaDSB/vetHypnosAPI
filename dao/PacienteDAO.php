@@ -11,7 +11,7 @@ class PacienteDAO {
     }
 
     public function insert(Paciente $paciente): bool {
-        $query = "INSERT INTO paciente (Nome, Especie, Idade, Sexo, Peso, idTutor, obito) VALUES (:nome, :especie, :idade, :sexo, :peso, :idTutor, :obito)";
+        $query = "INSERT INTO animal (nome, especie, idade, sexo, peso, tutor_id, obito) VALUES (:nome, :especie, :idade, :sexo, :peso, :tutor_id, :obito)";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(':nome', $paciente->getNome());
@@ -19,7 +19,7 @@ class PacienteDAO {
         $stmt->bindParam('idade', $paciente->getIdade());
         $stmt->bindParam('sexo', $paciente->getSexo());
         $stmt->bindParam('peso', $paciente->getPeso());
-        $stmt->bindParam('idTutor', $paciente->getIdTutor());
+        $stmt->bindParam('tutor_id', $paciente->getIdTutor());
         $stmt->bindParam('obito', $paciente->getObito());
     
         return $stmt->execute();
@@ -27,7 +27,7 @@ class PacienteDAO {
     
 
     public function getAllPacientes(): array {
-        $query = "SELECT id, nome, especie, idade, sexo, peso, idTutor, obito FROM paciente";
+        $query = "SELECT * FROM animal";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
