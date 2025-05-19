@@ -1,17 +1,17 @@
 <?php
-class Prescricao {
+class ProntuarioDTO {
     private ?int $id;
     private ?int $paciente_id;
     private ?int $usuario_id;
-    private ?string $data_prescricao;
+    private ?string $data_prontuario;
     private ?string $observacoes;
     
 
-    public function __construct(?int $id, ?int $paciente_id, ?int $usuario_id, ?string $data_prescricao, ?string $observacoes) {
+    public function __construct(?int $id, ?int $paciente_id, ?int $usuario_id, ?string $data_prontuario, ?string $observacoes) {
         $this->id = $id;
         $this->paciente_id = $paciente_id;
         $this->usuario_id = $usuario_id;
-        $this->data_prescricao = $data_prescricao;
+        $this->data_prontuario = $data_prontuario;
         $this->observacoes = $observacoes;
     }
 
@@ -20,7 +20,7 @@ class Prescricao {
             isset($data['id']) ? (int) $data['id'] : null,
             $data['paciente_id'],
             $data['usuario_id'],
-            $data['data_prescricao'],
+            $data['data_prontuario'],
             $data['observacoes']
             
         );
@@ -31,7 +31,7 @@ class Prescricao {
             'id' => $this->id,
             'paciente_id' => $this->paciente_id,
             'usuario_id' => $this->usuario_id,
-            'data_prescricao' => $this->data_prescricao,
+            'data_prontuario' => $this->data_prontuario,
             'observacoes' => $this->observacoes
         ];
     }
@@ -45,8 +45,8 @@ class Prescricao {
     public function getUsuario_id() { return $this->usuario_id; }
     public function setUsuario_id($usuario_id) { $this->usuario_id = $usuario_id;}
 
-    public function getData_prescricao() { return $this->data_prescricao; }
-    public function setData_prescricao($data_prescricao) { $this->data_prescricao = $data_prescricao;}
+    public function getDataProntuario() { return $this->data_prontuario; }
+    public function setDataProntuario($data_prontuario) { $this->data_prontuario = $data_prontuario;}
 
     public function getObservacoes(){return $this->observacoes;}
     public function setObservacoes($observacoes){$this->observacoes = $observacoes;}

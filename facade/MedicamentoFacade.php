@@ -40,7 +40,6 @@ class MedicamentoFacade {
         }
         return $this->medicamentoModel->getMedicamentoById($id);
     }
-    
 
     public function validateAndUpdateMedicamento(array $data, int $id): bool {
         if (empty($id)) {
@@ -53,7 +52,4 @@ class MedicamentoFacade {
         return $this->medicamentoModel->updateMedicamento($id, $medicamento);
         
     }
-
-    
 }
-?>
