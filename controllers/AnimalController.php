@@ -45,8 +45,10 @@ class AnimalController {
     public function delete(int $id){
         try {
             $this->animalFacade->delete($id);
+            http_response_code(200);
+            echo json_encode(["message" => "Animal excluído com sucesso."]);
         } catch (\Throwable $e) {
-            http_response_code(500);
+            http_response_code(400);
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
