@@ -27,5 +27,4 @@
     public function setId($id) { $this->id = $id; }
     public function getdescricao(){return $this->descricao;}
     public function setdescricao($descricao){$this->descricao = $descricao;}
-    }
-?>
+}

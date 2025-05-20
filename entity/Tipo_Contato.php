@@ -1,16 +1,12 @@
 <?php
-
-
 class Tipo_Contato {
     private $id;
     private $descricao;
-
 
     public function __construct($id, $descricao) {
         $this->id = $id;
         $this->descricao = $descricao;
     }
-
 
     public function toArray(): array {
         return [
@@ -19,7 +15,6 @@ class Tipo_Contato {
         ];
     }
 
-
     public static function fromArray(array $data): self {
         return new self(
             isset($data['id']) ? (int) $data['id'] : null,
@@ -27,5 +22,3 @@ class Tipo_Contato {
         );
     }
 }
-
-?>

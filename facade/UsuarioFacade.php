@@ -22,4 +22,3 @@ class UsuarioFacade {
         return $this->userModel->getAllUsers();
     }
 }
-?>

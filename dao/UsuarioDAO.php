@@ -36,4 +36,3 @@ class UsuarioDAO {
         return $result;
     }
 }
-?>

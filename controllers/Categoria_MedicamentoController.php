@@ -50,19 +50,14 @@ class Categoria_MedicamentoController{
         try {
             $deletado = $this->categoria_medicamentoFacade->validateAndDeleteCategoria_Medicamento($id);
     
-<<<<<<< HEAD
-            if (!$deletado) {
-                http_response_code(404); // Not Found
-=======
             if ($deletado) {
                 http_response_code(200);
                 echo json_encode(["message" => "Categoria deletado com sucesso."]);
             } else {
                 http_response_code(404);
->>>>>>> 0096c58 (Ajustes de comentário)
                 echo json_encode(["error" => "Categoria não encontrado."]);
                 } 
-                http_response_code(200); // OK
+                http_response_code(200);
                 echo json_encode(["message" => "Categoria deletado com sucesso."]);
             
         } catch (Exception $e) {

@@ -22,7 +22,6 @@ class ProntuarioFacade {
         return $this->prontuarioModel->getAllProntuarios();
     }
 
-
     public function validateAndDeleteProntuario($id){
         if (empty($id) || $id <= 0) {
             throw new InvalidArgumentException("O ID do prontuario é obrigatório e deve ser um valor válido para a exclusão.");
@@ -45,4 +44,3 @@ class ProntuarioFacade {
         return $this->prontuarioModel->updateProntuario($prontuario);
     }
 }
-?>

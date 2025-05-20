@@ -30,6 +30,4 @@ class UsuarioController {
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
-    
 }
-?>

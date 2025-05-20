@@ -52,17 +52,3 @@ class ContatoController{
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

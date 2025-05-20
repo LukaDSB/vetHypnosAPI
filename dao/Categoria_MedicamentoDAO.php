@@ -64,19 +64,4 @@ class Categoria_MedicamentoDAO{
 
         return $result;
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-?>

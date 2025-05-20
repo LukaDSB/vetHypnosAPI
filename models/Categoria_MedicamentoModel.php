@@ -22,7 +22,6 @@ class Categoria_MedicamentoModel{
         return $this->categoria_medicamentoDAO->update($ID, $categoria_medicamento);
     }
 
-
     public function getAllCategorias(){
         return $this->categoria_medicamentoDAO->getAllCategorias();
     }
@@ -31,8 +30,3 @@ class Categoria_MedicamentoModel{
         return $this->categoria_medicamentoDAO->checkId($id);
     }
 }
-
-
-
-
-?>

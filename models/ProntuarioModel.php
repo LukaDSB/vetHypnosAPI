@@ -17,11 +17,9 @@ class ProntuarioModel{
         return $this->prontuarioDAO->delete($id);
     }
 
-
     public function updateprontuario($prontuario){
         return $this->prontuarioDAO->update($prontuario);
     }
-
 
     public function getAllProntuarios(){
         return $this->prontuarioDAO->getAllProntuarios();
@@ -32,7 +30,3 @@ class ProntuarioModel{
         return $this->prontuarioDAO->checkId($id);
     }
 }
-
-
-
-?>

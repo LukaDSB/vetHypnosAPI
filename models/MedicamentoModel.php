@@ -31,8 +31,4 @@ class MedicamentoModel {
     public function updateMedicamento(int $id, $medicamento): bool {
         return $this->medicamentoDAO->update($id, $medicamento);
     }
-    
 }
-
-
-?>

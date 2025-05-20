@@ -75,4 +75,3 @@ class AnimalDAO {
         return $stmt->execute();
     }
 }
-?>

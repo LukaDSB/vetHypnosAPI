@@ -71,4 +71,3 @@ class Medicamento {
     public function getValidade() { return $this->validade; }
     public function getQuantidade() { return $this->quantidade; }
 }
-?>

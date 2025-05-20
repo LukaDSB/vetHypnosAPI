@@ -10,7 +10,6 @@ class AnimalFacade {
 
     public function createAnimal(array $data): bool {
         $animal = Animal::fromArray($data);
-
         return $this->animalModel->createAnimal($animal);
     }
 
@@ -19,12 +18,8 @@ class AnimalFacade {
     }
 
     public function atualizarAnimal(array $data): bool {
-        if (empty($data['id'])) {
-            throw new InvalidArgumentException("O id do animal é obrigatório para a atualização.");
-        }
-
+        empty($data['id']) ? throw new InvalidArgumentException("O id do animal é obrigatório para a atualização.") : null;
         $animal = Animal::fromArray($data);
-
         return $this->animalModel->atualizarAnimal($animal);
     }
 
@@ -32,4 +27,3 @@ class AnimalFacade {
         return $this->animalModel->delete($id);
     }
 }
-?>

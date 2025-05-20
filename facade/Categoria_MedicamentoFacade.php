@@ -35,20 +35,5 @@ public function validateAndDeleteCategoria_Medicamento(int $id): bool{
         throw new InvalidArgumentException('A categoria com este id não existe');
     }
     return $this->categoria_medicamentoModel->deleteCategoria_Medicamento($id);
-
 }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-?>

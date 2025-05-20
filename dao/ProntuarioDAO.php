@@ -65,8 +65,4 @@ class ProntuarioDAO {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? true : false;
     }
-
-
-   
 }
-?>

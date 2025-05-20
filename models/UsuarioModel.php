@@ -19,4 +19,3 @@ class UsuarioModel {
         return $this->userDAO->getAllUsuarios();
     }
 }
-?>

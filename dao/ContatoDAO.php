@@ -9,10 +9,20 @@ class ContatoDAO{
         $this->conn = $database->getConnection();
     }
 
-    public function delete(Int $id) : bool{
+    public function delete(int $id): bool {
+        $checkQuery = "SELECT COUNT(*) FROM contato WHERE id = :id";
+        $checkStmt = $this->conn->prepare($checkQuery);
+        $checkStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $checkStmt->execute();
+    
+        if ($checkStmt->fetchColumn() == 0) {
+            throw new Exception("Contato com ID $id não encontrado.");
+        }
+    
         $query = "DELETE FROM contato WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        
         return $stmt->execute();
     }
 
@@ -21,6 +31,7 @@ class ContatoDAO{
                     descricao = :descricao,
                     tipo_contato_id = :tipo_contato_id
                 WHERE id = :id";
+                
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':descricao', $contato->getDescricao());
         $stmt->bindParam('tipo_contato_id', $contato->getTipo_contato_id());
@@ -41,15 +52,6 @@ class ContatoDAO{
         $stmt->bindParam(':descricao', $contato->getDescricao());
         $stmt->bindParam('tipo_contato_id', $contato->getTipo_contato_id());
         return $stmt->execute();
-    }
-    
-    public function checkId(int $id): bool {
-        $query = "SELECT * FROM contato WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? true : false;
     }
 
     public function getAllContatos(): array {

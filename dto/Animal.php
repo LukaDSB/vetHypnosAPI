@@ -90,4 +90,3 @@ class Animal {
 
     public function getSexo() { return $this->sexo; }
 }
-?>
