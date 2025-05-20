@@ -11,10 +11,10 @@ class ProntuarioDAO {
     }
 
     public function insert(ProntuarioDTO $prontuario): bool {
-        $query = "INSERT INTO prontuario (paciente_id, usuario_id, data_prontuario, observacoes) VALUES (:paciente_id, :usuario_id, :data_prontuario, :observacoes)";
+        $query = "INSERT INTO prontuario (animal_id, usuario_id, data_prontuario, observacoes) VALUES (:animal_id, :usuario_id, :data_prontuario, :observacoes)";
         $stmt = $this->conn->prepare($query);
     
-        $stmt->bindParam(":paciente_id", $prontuario->getPaciente_id());
+        $stmt->bindParam(":animal_id", $prontuario->getAnimal_id());
         $stmt->bindParam(":usuario_id", $prontuario->getUsuario_id());
         $stmt->bindParam(":data_prontuario", $prontuario->getDataProntuario());
         $stmt->bindParam(":observacoes", $prontuario->getObservacoes());
@@ -23,11 +23,11 @@ class ProntuarioDAO {
     }
 
     public function update(ProntuarioDTO $prontuario): bool {
-        $query = "UPDATE prontuario SET paciente_id = :paciente_id, usuario_id = :usuario_id, data_prontuario = :data_prontuario, observacoes = :observacoes WHERE id = :id";
+        $query = "UPDATE prontuario SET animal_id = :animal_id, usuario_id = :usuario_id, data_prontuario = :data_prontuario, observacoes = :observacoes WHERE id = :id";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(":id",$prontuario->getId());
-        $stmt->bindParam(":paciente_id", $prontuario->getPaciente_id());
+        $stmt->bindParam(":animal_id", $prontuario->getAnimal_id());
         $stmt->bindParam(":usuario_id", $prontuario->getUsuario_id());
         $stmt->bindParam(":data_prontuario", $prontuario->getDataProntuario());
         $stmt->bindParam(":observacoes", $prontuario->getObservacoes());
