@@ -12,20 +12,32 @@ class UsuarioFacade {
         if (empty($data['nome']) || empty($data['email']) || empty($data['senha'])) {
             throw new Exception("Campos nome, email e senha são obrigatórios.");
         }
+        try{
+            $user = Usuario::fromArray($data);
+            return $this->userModel->createUser(user: $user);
 
-        $user = Usuario::fromArray($data);
-
-        return $this->userModel->createUser($user);
+        }
+        catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
     }
 
-    public function validateAndUpdateUser(array $data, int $id): bool {
+    public function validateAndUpdateUser(array $data): bool {
         if (empty($data['nome']) || empty($data['email']) || empty($data['senha'])) {
             throw new Exception("Campos nome, email e senha são obrigatórios.");
         }
-
+        try{
+        $id = $data['id'];
         $user = Usuario::fromArray($data);
-        
+        if(!$this->userModel->checkId($id)){
+            throw new Exception('O usuario com este id nao existe');
+        }
         return $this->userModel->updateUser($user, $id);
+        }
+        catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
+        
     }
 
     public function getUsers(): array {
@@ -44,6 +56,7 @@ class UsuarioFacade {
         } catch (Exception $e) {
         http_response_code($e->getCode());
         echo json_encode(["message" => $e->getMessage()]);
+        exit();
     }
     }
 

@@ -19,9 +19,9 @@ class UsuarioController {
         }
     }
 
-    public function updateUser(array $data, int $id){
+    public function updateUser(array $data){
        try {
-            $this->userFacade->validateAndUpdateUser($data, $id);
+            $this->userFacade->validateAndUpdateUser($data);
             http_response_code(201);
             echo json_encode(["message" => "Usuário alterado com sucesso."]);
         } catch (Exception $e) {

@@ -38,7 +38,7 @@ switch (true) {
             $controllerUsuario->deleteUser($id);
         }elseif($method === 'PUT'){
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerUsuario->updateUser($data, $id);
+            $controllerUsuario->updateUser($data);
         }
 
 
