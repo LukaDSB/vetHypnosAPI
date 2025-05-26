@@ -113,8 +113,8 @@ switch (true) {
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
-        $method === 'GET' ? $controllerProntuario->getAllProntuarios() : null;
-        $method === 'DELETE' ? $controllerProntuario->deleteProntuario() : null;
+            $method === 'GET' ? $controllerProntuario->getAllProntuarios() : null;
+            $method === 'DELETE' ? $controllerProntuario->deleteProntuario($id) : null;
 
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
