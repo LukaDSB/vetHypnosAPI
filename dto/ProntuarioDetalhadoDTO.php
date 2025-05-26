@@ -14,7 +14,7 @@ class ProntuarioDetalhadoDTO {
         $dto->nome_usuario = $data['nome_usuario'] ?? $data['nome_usuario'] ?? null;
         $dto->nome_animal = $data['nome_animal'] ?? $data['nome_animal'] ?? null;
         $dto->data_prontuario = $data['data_prontuario'] ?? null;
-        $dto->procedimento = $data['procedimento'] ?? null;
+        $dto->procedimento = $data['tipo_procedimento_id'] ?? null;
         $dto->status = $data['status'] ?? null;
 
         return $dto;
