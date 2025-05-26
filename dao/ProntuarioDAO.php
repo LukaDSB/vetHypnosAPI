@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../dto/ProntuarioDTO.php';
+require_once __DIR__ . '/../dto/ProntuarioDetalhadoDTO.php';
 require_once __DIR__ . '/../config/Database.php';
 
 class ProntuarioDAO {
@@ -45,13 +46,17 @@ class ProntuarioDAO {
     
 
     public function getAllProntuarios(): array {
-        $query = "SELECT * FROM prontuario";
+        $query = "SELECT p.id, u.nome as nome_usuario, a.nome as nome_animal, p.data_prontuario, p.procedimento, p.status 
+        FROM prontuario p
+        INNER JOIN usuario u ON p.usuario_id = u.id
+        INNER JOIN animal a ON p.animal_id = a.id
+        ORDER BY p.id ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = ProntuarioDTO::fromArray($row);
+            $result[] = ProntuarioDetalhadoDTO::fromArray($row);
         }
 
         return $result;

@@ -1,6 +1,10 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: http://localhost:4200");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ini_set('display_errors', 0);
+error_reporting(0);
 
 require_once 'controllers/UsuarioController.php';
 require_once 'controllers/AnimalController.php';
@@ -106,23 +110,24 @@ switch (true) {
         }
         break;
 
-        case(strpos($path, '/minhaapi/prontuario')===0):
-            $parts = explode('/', $path);
-            $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+    case(strpos($path, '/minhaapi/prontuario')===0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
-            $method === 'GET' ? $controllerProntuario->getAllProntuarios() : null;
-            $method === 'DELETE' ? $controllerProntuario->deleteProntuario() : null;
+        $method === 'GET' ? $controllerProntuario->getAllProntuarios() : null;
+        $method === 'DELETE' ? $controllerProntuario->deleteProntuario() : null;
 
-            if ($method === 'POST') {
-                $data = json_decode(file_get_contents("php://input"), true);
-                $controllerProntuario->createprontuario($data);
-            } 
-            if ($method === 'PUT') {
-                $data = json_decode(file_get_contents("php://input"), true);
-                $controllerProntuario->updateprontuario($data);
-            }
-            break;
-        default:
-            http_response_code(404);
-            echo json_encode(["message" => "Rota não encontrada."]);
+        if ($method === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerProntuario->createprontuario($data);
+        } 
+        if ($method === 'PUT') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerProntuario->updateprontuario($data);
+        }
+        break;
+        
+    default:
+        http_response_code(404);
+        echo json_encode(["message" => "Rota não encontrada."]);
 }
