@@ -8,7 +8,7 @@ require_once 'controllers/MedicamentoController.php';
 require_once 'controllers/Categoria_MedicamentoController.php';
 require_once 'controllers/ContatoController.php';
 require_once 'controllers/ProntuarioController.php';
-
+require_once 'controllers/TutorController.php';
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($request, PHP_URL_PATH);
@@ -19,7 +19,7 @@ $controllerMedicamento = new MedicamentoController();
 $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
 $controllerContato = new ContatoController();
 $controllerProntuario = new ProntuarioController();
-
+$controllerTutor = new TutorController();
 switch (true) {
     case ($path === '/minhaapi/usuario'):
         $method == 'GET' ? $controllerUsuario->getAllUsers() : null;
@@ -111,7 +111,7 @@ switch (true) {
             $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
             $method === 'GET' ? $controllerProntuario->getAllProntuarios() : null;
-            $method === 'DELETE' ? $controllerProntuario->deleteProntuario() : null;
+            $method === 'DELETE' ? $controllerProntuario->deleteProntuario($id) : null;
 
             if ($method === 'POST') {
                 $data = json_decode(file_get_contents("php://input"), true);
@@ -122,6 +122,25 @@ switch (true) {
                 $controllerProntuario->updateprontuario($data);
             }
             break;
+            
+        case(strpos($path, '/minhaapi/tutor')===0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
+        $method === 'GET' ? $controllerTutor->getAllTutores() : null;
+        $method === 'DELETE' ? $controllerProntuario->deleteProntuario($id) : null;
+
+        if ($method === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerProntuario->createprontuario($data);
+        } 
+        if ($method === 'PUT') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerProntuario->updateprontuario($data);
+        }
+            break;
+
+
         default:
             http_response_code(404);
             echo json_encode(["message" => "Rota não encontrada."]);
