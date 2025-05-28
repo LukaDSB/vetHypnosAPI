@@ -8,6 +8,8 @@ require_once 'controllers/MedicamentoController.php';
 require_once 'controllers/Categoria_MedicamentoController.php';
 require_once 'controllers/ContatoController.php';
 require_once 'controllers/ProntuarioController.php';
+require_once 'controllers/EspecialidadeController.php';
+
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -19,6 +21,7 @@ $controllerMedicamento = new MedicamentoController();
 $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
 $controllerContato = new ContatoController();
 $controllerProntuario = new ProntuarioController();
+$controllerEspecialidade = new EspecialidadeController();
 
 switch (true) {
     case ($path === '/minhaapi/usuario'):
@@ -113,6 +116,7 @@ switch (true) {
             $method === 'GET' ? $controllerProntuario->getAllProntuarios() : null;
             $method === 'DELETE' ? $controllerProntuario->deleteProntuario() : null;
 
+<<<<<<< Updated upstream
             if ($method === 'POST') {
                 $data = json_decode(file_get_contents("php://input"), true);
                 $controllerProntuario->createprontuario($data);
@@ -125,4 +129,37 @@ switch (true) {
         default:
             http_response_code(404);
             echo json_encode(["message" => "Rota não encontrada."]);
+=======
+        if ($method === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerProntuario->createprontuario($data);
+        } 
+        if ($method === 'PUT') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerProntuario->updateprontuario($data);
+        }
+        break;
+
+        case(strpos($path, '/minhaapi/especialidade')===0):
+            $parts = explode('/', $path);
+            $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
+            $method === 'GET' ? $controllerEspecialidade->getAllEspecialidades() : null;
+            $method === 'DELETE' ? $controllerEspecialidade->deleteEspecialidade($id) : null;
+
+            if ($method === 'POST') {
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerEspecialidade->createEspecialidade($data);
+            } 
+            if ($method === 'PUT') {
+                $data = json_decode(file_get_contents("php://input"), true);
+                $controllerEspecialidade->updateEspecialidade($data, $id);
+            }
+            break;
+
+        
+    default:
+        http_response_code(404);
+        echo json_encode(["message" => "Rota não encontrada."]);
+>>>>>>> Stashed changes
 }
