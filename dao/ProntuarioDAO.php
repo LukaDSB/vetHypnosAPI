@@ -12,7 +12,7 @@ class ProntuarioDAO {
     }
 
     public function getAllProntuarios(): array {
-        $query = "SELECT p.id, u.nome as usuario_nome, u.id as usuario_id, a.nome as animal_nome, a.id as animal_id, p.data_prontuario, p.tipo_procedimento_id, p.status_prontuario, p.observacoes
+        $query = "SELECT p.id, u.nome as usuario_nome, u.id as usuario_id, a.nome as animal_nome, a.id as animal_id, p.data_prontuario, p.tipo_procedimento_id, p.status, p.observacoes
         FROM prontuario p
         INNER JOIN usuario u ON p.usuario_id = u.id
         INNER JOIN animal a ON p.animal_id = a.id
