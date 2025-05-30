@@ -31,10 +31,9 @@ class Tutor{
         public static function fromArray(array $data):self{
             $endereco = null;
             $contato = null;
-            $contatoDAO = new ContatoDAO();
 
-            if(!empty($data['contato_id'])){
-                $contato = $contatoDAO->selectById($data['contato_id']);
+            if(!empty($data['contato_id']) && !empty($data['tipo_contato_id'])){
+                $contato = ContatoDTO::fromArray($data);
             }
             
 
@@ -59,8 +58,8 @@ class Tutor{
         public function toArray(): array {
             return [
                 'id' => $this->id,
-                'nome' => $this->nome,
-                'cpf' => $this->cpf,
+                'tutor_nome' => $this->nome,
+                'tutor_cpf' => $this->cpf,
                 'endereco_id' => $this->endereco_id,
                 'contato_id' => $this->contato_id,
                 'endereco' => $this->endereco ? $this->endereco->toArray() : null,

@@ -8,9 +8,9 @@ class TutorFacade {
         $this->tutorModel = new TutorModel();
     }
 
-    public function createAnimal(array $data): bool {
-        $animal = Animal::fromArray($data);
-        return $this->animalModel->createAnimal($animal);
+    public function createTutor(array $data): bool {
+        $tutor = TutorDTO::fromArray($data);
+        return $this->tutorModel->create($tutor);
     }
 
     public function getAll(): array {
@@ -18,19 +18,27 @@ class TutorFacade {
     }
 
     public function getById(int $id){
-        if(empty($this->tutorModel->getById($id))){
+        if(empty($this->tutorModel->checkId($id))){
             throw new Exception('Nenhum tutor com esse id foi encontrado');
         }
         return $this->tutorModel->getById($id);
     }
 
-    public function atualizarAnimal(array $data): bool {
-        empty($data['id']) ? throw new InvalidArgumentException("O id do animal é obrigatório para a atualização.") : null;
-        $animal = Animal::fromArray($data);
-        return $this->animalModel->atualizarAnimal($animal);
+    public function update(array $data): bool {
+        empty($data['tutor_id']) ? throw new InvalidArgumentException("O id do tutor é obrigatório para a atualização.") : null;
+        if(!$this->tutorModel->checkId($data['tutor_id'])){
+            throw new Exception("Nenhum tutor com esse id foi encontrado.");
+        }
+        $tutor = TutorDTO::fromArray($data);
+        return $this->tutorModel->update($tutor);
     }
 
-    public function delete(int $id): bool {
-        return $this->animalModel->delete($id);
+    public function delete($id): bool {
+
+        empty($id) ? throw new InvalidArgumentException("O id do tutor é obrigatório para a exclusao.") : null;
+        if(!$this->tutorModel->checkId($id)){
+            throw new Exception("Nenhum tutor com esse id foi encontrado.");
+        }
+        return $this->tutorModel->delete($id);
     }
 }

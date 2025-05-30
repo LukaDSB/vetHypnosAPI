@@ -8,8 +8,8 @@ class TutorModel{
         $this->tutorDAO = new TutorDAO();
     }
 
-    public function create ( $animal ): bool {
-        return $this->animalDAO->insert($animal);
+    public function create ( $tutor ): bool {
+        return $this->tutorDAO->insert($tutor);
     }
 
     public function getById(int $id) {
@@ -20,10 +20,13 @@ class TutorModel{
         return $this->tutorDAO->getAll();
     }
 
-    public function update( $animal ) {
-        return $this->tutorDAO->atualizarAnimal($animal);
+    public function update( $tutor ) {
+        return $this->tutorDAO->update($tutor);
     }
-    public function delete($id){
+    public function checkId(int $id){
+        return $this->tutorDAO->checkId($id);
+    }
+    public function delete(int $id){
         return $this->tutorDAO->delete($id);
     }
 

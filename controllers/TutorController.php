@@ -8,11 +8,11 @@ class TutorController {
         $this->tutorFacade = new TutorFacade();
     }
 
-    public function createAnimal(array $data): void {
+    public function createTutor(array $data): void {
         try {
-            $this->tutorFacade->createAnimal($data);
+            $this->tutorFacade->createTutor($data);
             http_response_code(201);
-            echo json_encode(["message" => "Paciente criado com sucesso."]);
+            echo json_encode(["message" => "Tutor criado com sucesso."]);
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode(["message" => $e->getMessage()]);
@@ -43,22 +43,22 @@ class TutorController {
         }
     }
 
-    public function atualizarAnimal(array $data): void {
+    public function updateTutor(array $data): void {
         try {
-            $this->tutorFacade->atualizarAnimal($data);
+            $this->tutorFacade->update($data);
             http_response_code(200);
-            echo json_encode(["message" => "Animal atualizado com sucesso."]);
+            echo json_encode(["message" => "Tutor atualizado com sucesso."]);
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
 
-    public function delete(int $id){
+    public function delete($id){
         try {
             $this->tutorFacade->delete($id);
             http_response_code(200);
-            echo json_encode(["message" => "Animal excluído com sucesso."]);
+            echo json_encode(["message" => "Tutor excluído com sucesso."]);
         } catch (\Throwable $e) {
             http_response_code(400);
             echo json_encode(["message" => $e->getMessage()]);

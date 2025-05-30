@@ -127,16 +127,24 @@ switch (true) {
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
-        $method === 'GET' ? $controllerTutor->getAllTutores() : null;
-        $method === 'DELETE' ? $controllerProntuario->deleteProntuario($id) : null;
+        if ($method === 'GET') {
+            
+           if(is_numeric($id)){
+               $controllerTutor->getTutorById($id);
+               exit();
+            }
+            $controllerTutor->getAllTutores();
+
+        } 
+        $method === 'DELETE' ? $controllerTutor->delete($id) : null;
 
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerProntuario->createprontuario($data);
+            $controllerTutor->createTutor($data);
         } 
         if ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerProntuario->updateprontuario($data);
+            $controllerTutor->updateTutor($data);
         }
             break;
 
