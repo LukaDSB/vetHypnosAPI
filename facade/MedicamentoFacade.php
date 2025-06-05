@@ -48,7 +48,7 @@ class MedicamentoFacade {
         if (!$this->medicamentoModel->checkId($id)) {
             throw new InvalidArgumentException("O medicamento com esse id não existe");
         }
-       $medicamento = Medicamento::fromArray($data);
+       $medicamento = MedicamentoDTO::fromArray($data);
         return $this->medicamentoModel->updateMedicamento($id, $medicamento);
         
     }
