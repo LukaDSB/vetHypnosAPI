@@ -96,7 +96,7 @@ class TutorDAO{
         return $result;
     }
 
-    public function update(Tutor $tutor): bool {
+    public function update( $id, Tutor $tutor ): bool {
         $query = "UPDATE tutor SET 
                     nome = :nome,
                     cpf = :cpf,
@@ -108,7 +108,7 @@ class TutorDAO{
         $stmt->bindParam(':cpf', $tutor->getCpf());
         $stmt->bindParam(':endereco_id', $tutor->getEnderecoId());
         $stmt->bindParam(':contato_id', $tutor->getContatoId());
-        $stmt->bindParam(':id', $tutor->getId());
+        $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
     public function checkId(int $id){

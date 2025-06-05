@@ -113,20 +113,20 @@ switch (true) {
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
-            $method === 'GET' ? $controllerProntuario->getAllProntuarios() : null;
-            $method === 'DELETE' ? $controllerProntuario->deleteProntuario($id) : null;
+        $method === 'GET' ? $controllerProntuario->getAllProntuarios() : null;
+        $method === 'DELETE' ? $controllerProntuario->deleteProntuario($id) : null;
 
-            if ($method === 'POST') {
-                $data = json_decode(file_get_contents("php://input"), true);
-                $controllerProntuario->createprontuario($data);
-            } 
-            if ($method === 'PUT') {
-                $data = json_decode(file_get_contents("php://input"), true);
-                $controllerProntuario->updateprontuario($data);
-            }
-            break;
+        if ($method === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerProntuario->createprontuario($data);
+        } 
+        if ($method === 'PUT') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerProntuario->updateprontuario($data);
+        }
+        break;
             
-        case(strpos($path, '/minhaapi/tutor')===0):
+    case(strpos($path, '/minhaapi/tutor')===0):
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
@@ -147,7 +147,7 @@ switch (true) {
         } 
         if ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerTutor->updateTutor($data);
+            $controllerTutor->updateTutor($id, $data);
         }
             break;
 
