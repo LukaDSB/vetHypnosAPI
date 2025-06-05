@@ -24,13 +24,10 @@ class TutorFacade {
         return $this->tutorModel->getById($id);
     }
 
-    public function update(array $data): bool {
-        empty($data['tutor_id']) ? throw new InvalidArgumentException("O id do tutor é obrigatório para a atualização.") : null;
-        if(!$this->tutorModel->checkId($data['tutor_id'])){
-            throw new Exception("Nenhum tutor com esse id foi encontrado.");
-        }
+    public function update($id, array $data): bool {
+        !$id ? throw new InvalidArgumentException("O id do tutor é obrigatório para a atualização.") : null;
         $tutor = TutorDTO::fromArray($data);
-        return $this->tutorModel->update($tutor);
+        return $this->tutorModel->update($id, $tutor);
     }
 
     public function delete($id): bool {

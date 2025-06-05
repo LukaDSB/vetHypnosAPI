@@ -20,8 +20,8 @@ class TutorModel{
         return $this->tutorDAO->getAll();
     }
 
-    public function update( $tutor ) {
-        return $this->tutorDAO->update($tutor);
+    public function update( $id, $tutor ) {
+        return $this->tutorDAO->update($id, $tutor);
     }
     public function checkId(int $id){
         return $this->tutorDAO->checkId($id);

@@ -43,9 +43,9 @@ class TutorController {
         }
     }
 
-    public function updateTutor(array $data): void {
+    public function updateTutor($id, array $data): void {
         try {
-            $this->tutorFacade->update($data);
+            $this->tutorFacade->update($id, $data);
             http_response_code(200);
             echo json_encode(["message" => "Tutor atualizado com sucesso."]);
         } catch (Exception $e) {
