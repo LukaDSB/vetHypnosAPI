@@ -10,7 +10,7 @@ class ProntuarioController {
 
     public function createProntuario(array $data): void {
         try {
-            $this->prontuarioFacade->validateAndCreateProntuario($data);
+            $this->prontuarioFacade->createProntuario($data);
             http_response_code(201);
             echo json_encode(["message" => "Prontuario criada com sucesso."]);
         } catch (Exception $e) {
@@ -42,9 +42,9 @@ class ProntuarioController {
         }
     }
 
-    public function updateProntuario(array $data): void {
+    public function updateProntuario(array $data, $id): void {
         try {
-            $this->prontuarioFacade->validateAndUpdateProntuario($data);
+            $this->prontuarioFacade->updateProntuario($data, $id);
             http_response_code(201);
             echo json_encode(["message" => "Prontuario alterada com sucesso."]);
         } catch (Exception $e) {

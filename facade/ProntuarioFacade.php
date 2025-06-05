@@ -8,12 +8,12 @@ class ProntuarioFacade {
         $this->prontuarioModel = new ProntuarioModel();
     }
 
-    public function validateAndCreateProntuario(array $data): bool {
-        if (empty($data['paciente_id']) || empty($data['usuario_id'])) {
-            throw new Exception("Campos paciente_id e usuario_id são obrigatórios.");
+    public function createProntuario(array $data): bool {
+        if (empty($data['animal_id']) || empty($data['usuario_id'])) {
+            throw new Exception("Campos animal_id e usuario_id são obrigatórios.");
         }
 
-        $prontuario = ProntuarioDTO::fromArray($data);
+        $prontuario = ProntuarioDetalhadoDTO::fromArray($data);
 
         return $this->prontuarioModel->createProntuario($prontuario);
     }
@@ -32,15 +32,14 @@ class ProntuarioFacade {
         return $this->prontuarioModel->deleteProntuario($id);
     }
 
-    public function validateAndUpdateProntuario($data){
-        $prontuario = ProntuarioDTO::fromArray($data);
-        $id = $prontuario->getId();
+    public function updateProntuario($data, $id){
+        $prontuario = ProntuarioDetalhadoDTO::fromArray($data);
         if (empty($id) || $id <= 0) {
             throw new InvalidArgumentException("O ID do prontuario é obrigatório e deve ser um valor válido para a atualizacao.");
         }
         if(!$this->prontuarioModel->checkId($id)) {
             throw new InvalidArgumentException("O prontuario com este id nao existe.");
         }
-        return $this->prontuarioModel->updateProntuario($prontuario);
+        return $this->prontuarioModel->updateProntuario($prontuario, $id);
     }
 }
