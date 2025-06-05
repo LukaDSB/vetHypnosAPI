@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/Database.php';
-require_once __DIR__ . '/../dto/Contato.php';
+require_once __DIR__ . '/../dto/ContatoDTO.php';
 class ContatoDAO{
     private $conn;
 
@@ -26,7 +26,7 @@ class ContatoDAO{
         return $stmt->execute();
     }
 
-    public function update(int $id, Contato $contato): bool {
+    public function update(int $id, ContatoDTO $contato): bool {
         $sql = "UPDATE contato SET 
                     descricao = :descricao,
                     tipo_contato_id = :tipo_contato_id
@@ -40,7 +40,7 @@ class ContatoDAO{
         return $stmt->execute();
     }
 
-    public function insert(Contato $contato): bool {
+    public function insert(ContatoDTO $contato): bool {
         $query = "INSERT INTO contato (
         descricao,
         tipo_contato_id
@@ -63,8 +63,20 @@ class ContatoDAO{
 
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = Contato::fromArray($row);
+            $result[] = ContatoDTO::fromArray($row);
         }
+        return $result;
+    }
+
+    public function selectById(int $id) {
+        $query = "SELECT c.*, 
+              t.descricao as tipo_contato_descricao
+              FROM contato c LEFT JOIN tipo_contato t ON c.tipo_contato_id = t.id
+              where c.id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = ContatoDTO::fromArray($stmt->fetch(PDO::FETCH_ASSOC)) ;
         return $result;
     }
 }

@@ -34,7 +34,7 @@ class Medicamento {
         }
 
 
-        return new MedicamentoDTO(
+        return new Medicamento(
             isset($data['id']) ? (int) $data['id'] : null,
             $data['nome'],
             $data['concentracao'],

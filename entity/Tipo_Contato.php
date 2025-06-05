@@ -10,15 +10,15 @@ class Tipo_Contato {
 
     public function toArray(): array {
         return [
-            'id' => $this->id,
-            'descricao' => $this->descricao,
+            'tipo_contato_id' => $this->id,
+            'tipo_contato_descricao' => $this->descricao,
         ];
     }
 
     public static function fromArray(array $data): self {
         return new self(
-            isset($data['id']) ? (int) $data['id'] : null,
-            $data['descricao'],
+            isset($data['tipo_contato_id']) ? (int) $data['tipo_contato_id'] : null,
+            $data['tipo_contato_descricao'],
         );
     }
 }
