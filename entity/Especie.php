@@ -10,15 +10,18 @@ class Especie  {
 
     public static function fromArray(array $data): self {
         return new self(
-            isset($data['id']) ? (int) $data['id'] : null,
+            isset($data['especie_id']) ? (int) $data['especie_id'] : null,
             $data['especie'],
         );
     }
 
     public function toArray(): array {
         return [
-            'id' => $this->id,
+            'especie_id' => $this->id,
             'especie' => $this->especie,
         ];
     }
+
+    public function getId(): ?int {return $this->id;}
+    public function getEspecie():?string {return $this->especie;}
 }
