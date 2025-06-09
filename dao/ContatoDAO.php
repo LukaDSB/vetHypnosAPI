@@ -26,7 +26,7 @@ class ContatoDAO{
         return $stmt->execute();
     }
 
-    public function update(int $id, ContatoDTO $contato): bool {
+    public function update(int $id, Contato $contato): bool {
         $sql = "UPDATE contato SET 
                     descricao = :descricao,
                     tipo_contato_id = :tipo_contato_id
@@ -40,7 +40,7 @@ class ContatoDAO{
         return $stmt->execute();
     }
 
-    public function insert(ContatoDTO $contato): bool {
+    public function insert(Contato $contato): bool {
         $query = "INSERT INTO contato (
         descricao,
         tipo_contato_id
@@ -63,7 +63,7 @@ class ContatoDAO{
 
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = ContatoDTO::fromArray($row);
+            $result[] = Contato::fromArray($row);
         }
         return $result;
     }
@@ -76,7 +76,7 @@ class ContatoDAO{
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $result = ContatoDTO::fromArray($stmt->fetch(PDO::FETCH_ASSOC)) ;
+        $result = Contato::fromArray($stmt->fetch(PDO::FETCH_ASSOC)) ;
         return $result;
     }
 }
