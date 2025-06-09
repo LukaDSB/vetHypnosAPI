@@ -36,8 +36,8 @@ class Contato{
             $tipo_contato = Tipo_Contato::fromArray($data);
         }
         return new self(
-            isset($data['contato_id']) ? (int) $data['contato_id'] : null,
-            $data['contato_descricao'],
+            isset($data['id']) ? (int) $data['id'] : null,
+            $data['descricao'],
             $data['tipo_contato_id'],
             $tipo_contato
         );
