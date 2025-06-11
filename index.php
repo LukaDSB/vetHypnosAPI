@@ -12,6 +12,7 @@ require_once 'controllers/Categoria_MedicamentoController.php';
 require_once 'controllers/ContatoController.php';
 require_once 'controllers/ProntuarioController.php';
 require_once 'controllers/TutorController.php';
+require_once 'controllers/EspecieController.php';
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($request, PHP_URL_PATH);
@@ -23,6 +24,7 @@ $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
 $controllerContato = new ContatoController();
 $controllerProntuario = new ProntuarioController();
 $controllerTutor = new TutorController();
+$controllerEspecie = new EspecieController();
 switch (true) {
     case ($path === '/minhaapi/usuario'):
         $method == 'GET' ? $controllerUsuario->getAllUsers() : null;
@@ -122,7 +124,7 @@ switch (true) {
         } 
         if ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerProntuario->updateprontuario($data);
+            $controllerProntuario->updateprontuario($data, $id);
         }
         break;
             
@@ -148,6 +150,46 @@ switch (true) {
         if ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerTutor->updateTutor($id, $data);
+        }
+            break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        case(strpos($path, '/minhaapi/especie')===0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
+        if ($method === 'GET') {
+            
+           if(is_numeric($id)){
+               $controllerEspecie->getEspecie($id);
+               exit();
+            }
+            $controllerEspecie->getAllEspecies();
+
+        } 
+        $method === 'DELETE' ? $controllerEspecie->deleteEspecie($id) : null;
+
+        if ($method === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerEspecie->createEspecie($data);
+        } 
+        if ($method === 'PUT') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $controllerEspecie->updateEspecie($id, $data);
         }
             break;
 
