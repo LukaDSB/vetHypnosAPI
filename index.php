@@ -12,7 +12,12 @@ require_once 'controllers/Categoria_MedicamentoController.php';
 require_once 'controllers/ContatoController.php';
 require_once 'controllers/ProntuarioController.php';
 require_once 'controllers/TutorController.php';
-require_once 'controllers/EspecieController.php';
+require_once 'controllers/EstadoController.php';
+require_once 'controllers/CidadeController.php';
+require_once 'controllers/EnderecoController.php';
+
+
+
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($request, PHP_URL_PATH);
@@ -24,7 +29,13 @@ $controllerCategoria_Medicamento = new Categoria_MedicamentoController();
 $controllerContato = new ContatoController();
 $controllerProntuario = new ProntuarioController();
 $controllerTutor = new TutorController();
-$controllerEspecie = new EspecieController();
+$controllerEstado = new EstadoController();
+$cidadeController = new CidadeController();
+$enderecoController = new EnderecoController();
+
+
+
+
 switch (true) {
     case ($path === '/minhaapi/usuario'):
         $method == 'GET' ? $controllerUsuario->getAllUsers() : null;
@@ -153,46 +164,93 @@ switch (true) {
         }
             break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        case(strpos($path, '/minhaapi/especie')===0):
+        case(strpos($path, '/minhaapi/estado')===0):
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
         if ($method === 'GET') {
             
            if(is_numeric($id)){
-               $controllerEspecie->getEspecie($id);
+               $controllerEstado->getEstado($id);
                exit();
             }
-            $controllerEspecie->getAllEspecies();
+            $controllerEstado->getAllEstados();
 
         } 
-        $method === 'DELETE' ? $controllerEspecie->deleteEspecie($id) : null;
+        $method === 'DELETE' ? $controllerEstado->deleteEstado($id) : null;
 
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerEspecie->createEspecie($data);
+            $controllerEstado->createEstado($data);
         } 
         if ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerEspecie->updateEspecie($id, $data);
+            $controllerEstado->updateEstado($id, $data);
         }
             break;
 
+
+
+
+
+
+            case(strpos($path, '/minhaapi/cidade')===0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
+        if ($method === 'GET') {
+            
+           if(is_numeric($id)){
+               $cidadeController->getCidade($id);
+               exit();
+            }
+            $cidadeController->getAllCidades();
+
+        } 
+        $method === 'DELETE' ? $cidadeController->deleteCidade($id) : null;
+
+        if ($method === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $cidadeController->createCidade($data);
+        } 
+        if ($method === 'PUT') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $cidadeController->updateCidade($id, $data);
+        }
+            break;
+
+
+
+
+
+
+
+
+
+            case(strpos($path, '/minhaapi/endereco')===0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
+        if ($method === 'GET') {
+            
+           if(is_numeric($id)){
+              $enderecoController->getEndereco($id);
+               exit();
+            }
+            $enderecoController->getAllEnderecos();
+
+        } 
+        $method === 'DELETE' ? $enderecoController->deleteEndereco($id) : null;
+
+        if ($method === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $enderecoController->createEndereco($data);
+        } 
+        if ($method === 'PUT') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $enderecoController->updateEndereco($id, $data);
+        }
+            break;
 
         default:
             http_response_code(404);

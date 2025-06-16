@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__ ."/../config/Database.php";
-require_once __DIR__ ."/../dto/EspecieDTO.php";
+require_once __DIR__ ."/../config/database.php";
+require_once __DIR__ ."/../dto/EstadoDTO.php";
 
 
-class EspecieDAO{
+class EstadoDAO{
 
     private $conn;
 
@@ -13,32 +13,33 @@ class EspecieDAO{
         $this->conn = $database->getConnection();
     }
 
-    public function createEspecie(EspecieDTO $especie){
-        $sql = "insert into especie(especie) values (:especie)";
+    public function createEstado(EstadoDTO $estado){
+        $sql = "insert into estado(nome) values (:nome)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(":especie", $especie->getEspecie());
+        $stmt->bindParam(":nome", $estado->getNome());
          return $stmt->execute();
     }
 
-    public function getAllEspecies(){
+    public function getAllEstados(){
         $sql = "
-        select id as especie_id,
-        especie from especie
+        select id as estado_id,
+        nome as estado_nome
+        from estado
         ";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = EspecieDTO::fromArray($row);
+            $result[] = EstadoDTO::fromArray($row);
         }
         return $result;
     }
 
-    public function getEspecie(int $id){
+    public function getEstado(int $id){
         $sql = "
-        select id as especie_id,
-        especie
-        from especie
+        select id as estado_id,
+        nome as estado_nome
+        from estado
         where id = :id
         ";
         $stmt = $this->conn->prepare($sql);
@@ -46,38 +47,38 @@ class EspecieDAO{
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if(empty($row)){
-            throw new Exception("Nenhuma especie com esse id foi encontrada");
+            throw new Exception("Nenhum estado com esse id foi encontrado");
         }
-        $result = EspecieDTO::fromArray($row);
+        $result = EstadoDTO::fromArray($row);
         
         return $result;
     }
 
-    public function updateEspecie(int $id, EspecieDTO $especie){
+    public function updateEstado(int $id, EstadoDTO $estado){
         $sql = "
-        update especie set
-        especie = :especie
+        update estado set
+        nome = :nome
         where id = :id
         ";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(":especie", $especie->getEspecie());
+        $stmt->bindParam(":nome", $estado->getNome());
         $stmt->bindParam(":id", $id);
         $stmt->execute();
         if ($stmt->rowCount() == 0) {
-            throw new Exception("Nenhuma especie com esse id foi encontrada");
+            throw new Exception("Nenhum estado com esse id foi encontrado");
         }
     }
 
-    public function deleteEspecie(int $id){
+    public function deleteEstado(int $id){
         $sql = "
-        delete from especie
+        delete from estado
         where id = :id
         ";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
         if ($stmt->rowCount() == 0) {
-            throw new Exception("Nenhuma especie com esse id foi encontrada");
+            throw new Exception("Nenhum estado com esse id foi encontrado");
         }
     }
 
