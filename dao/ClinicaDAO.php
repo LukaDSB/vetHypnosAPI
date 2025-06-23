@@ -22,7 +22,7 @@ class ClinicaDAO{
         ) values (
         :nome, 
         :endereco_id, 
-        :contato_id, 
+        :contato_id)
         ";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(":nome", $clinica->getNome());
@@ -49,15 +49,15 @@ class ClinicaDAO{
         c.estado_id,
         es.nome as estado_nome
         from clinica cli
-        join
+        left join
         contato co on co.id = cli.contato_id
-        join
+        left join
         tipo_contato ti on ti.id = co.tipo_contato_id
-		join
+		left join
         endereco e on e.id = cli.endereco_id
-        join
+        left join
         cidade c on c.id = e.cidade_id
-        join
+        left join
         estado es on es.id = c.estado_id
         ;
         ";
@@ -88,15 +88,15 @@ class ClinicaDAO{
         c.estado_id,
         es.nome as estado_nome
         from clinica cli
-        join
+        left join
         contato co on co.id = cli.contato_id
-        join
+        left join
         tipo_contato ti on ti.id = co.tipo_contato_id
-		join
+		left join
         endereco e on e.id = cli.endereco_id
-        join
+        left join
         cidade c on c.id = e.cidade_id
-        join
+        left join
         estado es on es.id = c.estado_id
         where cli.id = :id
         ;
@@ -118,7 +118,7 @@ class ClinicaDAO{
         update clinica set
         nome = :nome,
         endereco_id = :endereco_id,
-        contato_id = :contato_id,
+        contato_id = :contato_id
         where id = :id
         ";
         $stmt = $this->conn->prepare($sql);

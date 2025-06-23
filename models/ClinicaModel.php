@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ ."/../dao/ClinicaDTO.php";
+require_once __DIR__ ."/../dao/ClinicaDAO.php";
 
 class ClinicaModel{
     private $clinicaDAO;
