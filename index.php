@@ -15,6 +15,7 @@ require_once 'controllers/TutorController.php';
 require_once 'controllers/EstadoController.php';
 require_once 'controllers/CidadeController.php';
 require_once 'controllers/EnderecoController.php';
+require_once 'controllers/ClinicaController.php';
 
 
 
@@ -32,6 +33,7 @@ $controllerTutor = new TutorController();
 $controllerEstado = new EstadoController();
 $cidadeController = new CidadeController();
 $enderecoController = new EnderecoController();
+$clinicaController = new ClinicaController();
 
 
 
@@ -228,29 +230,57 @@ switch (true) {
 
 
             case(strpos($path, '/minhaapi/endereco')===0):
-        $parts = explode('/', $path);
-        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+                $parts = explode('/', $path);
+                $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
 
-        if ($method === 'GET') {
-            
-           if(is_numeric($id)){
-              $enderecoController->getEndereco($id);
-               exit();
-            }
-            $enderecoController->getAllEnderecos();
+                if ($method === 'GET') {
+                    
+                if(is_numeric($id)){
+                    $enderecoController->getEndereco($id);
+                    exit();
+                    }
+                    $enderecoController->getAllEnderecos();
 
-        } 
-        $method === 'DELETE' ? $enderecoController->deleteEndereco($id) : null;
+                } 
+                $method === 'DELETE' ? $enderecoController->deleteEndereco($id) : null;
 
-        if ($method === 'POST') {
-            $data = json_decode(file_get_contents("php://input"), true);
-            $enderecoController->createEndereco($data);
-        } 
-        if ($method === 'PUT') {
-            $data = json_decode(file_get_contents("php://input"), true);
-            $enderecoController->updateEndereco($id, $data);
-        }
-            break;
+                if ($method === 'POST') {
+                    $data = json_decode(file_get_contents("php://input"), true);
+                    $enderecoController->createEndereco($data);
+                } 
+                if ($method === 'PUT') {
+                    $data = json_decode(file_get_contents("php://input"), true);
+                    $enderecoController->updateEndereco($id, $data);
+                }
+                    break;
+
+                case(strpos($path, '/minhaapi/clinica')===0):
+                $parts = explode('/', $path);
+                $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+
+                if ($method === 'GET') {
+                    
+                if(is_numeric($id)){
+                    $clinicaController->getClinica($id);
+                    exit();
+                    }
+                    $clinicaController->getAllClinicas();
+
+                } 
+                $method === 'DELETE' ? $clinicaController->deleteClinica($id) : null;
+
+                if ($method === 'POST') {
+                    $data = json_decode(file_get_contents("php://input"), true);
+                    $clinicaController->createClinica($data);
+                } 
+                if ($method === 'PUT') {
+                    $data = json_decode(file_get_contents("php://input"), true);
+                    $clinicaController->updateClinica($id, $data);
+                }
+                    break;
+
+
+
 
         default:
             http_response_code(404);
