@@ -37,7 +37,7 @@ class Contato{
         }
         return new self(
             isset($data['id']) ? (int) $data['id'] : null,
-            $data['descricao'],
+            $data['contato_descricao'],
             $data['tipo_contato_id'],
             $tipo_contato
         );
