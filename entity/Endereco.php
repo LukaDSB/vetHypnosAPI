@@ -23,13 +23,12 @@ class Endereco{
 
     
     public static function fromArray($data): self {
-
         return new self(
-    isset($data["endereco_id"]) ? (int) $data["endereco_id"] : null,
-    $data["endereco_rua"],
-    $data['endereco_numero'],
-    $data["endereco_bairro"],
-    cidade_id:   $data["cidade_id"]
+        isset($data["endereco_id"]) ? (int) $data["endereco_id"] : null,
+        $data["endereco_rua"],
+        $data['endereco_numero'],
+        $data["endereco_bairro"],
+        $data["cidade_id"]
 
         );
     }

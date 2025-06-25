@@ -38,10 +38,8 @@ class Tutor{
             
 
             if(!empty($data['endereco_id'])){
-                $endereco = new Endereco();
+                $endereco = EnderecoDTO::fromArray($data);
             }
-
-
           
             return new Tutor(
                 isset($data['tutor_id']) ? (int) $data['tutor_id'] : null,
