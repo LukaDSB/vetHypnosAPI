@@ -19,8 +19,7 @@ class ContatoFacade{
         return $this->contatoModel->getAllContatos();
     }
 
-    public function validateAndUpdateContato(array $data): bool {
-        $id = (int) $data['id'];
+    public function validateAndUpdateContato($id, array $data): bool {
         $contato = Contato::fromArray($data);
         return $this->contatoModel->updateContato($id, $contato);
     }

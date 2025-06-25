@@ -20,9 +20,9 @@ class ContatoController{
         }
     }
 
-    public function updateContato(array $data){
+    public function updateContato($id, array $data){
         try{
-            $this->contatoFacade->validateAndUpdateContato($data);
+            $this->contatoFacade->validateAndUpdateContato($id, $data);
             http_response_code(200);
             echo json_encode(["message" => "Contato atualizado com sucesso."]);
         }catch(Exception $e){

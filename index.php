@@ -120,7 +120,7 @@ switch (true) {
         }
         if ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerContato->updateContato($data);
+            $controllerContato->updateContato($id, $data);
         }
         break;
 
