@@ -20,7 +20,7 @@ class ClinicaDTO extends Clinica{
         parent::__construct(
             $id, 
             $nome,
-            $endereco,
+            $endereco_id,
             $contato_id
             );
         $this->endereco = $endereco;
@@ -31,7 +31,7 @@ class ClinicaDTO extends Clinica{
         $endereco = null;
         $contato = null;
 
-        if(isset($data['endereco_id'])&& isset($data['endereco_nome'])){
+        if(isset($data['endereco_id']) && isset($data['endereco_rua'])){
             $endereco = EnderecoDTO::fromArray($data);
         }
         if(isset($data['contato_id'])&& isset($data['contato_descricao'])){
