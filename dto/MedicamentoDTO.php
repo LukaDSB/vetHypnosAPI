@@ -19,6 +19,8 @@ class MedicamentoDTO extends Medicamento {
             $data['fabricante'],
             $data['lote'],
             $data['validade'],
+            $data['dose_min'],
+            $data['dose_max'],
             $data['quantidade'],
             $categoria_medicamento
         );

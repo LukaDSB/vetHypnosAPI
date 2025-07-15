@@ -9,11 +9,13 @@ class Medicamento {
     private ?string $fabricante;
     private ?string $lote;
     private ?string $validade;
+    private ?float $dose_min;
+    private ?float $dose_max;
     private ?int $quantidade;
     private ?Categoria_Medicamento $categoria_medicamento;
 
 
-    public function __construct(?int $id, ?string $nome, ?float $concentracao, ?int $categoria_medicamento_id, ?string $fabricante, ?string $lote, ?string $validade, ?int $quantidade, ?Categoria_Medicamento $categoria_medicamento) {
+    public function __construct(?int $id, ?string $nome, ?float $concentracao, ?int $categoria_medicamento_id, ?string $fabricante, ?string $lote, ?string $validade, ?float $dose_min, ?float $dose_max, ?int $quantidade, ?Categoria_Medicamento $categoria_medicamento) {
         $this->id = $id;
         $this->nome = $nome;
         $this->concentracao = $concentracao;
@@ -22,6 +24,8 @@ class Medicamento {
         $this->fabricante = $fabricante;
         $this->lote = $lote;
         $this->validade = $validade;
+        $this->dose_min = $dose_min;
+        $this->dose_max = $dose_max;
         $this->quantidade = $quantidade;
         $this->categoria_medicamento = $categoria_medicamento;
     }
@@ -42,6 +46,8 @@ class Medicamento {
             $data['fabricante'],
             $data['lote'],
             $data['validade'],
+            $data['dose_min'],
+            $data['dose_max'],
             $data['quantidade'],
             $categoria_medicamento
 
@@ -57,6 +63,8 @@ class Medicamento {
             'fabricante' => $this->fabricante,
             'lote' => $this->lote,
             'validade' => $this->validade,
+            'dose_min' => $this->dose_min,
+            'dose_max' => $this->dose_max,
             'quantidade' => $this->quantidade,
             'categoria_medicamento'=> $this->categoria_medicamento ? $this->categoria_medicamento->toArray() : null
         ];
@@ -69,5 +77,7 @@ class Medicamento {
     public function getFabricante() { return $this->fabricante; }
     public function getLote() { return $this->lote; }
     public function getValidade() { return $this->validade; }
+    public function getDoseMin() { return $this->dose_min; }
+    public function getDoseMax() { return $this->dose_max; } 
     public function getQuantidade() { return $this->quantidade; }
 }
