@@ -10,19 +10,23 @@ class ProntuarioModel{
     }
 
     public function createprontuario($prontuario){
-        return $this->prontuarioDAO->createprontuario($prontuario);
+        return $this->prontuarioDAO->createCompleto($prontuario);
     }
 
     public function deleteprontuario(int $id){
         return $this->prontuarioDAO->delete($id);
     }
 
-    public function updateprontuario($prontuario, $id){
-        return $this->prontuarioDAO->update($prontuario, $id);
+    public function updateprontuario($id, $prontuario){
+        return $this->prontuarioDAO->updateCompleto($id, $prontuario);
     }
 
     public function getAllProntuarios(){
         return $this->prontuarioDAO->getAllProntuarios();
+    }
+
+    public function getProntuarioById(int $id){
+        return $this->prontuarioDAO->getProntuarioById($id);
     }
     
     public function checkId(int $id) {

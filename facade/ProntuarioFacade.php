@@ -22,6 +22,10 @@ class ProntuarioFacade {
         return $this->prontuarioModel->getAllProntuarios();
     }
 
+    public function getProntuarioById($id){
+        return $this->prontuarioModel->getProntuarioById($id);
+    }
+
     public function validateAndDeleteProntuario($id){
         if (empty($id) || $id <= 0) {
             throw new InvalidArgumentException("O ID do prontuario é obrigatório e deve ser um valor válido para a exclusão.");
@@ -32,7 +36,7 @@ class ProntuarioFacade {
         return $this->prontuarioModel->deleteProntuario($id);
     }
 
-    public function updateProntuario($data, $id){
+    public function updateProntuario($id, $data){
         $prontuario = ProntuarioDetalhadoDTO::fromArray($data);
         if (empty($id) || $id <= 0) {
             throw new InvalidArgumentException("O ID do prontuario é obrigatório e deve ser um valor válido para a atualizacao.");
@@ -40,6 +44,6 @@ class ProntuarioFacade {
         if(!$this->prontuarioModel->checkId($id)) {
             throw new InvalidArgumentException("O prontuario com este id nao existe.");
         }
-        return $this->prontuarioModel->updateProntuario($prontuario, $id);
+        return $this->prontuarioModel->updateProntuario($id, $prontuario);
     }
 }

@@ -5,14 +5,16 @@ class ProntuarioDTO {
     private ?int $usuario_id;
     private ?string $data_prontuario;
     private ?string $observacoes;
+    private ?int $status;
     
 
-    public function __construct(?int $id, ?int $animal_id, ?int $usuario_id, ?string $data_prontuario, ?string $observacoes) {
+    public function __construct(?int $id, ?int $animal_id, ?int $usuario_id, ?string $data_prontuario, ?string $observacoes, ?int $status) {
         $this->id = $id;
         $this->animal_id = $animal_id;
         $this->usuario_id = $usuario_id;
         $this->data_prontuario = $data_prontuario;
         $this->observacoes = $observacoes;
+        $this->status = $status;
     }
 
     public static function fromArray(array $data): self {
@@ -21,7 +23,8 @@ class ProntuarioDTO {
             $data['animal_id'],
             $data['usuario_id'],
             $data['data_prontuario'],
-            $data['observacoes']
+            $data['observacoes'],
+            $data['status']
         );
     }
 
@@ -31,7 +34,8 @@ class ProntuarioDTO {
             'animal_id' => $this->animal_id,
             'usuario_id' => $this->usuario_id,
             'data_prontuario' => $this->data_prontuario,
-            'observacoes' => $this->observacoes
+            'observacoes' => $this->observacoes,
+            'status' => $this->status,
         ];
     }
 
@@ -49,4 +53,8 @@ class ProntuarioDTO {
 
     public function getObservacoes(){return $this->observacoes;}
     public function setObservacoes($observacoes){$this->observacoes = $observacoes;}
+
+    public function getStatus(){return $this->status;}
+    public function setStatus($observacoes){$this->status = $status;}
+    
 }

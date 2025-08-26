@@ -9,9 +9,14 @@ class ProntuarioDetalhadoDTO {
     
     public $data_prontuario;
     public $tipo_procedimento_id;
-    public $status;
+    public $statusProntuario;
     public $observacoes;
     public $prontuario;
+    public $procedimento;
+
+    private $medicamentos = [];
+
+    private $medicoesClinicas = [];
 
     public static function fromArray(array $data): self {
         $dto = new self();
@@ -23,10 +28,13 @@ class ProntuarioDetalhadoDTO {
         $dto->usuario_nome = $data['usuario_nome'] ?? null;
         $dto->data_prontuario = $data['data_prontuario'] ?? null;
         $dto->prontuario = $data['prontuario'] ?? null;
-        $dto->status = $data['status'] ?? null;
+        $dto->statusProntuario = $data['statusProntuario'] ?? null;
         $dto->tipo_procedimento_id = $data['tipo_procedimento_id'] ?? null;
         $dto->observacoes = $data['observacoes'] ?? null;
+        $dto->procedimento = $data['procedimento'] ?? null;
 
+        if (isset($data['medicamentos']) && is_array($data['medicamentos'])) {$dto->setMedicamentos($data['medicamentos']);}
+        if (isset($data['medicoesClinicas']) && is_array($data['medicoesClinicas'])) {$dto->setMedicoesClinicas($data['medicoesClinicas']);}
 
         return $dto;
     }
@@ -40,8 +48,9 @@ class ProntuarioDetalhadoDTO {
             'usuario_nome' => $this->usuario_nome,
             'data_prontuario' => $this->data_prontuario,
             'observacoes' => $this->observacoes,
-            'status' => $this->status,
+            'statusProntuario' => $this->statusProntuario,
             'tipo_procedimento_id' => $this->tipo_procedimento_id,
+            'procedimento' => $this->procedimento
         ];
     }
 
@@ -63,6 +72,15 @@ class ProntuarioDetalhadoDTO {
     public function getTipoProcedimentoId(){return $this->tipo_procedimento_id;}
     public function setTipoProcedimentoId($tipo_procedimento_id){$this->$tipo_procedimento_id = $tipo_procedimento_id;}
 
-    public function getStatusProntuario(){return $this->status;}
-    public function setStatusProntuario($status){$this->status = $status;}
+    public function getMedicamentos(): array {return $this->medicamentos;}
+    public function setMedicamentos(array $medicamentos): void {$this->medicamentos = $medicamentos;}
+
+    public function getMedicoesClinicas(): array {return $this->medicoesClinicas;}
+    public function setMedicoesClinicas(array $medicoes): void {$this->medicoesClinicas = $medicoes;}
+
+    public function getStatusProntuario(){return $this->statusProntuario;}
+    public function setStatusProntuario($observacoes){$this->statusProntuario = $statusProntuario;}
+
+    public function getProcedimento(){return $this->procedimento;}
+    public function setProcedimento($procedimento){$this->procedimento = $procedimento;}
 }

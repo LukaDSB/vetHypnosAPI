@@ -31,6 +31,18 @@ class ProntuarioController {
         }
     }
 
+    public function getProntuarioById($id){
+        try {
+            $prontuario = $this->prontuarioFacade->getProntuarioById($id);
+            $response = $prontuario->toArray();
+            http_response_code(200);
+            echo json_encode($response);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(["message" => $e->getMessage()]);
+        }
+    }
+
     public function deleteProntuario($id){
         try {
             $this->prontuarioFacade->validateAndDeleteProntuario($id);
@@ -42,9 +54,9 @@ class ProntuarioController {
         }
     }
 
-    public function updateProntuario(array $data, $id): void {
+    public function updateProntuario($id, array $data): void {
         try {
-            $this->prontuarioFacade->updateProntuario($data, $id);
+            $this->prontuarioFacade->updateProntuario( $id, $data);
             http_response_code(201);
             echo json_encode(["message" => "Prontuario alterada com sucesso."]);
         } catch (Exception $e) {
