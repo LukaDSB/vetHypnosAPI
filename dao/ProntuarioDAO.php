@@ -14,8 +14,8 @@ class ProntuarioDAO {
         $this->conn->beginTransaction();
         try {
             $queryProntuario = 
-            "   INSERT INTO prontuario (animal_id, usuario_id, data_prontuario, observacoes, tipo_procedimento_id, statusProntuario, procedimento) 
-                VALUES (:animal_id, :usuario_id, :data_prontuario, :observacoes, :tipo_procedimento_id, :statusProntuario, :procedimento)
+            "   INSERT INTO prontuario (animal_id, usuario_id, data_prontuario, observacoes, tipo_procedimento_id, statusProntuario) 
+                VALUES (:animal_id, :usuario_id, :data_prontuario, :observacoes, :tipo_procedimento_id, :statusProntuario)
             ";
             
             $stmtProntuario = $this->conn->prepare($queryProntuario);
@@ -80,8 +80,9 @@ class ProntuarioDAO {
                     data_prontuario = :data_prontuario,
                     observacoes = :observacoes,
                     tipo_procedimento_id = :tipo_procedimento_id,
-                    statusProntuario = :statusProntuario,
-                    procedimento =:procedimento
+-                   statusProntuario = :statusProntuario,
+-                   procedimento =:procedimento
++                   statusProntuario = :statusProntuario
                 WHERE id = :id
             ";
             $stmtProntuario = $this->conn->prepare($queryProntuario);
@@ -91,7 +92,6 @@ class ProntuarioDAO {
             $stmtProntuario->bindValue(":observacoes", $prontuarioDto->getObservacoes());
             $stmtProntuario->bindValue(":tipo_procedimento_id", $prontuarioDto->getTipoProcedimentoId());
             $stmtProntuario->bindValue(":statusProntuario", $prontuarioDto->getStatusProntuario());
-            $stmtProntuario->bindValue(":procedimento", $prontuarioDto->getProcedimento());
             $stmtProntuario->bindValue(":id", $id);
             $stmtProntuario->execute();
 
@@ -211,14 +211,42 @@ class ProntuarioDAO {
             INNER JOIN usuario u ON p.usuario_id = u.id
             INNER JOIN animal a ON p.animal_id = a.id
             JOIN tipo_procedimento tp ON p.tipo_procedimento_id = tp.id
-            ORDER BY p.id
+            ORDER BY p.data_prontuario DESC, p.id DESC
         ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
+        $prontuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $result = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = ProntuarioDetalhadoDTO::fromArray($row);
+
+        foreach ($prontuarios as $prontuarioData) {
+            $prontuarioId = $prontuarioData['id'];
+
+            $queryMedicamentos = 
+            "   SELECT d.medicamento_id, d.volume_min, d.volume_max, m.nome as medicamento_nome
+                FROM dosagem d
+                INNER JOIN medicamento m ON d.medicamento_id = m.id
+                WHERE d.prontuario_id = :prontuario_id
+            ";
+            $stmtMedicamentos = $this->conn->prepare($queryMedicamentos);
+            $stmtMedicamentos->execute([':prontuario_id' => $prontuarioId]);
+            $medicamentos = $stmtMedicamentos->fetchAll(PDO::FETCH_ASSOC);
+
+            $queryMedicoes = 
+            "   SELECT mc.id, mc.parametro_id, pc.nome as parametro_nome, mc.valor, mc.horario
+                FROM medicoes_clinicas mc
+                INNER JOIN parametros_clinicos pc ON mc.parametro_id = pc.id
+                WHERE mc.prontuario_id = :prontuario_id
+                ORDER BY mc.horario ASC
+            ";
+            $stmtMedicoes = $this->conn->prepare($queryMedicoes);
+            $stmtMedicoes->execute([':prontuario_id' => $prontuarioId]);
+            $medicoes = $stmtMedicoes->fetchAll(PDO::FETCH_ASSOC);
+
+            $prontuarioData['medicamentos'] = $medicamentos;
+            $prontuarioData['medicoes_clinicas'] = $medicoes;
+            
+            $result[] = ProntuarioDetalhadoDTO::fromArray($prontuarioData);
         }
 
         return $result;

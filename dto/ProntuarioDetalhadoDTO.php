@@ -34,7 +34,7 @@ class ProntuarioDetalhadoDTO {
         $dto->procedimento = $data['procedimento'] ?? null;
 
         if (isset($data['medicamentos']) && is_array($data['medicamentos'])) {$dto->setMedicamentos($data['medicamentos']);}
-        if (isset($data['medicoesClinicas']) && is_array($data['medicoesClinicas'])) {$dto->setMedicoesClinicas($data['medicoesClinicas']);}
+        if (isset($data['medicoes_clinicas']) && is_array($data['medicoes_clinicas'])) {$dto->setMedicoesClinicas($data['medicoes_clinicas']);}
 
         return $dto;
     }
@@ -50,7 +50,9 @@ class ProntuarioDetalhadoDTO {
             'observacoes' => $this->observacoes,
             'statusProntuario' => $this->statusProntuario,
             'tipo_procedimento_id' => $this->tipo_procedimento_id,
-            'procedimento' => $this->procedimento
+            'procedimento' => $this->procedimento,
+            'medicamentos' => $this->medicamentos,
+            'medicoes_clinicas' => $this->medicoesClinicas
         ];
     }
 
