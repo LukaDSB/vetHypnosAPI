@@ -18,7 +18,7 @@ class AnimalFacade {
     }
 
     public function atualizarAnimal(array $data): bool {
-        empty($data['id']) ? throw new InvalidArgumentException("O id do animal é obrigatório para a atualização.") : null;
+        empty($data['id']) ? (throw new InvalidArgumentException("O id do animal é obrigatório para a atualização.")) : null;
         $animal = Animal::fromArray($data);
         return $this->animalModel->atualizarAnimal($animal);
     }

@@ -25,7 +25,7 @@ class ContatoFacade{
     }
 
     public function validateAndDeleteContato(int $id): bool {
-        empty($id) ? throw new InvalidArgumentException("O id do contato é obrigatório para a exclusão.") : null;
+        empty($id) ? (throw new InvalidArgumentException("O id do contato é obrigatório para a exclusão.")) : null;
         return $this->contatoModel->deleteContato($id);
     }
 }

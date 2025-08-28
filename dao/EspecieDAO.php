@@ -21,10 +21,9 @@ class EspecieDAO{
     }
 
     public function getAllEspecies(){
-        $sql = "
-        select id as especie_id,
-        especie from especie
-        ";
+        $sql = " SELECT * 
+                FROM especie
+            ";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = [];
