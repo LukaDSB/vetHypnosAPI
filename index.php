@@ -16,6 +16,7 @@ require_once 'controllers/EstadoController.php';
 require_once 'controllers/CidadeController.php';
 require_once 'controllers/EnderecoController.php';
 require_once 'controllers/ClinicaController.php';
+require_once 'controllers/EspecieController.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -32,6 +33,7 @@ $controllerEstado = new EstadoController();
 $cidadeController = new CidadeController();
 $enderecoController = new EnderecoController();
 $clinicaController = new ClinicaController();
+$especieController = new EspecieController();
 
 switch (true) {
     case ($path === '/minhaapi/usuario'):
@@ -252,6 +254,13 @@ switch (true) {
             $data = json_decode(file_get_contents("php://input"), true);
             $clinicaController->updateClinica($id, $data);
         }
+    break;
+
+    case(strpos($path, '/minhaapi/especie')===0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int)$parts[3] : null;
+        $method === 'GET'? $especieController->getAllEspecies() : null;
+        
     break;
 
     default:
