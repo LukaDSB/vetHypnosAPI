@@ -5,7 +5,7 @@ class Animal {
     private ?int $id;
     private string $nome;
     private ?int $especie_id;
-    private ?int $data_nascimento;
+    private ?string $data_nascimento;
     private ?string $sexo;
     private ?float $peso;
     private ?int $tutor_id;
@@ -17,7 +17,7 @@ class Animal {
         ?int $id,
         ?string $nome,
         ?int $especie_id,
-        ?int $data_nascimento,
+        ?string $data_nascimento,
         ?string $sexo,
         ?float $peso,
         ?int $tutor_id,
@@ -27,7 +27,7 @@ class Animal {
         $this->id = $id;
         $this->nome = $nome;
         $this->especie_id = $especie_id;
-        $this->data_nascimento = $data_nascimento ? (int) $data_nascimento : null;
+        $this->data_nascimento = $data_nascimento;
         $this->sexo = $sexo;
         $this->peso = $peso;
         $this->tutor_id = $tutor_id;

@@ -8,7 +8,7 @@ class EnderecoDTO extends Endereco{
 
     public function __construct(
         ?int $id, 
-        string $rua, 
+        ?string $rua, 
         ?string $numero, 
         ?string $bairro, 
         ?int $cidade_id, 
