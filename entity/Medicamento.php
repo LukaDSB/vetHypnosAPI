@@ -9,17 +9,28 @@ class Medicamento {
     private ?string $fabricante;
     private ?string $lote;
     private ?string $validade;
-    private ?float $dose_min;
-    private ?float $dose_max;
+    private ?float $dose_min = 0;
+    private ?float $dose_max = 0;
     private ?int $quantidade;
     private ?Categoria_Medicamento $categoria_medicamento;
 
 
-    public function __construct(?int $id, ?string $nome, ?float $concentracao, ?int $categoria_medicamento_id, ?string $fabricante, ?string $lote, ?string $validade, ?float $dose_min, ?float $dose_max, ?int $quantidade, ?Categoria_Medicamento $categoria_medicamento) {
+    public function __construct(
+        ?int $id, 
+        ?string $nome, 
+        ?float $concentracao, 
+        ?int $categoria_medicamento_id, 
+        ?string $fabricante, 
+        ?string $lote, 
+        ?string $validade, 
+        ?float $dose_min, 
+        ?float $dose_max, 
+        ?int $quantidade, 
+        ?Categoria_Medicamento $categoria_medicamento
+        ) {
         $this->id = $id;
         $this->nome = $nome;
         $this->concentracao = $concentracao;
-        
         $this->categoria_medicamento_id = $categoria_medicamento_id;
         $this->fabricante = $fabricante;
         $this->lote = $lote;

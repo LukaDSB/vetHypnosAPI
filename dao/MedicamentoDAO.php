@@ -38,7 +38,7 @@ class MedicamentoDAO {
     
     
     public function insert(MedicamentoDTO $medicamento): bool {
-        $query = "INSERT INTO medicamento (nome, concentracao, categoria_medicamento_id, fabricante, lote, validade, quantidade) VALUES (:nome, :concentracao, :categoria_medicamento_id, :fabricante, :lote, :validade, :quantidade)";
+        $query = "INSERT INTO medicamento (nome, concentracao, categoria_medicamento_id, fabricante, lote, validade, quantidade, dose_min, dose_max) VALUES (:nome, :concentracao, :categoria_medicamento_id, :fabricante, :lote, :validade, :quantidade, :dose_min, :dose_max)";
         $stmt = $this->conn->prepare($query);
         
         $stmt->bindParam(':nome', $medicamento->getNome());
@@ -48,6 +48,9 @@ class MedicamentoDAO {
         $stmt->bindParam('lote', $medicamento->getLote());
         $stmt->bindParam('validade', $medicamento->getValidade());
         $stmt->bindParam('quantidade', $medicamento->getQuantidade());
+        $stmt->bindParam('dose_min', $medicamento->getDoseMin());
+        $stmt->bindParam('dose_max', $medicamento->getDoseMax());
+
         return $stmt->execute();
     }
     
