@@ -144,10 +144,10 @@ class ProntuarioDAO {
     
     public function getProntuarioById(int $id): ?ProntuarioDetalhadoDTO {
         $queryProntuario = 
-        "   SELECT p.id, u.nome as usuario_nome, p.usuario_id, a.nome as animal_nome, p.animal_id, p.data_prontuario, p.tipo_procedimento_id, p.statusProntuario, p.observacoes, p.procedimento
-            FROM prontuario p
-            INNER JOIN usuario u ON p.usuario_id = u.id
-            INNER JOIN animal a ON p.animal_id = a.id
+        "   SELECT *
+            FROM dosagem d
+            INNER JOIN prontuario p ON p.id = d.prontuario_id
+            INNER JOIN medicamento m ON m.id = d.medicamento_id
             WHERE p.id = :id
         ";
 
