@@ -23,16 +23,16 @@ class Clinica{
 
         return new self(
     isset($data["clinica_id"]) ? (int) $data["clinica_id"] : null,
-    $data["clinica_nome"],
-    $data['endereco_id'],
-    $data["contato_id"]
+        $data["nome"],
+$data['endereco_id'],
+$data["contato_id"]
         );
     }
 
     public function toArray(){
          return [
             "clinica_id"=>$this->getId(),
-            "clinica_nome"=>$this->getNome(),
+            "nome"=>$this->getNome(),
             "endereco_id"=>$this->getEnderecoId(),
             "contato_id"=>$this->getContatoId(),
         ];

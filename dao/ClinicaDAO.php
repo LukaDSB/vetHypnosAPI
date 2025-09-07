@@ -34,32 +34,32 @@ class ClinicaDAO{
     public function getAllClinicas(){
         $sql = "
         select
-		cli.id as clinica_id,
-		cli.nome as clinica_nome,
-        cli.endereco_id,
-        cli.contato_id,
-        co.descricao as contato_descricao,
-        co.tipo_contato_id,
-        ti.descricao as tipo_contato_descricao,
-        e.rua as endereco_rua,
-        e.numero as endereco_numero,
-        e.bairro as endereco_bairro,
-        e.cidade_id,
-        c.nome as cidade_nome,
-        c.estado_id,
-        es.nome as estado_nome
+            cli.id as clinica_id,
+            cli.nome as nome,
+            cli.endereco_id,
+            cli.contato_id,
+            co.descricao as contato_descricao,
+            co.tipo_contato_id,
+            ti.descricao as tipo_contato_descricao,
+            e.rua as endereco_rua,
+            e.numero as endereco_numero,
+            e.bairro as endereco_bairro,
+            e.cidade_id,
+            c.nome as cidade_nome,
+            c.estado_id,
+            es.nome as estado_nome
         from clinica cli
-        left join
-        contato co on co.id = cli.contato_id
-        left join
-        tipo_contato ti on ti.id = co.tipo_contato_id
-		left join
-        endereco e on e.id = cli.endereco_id
-        left join
-        cidade c on c.id = e.cidade_id
-        left join
-        estado es on es.id = c.estado_id
-        ;
+            left join
+                contato co on co.id = cli.contato_id
+            left join
+                tipo_contato ti on ti.id = co.tipo_contato_id
+            left join
+                endereco e on e.id = cli.endereco_id
+            left join
+                cidade c on c.id = e.cidade_id
+            left join
+            estado es on es.id = c.estado_id
+            ;
         ";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
@@ -74,7 +74,7 @@ class ClinicaDAO{
         $sql = "
         select
 		cli.id as clinica_id,
-		cli.nome as clinica_nome,
+		cli.nome as nome,
         cli.endereco_id,
         cli.contato_id,
         co.descricao as contato_descricao,
@@ -144,8 +144,4 @@ class ClinicaDAO{
             throw new Exception("Nenhuma clinica com esse id foi encontrado(a)");
         }
     }
-
-
-
-
 }
