@@ -20,6 +20,7 @@ require_once 'controllers/CidadeController.php';
 require_once 'controllers/EnderecoController.php';
 require_once 'controllers/ClinicaController.php';
 require_once 'controllers/EspecieController.php';
+require_once 'controllers/TipoProcedimentoController.php';
 require_once 'middleware/AuthMiddleware.php';
 
 $request = $_SERVER['REQUEST_URI'];
@@ -46,6 +47,7 @@ $cidadeController = new CidadeController();
 $enderecoController = new EnderecoController();
 $clinicaController = new ClinicaController();
 $especieController = new EspecieController();
+$tiposProcedimentoController = new TipoProcedimentoController();
 
 switch (true) {
     case ($path === '/minhaapi/login'):
@@ -292,6 +294,22 @@ switch (true) {
         $method === 'GET' ? $especieController->getAllEspecies() : null;
 
         break;
+
+        
+    case (strpos($path, '/minhaapi/tipo_procedimento') === 0):
+    $parts = explode('/', $path);
+    $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int) $parts[3] : null;
+
+    if ($method === 'GET') {
+
+        if (is_numeric($id)) {
+            $tiposProcedimentoController->getTiposProcedimento($id);
+            exit();
+        }
+        $tiposProcedimentoController->getTiposProcedimento();
+    }
+    break;
+    
 
     default:
         http_response_code(404);
