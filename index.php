@@ -1,10 +1,16 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+// ALTERADO: Cabeçalhos de CORS e JWT
 header("Access-Control-Allow-Origin: http://localhost:4200");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+// NOVO: Autoload do Composer
+require_once 'vendor/autoload.php';
+
+// NOVO: Controller de Autenticação
+require_once 'controllers/AuthController.php';
 require_once 'controllers/UsuarioController.php';
 require_once 'controllers/AnimalController.php';
 require_once 'controllers/MedicamentoController.php';
@@ -17,11 +23,23 @@ require_once 'controllers/CidadeController.php';
 require_once 'controllers/EnderecoController.php';
 require_once 'controllers/ClinicaController.php';
 require_once 'controllers/EspecieController.php';
+require_once 'middleware/AuthMiddleware.php';
+// ... outros controllers ...
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
+
+// NOVO: Lidar com requisições OPTIONS do CORS
+if ($method == "OPTIONS") {
+    http_response_code(200);
+    exit();
+}
+
 $path = parse_url($request, PHP_URL_PATH);
 
+// NOVO: Instanciar AuthController
+$authController = new AuthController();
+$authMiddleware = new AuthMiddleWare();
 $controllerUsuario = new UsuarioController();
 $controllerAnimal = new AnimalController();
 $controllerMedicamento = new MedicamentoController();
@@ -34,15 +52,33 @@ $cidadeController = new CidadeController();
 $enderecoController = new EnderecoController();
 $clinicaController = new ClinicaController();
 $especieController = new EspecieController();
+// ... outras instâncias ...
 
 switch (true) {
-    case ($path === '/minhaapi/usuario'):
-        $method == 'GET' ? $controllerUsuario->getAllUsers() : null;
+    // NOVO: Rota de Login
+    case ($path === '/minhaapi/login'):
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerUsuario->createUser($data);
+            $authController->login($data);
         }
+        break;
+
+    // ALTERADO: Rota de Usuário agora é para registro
+    case ($path === '/minhaapi/registrar'):
+        if ($method === 'POST') {
+            $data = json_decode(file_get_contents("php://input"), true);
+            // Renomeado para registrar
+            $controllerUsuario->registrar($data);
+        }
+        break;
+
+    case ($path === '/minhaapi/usuario'):
+         if ($method == 'GET') {
+            // TODO: Proteger esta rota para que só usuários autenticados possam ver a lista
+            $controllerUsuario->getAllUsers();
+         }
     break;
+
 
     case(strpos($path, '/minhaapi/animal') === 0):
         $parts = explode('/', $path);
@@ -74,9 +110,11 @@ switch (true) {
         $method == 'GET' ? $controllerMedicamento->getAllMedicamentos() : null;
         
         if ($method === 'POST') {
+            $dadosUsuario = $authMiddleware->verificarToken();
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerMedicamento->createMedicamento($data);
         } elseif ($method === 'DELETE') {
+            $dadosUsuario = $authMiddleware->verificarToken();
             if ($id === null || $id <= 0) {
                 http_response_code(400);
                 echo json_encode(['error' => 'ID é obrigatório para exclusão']);
@@ -84,8 +122,9 @@ switch (true) {
             }
             $controllerMedicamento->deleteMedicamento($id);
         } elseif ($method === 'PUT') {
+            $dadosUsuario = $authMiddleware->verificarToken();
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerMedicamento->updateMedicamento($data, $id);
+            $controllerMedicamento->updateMedicamento($data, $id, $dadosUsuario);
         }
     break;
 

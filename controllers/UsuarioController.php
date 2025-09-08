@@ -8,13 +8,15 @@ class UsuarioController {
         $this->userFacade = new UsuarioFacade();
     }
 
-    public function createUser(array $data): void {
+    // ALTERADO: Renomeado para registrar
+    public function registrar(array $data): void {
         try {
-            $this->userFacade->validateAndCreateUser($data);
+            // Nome do método na facade também foi alterado
+            $this->userFacade->registrarUsuario($data);
             http_response_code(201);
             echo json_encode(["message" => "Usuário criado com sucesso."]);
         } catch (Exception $e) {
-            http_response_code(400);
+            http_response_code(400); // 400 Bad Request é mais apropriado
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
@@ -22,6 +24,7 @@ class UsuarioController {
     public function getAllUsers(): void {
         try {
             $users = $this->userFacade->getUsers();
+            // O toArray() do DTO agora remove a senha automaticamente
             $response = array_map(fn($user) => $user->toArray(), $users);
             http_response_code(200);
             echo json_encode($response);

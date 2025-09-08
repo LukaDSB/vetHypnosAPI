@@ -8,13 +8,18 @@ class UsuarioFacade {
         $this->userModel = new UsuarioModel();
     }
 
-    public function validateAndCreateUser(array $data): bool {
+    // ALTERADO: Renomeado e com validação de e-mail existente
+    public function registrarUsuario(array $data): bool {
         if (empty($data['nome']) || empty($data['email']) || empty($data['senha'])) {
             throw new Exception("Campos nome, email e senha são obrigatórios.");
         }
 
-        $user = Usuario::fromArray($data);
+        // NOVO: Validar se o e-mail já está em uso
+        if ($this->userModel->emailJaExiste($data['email'])) {
+            throw new Exception("Este email já está cadastrado.");
+        }
 
+        $user = Usuario::fromArray($data);
         return $this->userModel->createUser($user);
     }
 

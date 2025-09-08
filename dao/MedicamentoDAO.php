@@ -10,8 +10,11 @@ class MedicamentoDAO {
         $this->conn = $database->getConnection();
     }
     
-    public function update(int $id, MedicamentoDTO $medicamento): bool {
+    public function update(int $id, MedicamentoDTO $medicamento, object $dadosUsuario): bool {
         
+        $nomeUsuario = $dadosUsuario->nome;
+        $this->conn->exec("SET @app_user = '{$nomeUsuario}'");
+
         $sql = 
             "UPDATE medicamento SET 
                     nome = :nome, 

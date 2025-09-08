@@ -19,9 +19,9 @@ class MedicamentoController {
         }
     }
  
-    public function updateMedicamento(array $data, int $id): void {
+    public function updateMedicamento(array $data, int $id, object $dadosUsuario): void {
         try {
-            $this->medicamentoFacade->validateAndUpdateMedicamento($data, $id);
+            $this->medicamentoFacade->validateAndUpdateMedicamento($data, $id, $dadosUsuario);
             http_response_code(200);
             echo json_encode(["message" => "Medicamento atualizado com sucesso."]);
         } catch (Exception $e) {

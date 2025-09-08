@@ -41,7 +41,7 @@ class MedicamentoFacade {
         return $this->medicamentoModel->getMedicamentoById($id);
     }
 
-    public function validateAndUpdateMedicamento(array $data, int $id): bool {
+    public function validateAndUpdateMedicamento(array $data, int $id, object $dadosUsuario): bool {
         if (empty($id)) {
             throw new InvalidArgumentException("O id do medicamento é obrigatório para a atualização.");
         }
@@ -49,7 +49,7 @@ class MedicamentoFacade {
             throw new InvalidArgumentException("O medicamento com esse id não existe");
         }
        $medicamento = MedicamentoDTO::fromArray($data);
-        return $this->medicamentoModel->updateMedicamento($id, $medicamento);
+        return $this->medicamentoModel->updateMedicamento($id, $medicamento, $dadosUsuario);
         
     }
 }

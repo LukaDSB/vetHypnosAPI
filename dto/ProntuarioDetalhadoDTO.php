@@ -27,11 +27,11 @@ class ProntuarioDetalhadoDTO {
         $dto->usuario_id = $data['usuario_id'] ?? null;
         $dto->usuario_nome = $data['usuario_nome'] ?? null;
         $dto->data_prontuario = $data['data_prontuario'] ?? null;
-        $dto->prontuario = $data['prontuario'] ?? null;
+        $dto->observacoes = $data['observacoes'] ?? null;
         $dto->statusProntuario = $data['statusProntuario'] ?? null;
         $dto->tipo_procedimento_id = $data['tipo_procedimento_id'] ?? null;
-        $dto->observacoes = $data['observacoes'] ?? null;
         $dto->procedimento = $data['procedimento'] ?? null;
+        $dto->prontuario = $data['prontuario'] ?? null;
 
         if (isset($data['medicamentos']) && is_array($data['medicamentos'])) {$dto->setMedicamentos($data['medicamentos']);}
         if (isset($data['medicoes_clinicas']) && is_array($data['medicoes_clinicas'])) {$dto->setMedicoesClinicas($data['medicoes_clinicas']);}
@@ -81,7 +81,7 @@ class ProntuarioDetalhadoDTO {
     public function setMedicoesClinicas(array $medicoes): void {$this->medicoesClinicas = $medicoes;}
 
     public function getStatusProntuario(){return $this->statusProntuario;}
-    public function setStatusProntuario($observacoes){$this->statusProntuario = $statusProntuario;}
+    public function setStatusProntuario($statusProntuario){$this->statusProntuario = $statusProntuario;}
 
     public function getProcedimento(){return $this->procedimento;}
     public function setProcedimento($procedimento){$this->procedimento = $procedimento;}

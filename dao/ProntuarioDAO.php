@@ -29,35 +29,36 @@ class ProntuarioDAO {
 
             $prontuarioId = $this->conn->lastInsertId();
 
-            $queryDosagem = 
-            "   INSERT INTO dosagem (prontuario_id, medicamento_id, volume_min, volume_max) 
-                VALUES (:prontuario_id, :medicamento_id, :volume_min, :volume_max)
-            ";
-
-            $stmtDosagem = $this->conn->prepare($queryDosagem);
-
-            foreach ($prontuarioDto->getMedicamentos() as $medicamento) {
-                $stmtDosagem->execute([
-                    ':prontuario_id' => $prontuarioId,
-                    ':medicamento_id' => $medicamento['medicamento_id'],
-                    ':volume_min' => $medicamento['volume_min'],
-                    ':volume_max' => $medicamento['volume_max']
-                ]);
+            if (!empty($prontuarioDto->getMedicamentos())) {
+                $queryDosagem = 
+                "   INSERT INTO dosagem (prontuario_id, medicamento_id, volume_min, volume_max) 
+                    VALUES (:prontuario_id, :medicamento_id, :volume_min, :volume_max)
+                ";
+                $stmtDosagem = $this->conn->prepare($queryDosagem);
+                foreach ($prontuarioDto->getMedicamentos() as $medicamento) {
+                    $stmtDosagem->execute([
+                        ':prontuario_id' => $prontuarioId,
+                        ':medicamento_id' => $medicamento['medicamento_id'],
+                        ':volume_min' => $medicamento['volume_min'],
+                        ':volume_max' => $medicamento['volume_max']
+                    ]);
+                }
             }
 
-            $queryMedicoes = 
-            "   INSERT INTO medicoes_clinicas (prontuario_id, parametro_id, valor, horario) 
-                VALUES (:prontuario_id, :parametro_id, :valor, :horario)
-            ";
-            $stmtMedicoes = $this->conn->prepare($queryMedicoes);
-
-            foreach ($prontuarioDto->getMedicoesClinicas() as $medicao) {
-                $stmtMedicoes->execute([
-                    ':prontuario_id' => $prontuarioId,
-                    ':parametro_id' => $medicao['parametro_id'],
-                    ':valor' => $medicao['valor'],
-                    ':horario' => $medicao['horario']
-                ]);
+            if (!empty($prontuarioDto->getMedicoesClinicas())) {
+                $queryMedicoes = 
+                "   INSERT INTO medicoes_clinicas (prontuario_id, parametro_id, valor, horario) 
+                    VALUES (:prontuario_id, :parametro_id, :valor, :horario)
+                ";
+                $stmtMedicoes = $this->conn->prepare($queryMedicoes);
+                foreach ($prontuarioDto->getMedicoesClinicas() as $medicao) {
+                    $stmtMedicoes->execute([
+                        ':prontuario_id' => $prontuarioId,
+                        ':parametro_id' => $medicao['parametro_id'],
+                        ':valor' => $medicao['valor'],
+                        ':horario' => $medicao['horario']
+                    ]);
+                }
             }
 
             $this->conn->commit();
@@ -65,7 +66,7 @@ class ProntuarioDAO {
 
         } catch (Exception $e) {
             $this->conn->rollBack();
-             error_log("Erro ao criar prontuário: ".$e->getMessage());
+            error_log("Erro ao criar prontuário: " . $e->getMessage());
             return false;
         }
     }
@@ -73,6 +74,7 @@ class ProntuarioDAO {
     public function updateCompleto(int $id, ProntuarioDetalhadoDTO $prontuarioDto): bool {
         $this->conn->beginTransaction();
         try {
+            // CORREÇÃO: Removida a coluna `procedimento` e a vírgula extra, que causariam um erro de SQL.
             $queryProntuario = 
             "   UPDATE prontuario
                 SET animal_id = :animal_id,
@@ -80,9 +82,7 @@ class ProntuarioDAO {
                     data_prontuario = :data_prontuario,
                     observacoes = :observacoes,
                     tipo_procedimento_id = :tipo_procedimento_id,
--                   statusProntuario = :statusProntuario,
--                   procedimento =:procedimento
-+                   statusProntuario = :statusProntuario
+                    statusProntuario = :statusProntuario
                 WHERE id = :id
             ";
             $stmtProntuario = $this->conn->prepare($queryProntuario);
@@ -95,42 +95,40 @@ class ProntuarioDAO {
             $stmtProntuario->bindValue(":id", $id);
             $stmtProntuario->execute();
 
-            $stmtDelete = $this->conn->prepare("DELETE FROM dosagem WHERE prontuario_id = :prontuario_id");
-            $stmtDelete->execute([':prontuario_id' => $id]);
+            // Lógica de "deletar e inserir" para os dados relacionados
+            $this->conn->prepare("DELETE FROM dosagem WHERE prontuario_id = :prontuario_id")->execute([':prontuario_id' => $id]);
+            $this->conn->prepare("DELETE FROM medicoes_clinicas WHERE prontuario_id = :prontuario_id")->execute([':prontuario_id' => $id]);
 
-            $queryDosagem = 
-            "   INSERT INTO dosagem (prontuario_id, medicamento_id, volume_min, volume_max) 
-                VALUES (:prontuario_id, :medicamento_id, :volume_min, :volume_max)
-            ";
-
-            $stmtDosagem = $this->conn->prepare($queryDosagem);
-
-            foreach ($prontuarioDto->getMedicamentos() as $medicamento) {
-                $stmtDosagem->execute([
-                    ':prontuario_id' => $id,
-                    ':medicamento_id' => $medicamento['medicamento_id'],
-                    ':volume_min' => $medicamento['volume_min'],
-                    ':volume_max' => $medicamento['volume_max']
-                ]);
+            if (!empty($prontuarioDto->getMedicamentos())) {
+                $queryDosagem = 
+                "   INSERT INTO dosagem (prontuario_id, medicamento_id, volume_min, volume_max) 
+                    VALUES (:prontuario_id, :medicamento_id, :volume_min, :volume_max)
+                ";
+                $stmtDosagem = $this->conn->prepare($queryDosagem);
+                foreach ($prontuarioDto->getMedicamentos() as $medicamento) {
+                    $stmtDosagem->execute([
+                        ':prontuario_id' => $id,
+                        ':medicamento_id' => $medicamento['medicamento_id'],
+                        ':volume_min' => $medicamento['volume_min'],
+                        ':volume_max' => $medicamento['volume_max']
+                    ]);
+                }
             }
 
-            $this->conn->prepare("DELETE FROM medicoes_clinicas WHERE prontuario_id = :prontuario_id")
-                       ->execute([':prontuario_id' => $id]);
-
-            $queryMedicoes = 
-            "   INSERT INTO medicoes_clinicas (prontuario_id, parametro_id, valor, horario) 
-                VALUES (:prontuario_id, :parametro_id, :valor, :horario)
-            ";
-
-            $stmtMedicoes = $this->conn->prepare($queryMedicoes);
-
-            foreach ($prontuarioDto->getMedicoesClinicas() as $medicao) {
-                $stmtMedicoes->execute([
-                    ':prontuario_id' => $id,
-                    ':parametro_id' => $medicao['parametro_id'],
-                    ':valor' => $medicao['valor'],
-                    ':horario' => $medicao['horario']
-                ]);
+            if (!empty($prontuarioDto->getMedicoesClinicas())) {
+                $queryMedicoes = 
+                "   INSERT INTO medicoes_clinicas (prontuario_id, parametro_id, valor, horario) 
+                    VALUES (:prontuario_id, :parametro_id, :valor, :horario)
+                ";
+                $stmtMedicoes = $this->conn->prepare($queryMedicoes);
+                foreach ($prontuarioDto->getMedicoesClinicas() as $medicao) {
+                    $stmtMedicoes->execute([
+                        ':prontuario_id' => $id,
+                        ':parametro_id' => $medicao['parametro_id'],
+                        ':valor' => $medicao['valor'],
+                        ':horario' => $medicao['horario']
+                    ]);
+                }
             }
 
             $this->conn->commit();
@@ -138,27 +136,24 @@ class ProntuarioDAO {
 
         } catch (Exception $e) {
             $this->conn->rollBack();
+            error_log("Erro ao atualizar prontuário: " . $e->getMessage());
             return false;
         }
     }
     
     public function getProntuarioById(int $id): ?ProntuarioDetalhadoDTO {
-        $queryProntuario = 
-        "   SELECT *
-            FROM dosagem d
-            INNER JOIN prontuario p ON p.id = d.prontuario_id
-            INNER JOIN medicamento m ON m.id = d.medicamento_id
-            WHERE p.id = :id
-        ";
-
+        // CORREÇÃO DE BUG: A query foi alterada para buscar primeiro o prontuário.
+        // A versão antiga com INNER JOIN em 'dosagem' falhava se um prontuário não tivesse medicamentos.
+        $queryProntuario = "SELECT * FROM prontuario WHERE id = :id";
         $stmtProntuario = $this->conn->prepare($queryProntuario);
         $stmtProntuario->execute([':id' => $id]);
         $prontuarioData = $stmtProntuario->fetch(PDO::FETCH_ASSOC);
 
         if (!$prontuarioData) {
-            return null;
+            return null; // Retorna nulo se o prontuário não for encontrado.
         }
 
+        // Agora, busca os dados relacionados
         $queryMedicamentos = 
         "   SELECT d.medicamento_id, d.volume_min, d.volume_max, m.nome as medicamento_nome
             FROM dosagem d
@@ -167,9 +162,7 @@ class ProntuarioDAO {
         ";
         $stmtMedicamentos = $this->conn->prepare($queryMedicamentos);
         $stmtMedicamentos->execute([':prontuario_id' => $id]);
-        $medicamentos = $stmtMedicamentos->fetchAll(PDO::FETCH_ASSOC);
-
-        $prontuarioData['medicamentos'] = $medicamentos;
+        $prontuarioData['medicamentos'] = $stmtMedicamentos->fetchAll(PDO::FETCH_ASSOC);
 
         $queryMedicoes = 
         "   SELECT mc.id, mc.parametro_id, pc.nome as parametro_nome, mc.valor, mc.horario
@@ -178,11 +171,9 @@ class ProntuarioDAO {
             WHERE mc.prontuario_id = :prontuario_id
             ORDER BY mc.horario ASC
         ";
-
         $stmtMedicoes = $this->conn->prepare($queryMedicoes);
         $stmtMedicoes->execute([':prontuario_id' => $id]);
-        $medicoes = $stmtMedicoes->fetchAll(PDO::FETCH_ASSOC);
-        $prontuarioData['medicoes_clinicas'] = $medicoes;
+        $prontuarioData['medicoes_clinicas'] = $stmtMedicoes->fetchAll(PDO::FETCH_ASSOC);
         
         return ProntuarioDetalhadoDTO::fromArray($prontuarioData);
     }
@@ -190,9 +181,9 @@ class ProntuarioDAO {
     public function delete(int $id): bool {
         $this->conn->beginTransaction();
         try {
+            // A ordem está correta: primeiro deleta as chaves estrangeiras.
             $this->conn->prepare("DELETE FROM dosagem WHERE prontuario_id = :id")->execute([':id' => $id]);
             $this->conn->prepare("DELETE FROM medicoes_clinicas WHERE prontuario_id = :id")->execute([':id' => $id]);
-            
             $this->conn->prepare("DELETE FROM prontuario WHERE id = :id")->execute([':id' => $id]);
 
             $this->conn->commit();
@@ -200,11 +191,16 @@ class ProntuarioDAO {
 
         } catch (Exception $e) {
             $this->conn->rollBack();
+            error_log("Erro ao deletar prontuário: " . $e->getMessage());
             return false;
         }
     }
     
     public function getAllProntuarios(): array {
+        // MELHORIA DE PERFORMANCE: Corrigido o problema de "N+1 queries".
+        // Em vez de fazer queries dentro do loop, buscamos todos os dados de uma vez e os organizamos em PHP.
+        
+        // 1. Busca todos os prontuários base
         $query = 
         "   SELECT p.id, u.nome as usuario_nome, u.id as usuario_id, a.nome as animal_nome, a.id as animal_id, p.data_prontuario, p.tipo_procedimento_id, p.statusProntuario, p.observacoes, tp.tipo_procedimento as procedimento
             FROM prontuario p
@@ -215,37 +211,56 @@ class ProntuarioDAO {
         ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-
         $prontuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $result = [];
 
+        if (empty($prontuarios)) {
+            return [];
+        }
+
+        // 2. Coleta todos os IDs dos prontuários
+        $prontuarioIds = array_column($prontuarios, 'id');
+        
+        // 3. Busca todas as dosagens e medições relacionadas de uma vez
+        $placeholders = implode(',', array_fill(0, count($prontuarioIds), '?'));
+
+        $queryMedicamentos = 
+        "   SELECT d.prontuario_id, d.medicamento_id, d.volume_min, d.volume_max, m.nome as medicamento_nome
+            FROM dosagem d
+            INNER JOIN medicamento m ON d.medicamento_id = m.id
+            WHERE d.prontuario_id IN ($placeholders)
+        ";
+        $stmtMedicamentos = $this->conn->prepare($queryMedicamentos);
+        $stmtMedicamentos->execute($prontuarioIds);
+        $allMedicamentos = $stmtMedicamentos->fetchAll(PDO::FETCH_ASSOC);
+
+        $queryMedicoes = 
+        "   SELECT mc.prontuario_id, mc.id, mc.parametro_id, pc.nome as parametro_nome, mc.valor, mc.horario
+            FROM medicoes_clinicas mc
+            INNER JOIN parametros_clinicos pc ON mc.parametro_id = pc.id
+            WHERE mc.prontuario_id IN ($placeholders)
+            ORDER BY mc.horario ASC
+        ";
+        $stmtMedicoes = $this->conn->prepare($queryMedicoes);
+        $stmtMedicoes->execute($prontuarioIds);
+        $allMedicoes = $stmtMedicoes->fetchAll(PDO::FETCH_ASSOC);
+
+        // 4. Mapeia os dados para seus respectivos prontuários
+        $medicamentosPorProntuario = [];
+        foreach ($allMedicamentos as $medicamento) {
+            $medicamentosPorProntuario[$medicamento['prontuario_id']][] = $medicamento;
+        }
+
+        $medicoesPorProntuario = [];
+        foreach ($allMedicoes as $medicao) {
+            $medicoesPorProntuario[$medicao['prontuario_id']][] = $medicao;
+        }
+
+        // 5. Monta o resultado final
+        $result = [];
         foreach ($prontuarios as $prontuarioData) {
             $prontuarioId = $prontuarioData['id'];
-
-            $queryMedicamentos = 
-            "   SELECT d.medicamento_id, d.volume_min, d.volume_max, m.nome as medicamento_nome
-                FROM dosagem d
-                INNER JOIN medicamento m ON d.medicamento_id = m.id
-                WHERE d.prontuario_id = :prontuario_id
-            ";
-            $stmtMedicamentos = $this->conn->prepare($queryMedicamentos);
-            $stmtMedicamentos->execute([':prontuario_id' => $prontuarioId]);
-            $medicamentos = $stmtMedicamentos->fetchAll(PDO::FETCH_ASSOC);
-
-            $queryMedicoes = 
-            "   SELECT mc.id, mc.parametro_id, pc.nome as parametro_nome, mc.valor, mc.horario
-                FROM medicoes_clinicas mc
-                INNER JOIN parametros_clinicos pc ON mc.parametro_id = pc.id
-                WHERE mc.prontuario_id = :prontuario_id
-                ORDER BY mc.horario ASC
-            ";
-            $stmtMedicoes = $this->conn->prepare($queryMedicoes);
-            $stmtMedicoes->execute([':prontuario_id' => $prontuarioId]);
-            $medicoes = $stmtMedicoes->fetchAll(PDO::FETCH_ASSOC);
-
-            $prontuarioData['medicamentos'] = $medicamentos;
-            $prontuarioData['medicoes_clinicas'] = $medicoes;
-            
+            $prontuarioData['medicamentos'] = $medicamentosPorProntuario[$prontuarioId] ?? [];
+            $prontuarioData['medicoes_clinicas'] = $medicoesPorProntuario[$prontuarioId] ?? [];
             $result[] = ProntuarioDetalhadoDTO::fromArray($prontuarioData);
         }
 
@@ -253,12 +268,11 @@ class ProntuarioDAO {
     }
 
     public function checkId(int $id): bool {
-        $query = "SELECT * FROM prontuario WHERE id = :id";
+        // OTIMIZAÇÃO: Usar "SELECT 1" é mais eficiente do que "SELECT *" quando só queremos verificar a existência.
+        $query = "SELECT 1 FROM prontuario WHERE id = :id LIMIT 1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $result ? true : false;
+        return (bool) $stmt->fetch(PDO::FETCH_COLUMN);
     }
 }

@@ -28,7 +28,7 @@ class MedicamentoModel {
         return $this->medicamentoDAO->checkId($id);
     }
 
-    public function updateMedicamento(int $id, $medicamento): bool {
-        return $this->medicamentoDAO->update($id, $medicamento);
+    public function updateMedicamento(int $id, $medicamento, object $dadosUsuario): bool {
+        return $this->medicamentoDAO->update($id, $medicamento, $dadosUsuario);
     }
 }
