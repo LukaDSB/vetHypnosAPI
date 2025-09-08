@@ -31,15 +31,20 @@ class ProntuarioController {
         }
     }
 
-    public function getProntuarioById($id){
+     public function getProntuarioById(int $id): void {
         try {
-            $prontuario = $this->prontuarioFacade->getProntuarioById($id);
-            $response = $prontuario->toArray();
-            http_response_code(200);
-            echo json_encode($response);
+            $prontuarioDto = $this->prontuarioFacade->getProntuarioById($id);
+
+            if ($prontuarioDto) {
+                http_response_code(200);
+                echo json_encode($prontuarioDto->toArray()); 
+            } else {
+                http_response_code(404);
+                echo json_encode(["message" => "Prontuário não encontrado."]);
+            }
         } catch (Exception $e) {
             http_response_code(500);
-            echo json_encode(["message" => $e->getMessage()]);
+            echo json_encode(["message" => "Erro ao buscar prontuário: " . $e->getMessage()]);
         }
     }
 

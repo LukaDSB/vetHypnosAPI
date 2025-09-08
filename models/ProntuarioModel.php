@@ -26,7 +26,7 @@ class ProntuarioModel{
     }
 
     public function getProntuarioById(int $id){
-        return $this->prontuarioDAO->getProntuarioById($id);
+        return $this->prontuarioDAO->getProntuarioCompletoById($id);
     }
     
     public function checkId(int $id) {
