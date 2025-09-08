@@ -16,7 +16,7 @@ class AuthController {
                 http_response_code(200);
                 echo json_encode(["token" => $jwt]);
             } else {
-                http_response_code(401); // Unauthorized
+                http_response_code(401);
                 echo json_encode(["message" => "Email ou senha inválidos."]);
             }
         } catch (Exception $e) {
