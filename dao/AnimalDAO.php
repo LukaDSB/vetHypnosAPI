@@ -51,9 +51,6 @@ class AnimalDAO {
     try {
         $stmt = $this->conn->prepare($query);
 
-        // 3. CORREÇÃO: Passamos o array $params para o método execute().
-        // O PDO vai substituir de forma segura cada '?' na query pelo
-        // valor correspondente no array $params.
         $stmt->execute($params);
 
         $result = [];
@@ -64,13 +61,8 @@ class AnimalDAO {
         return $result;
 
     } catch (PDOException $e) {
-        // É uma boa prática capturar exceções do PDO para depuração
-        // ou para retornar uma mensagem de erro controlada.
-        // Em um ambiente de produção, você poderia logar o erro: error_log($e->getMessage());
-        // E retornar um array vazio ou uma mensagem de erro.
         http_response_code(500);
-        // die("Erro ao executar a query: " . $e->getMessage()); // Para depuração
-        return []; // Retorna vazio em caso de falha
+        return [];
         }
     }
 
