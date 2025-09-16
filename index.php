@@ -74,7 +74,7 @@ switch (true) {
     case (strpos($path, '/minhaapi/animal') === 0):
         $parts = explode('/', $path);
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int) $parts[3] : null;
-        $method == 'GET' ? $controllerAnimal->getAllAnimais() : null;
+        $method == 'GET' ? $controllerAnimal->getAllAnimais($_GET) : null;
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerAnimal->createAnimal($data);

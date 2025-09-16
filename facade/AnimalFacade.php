@@ -13,8 +13,8 @@ class AnimalFacade {
         return $this->animalModel->createAnimal($animal);
     }
 
-    public function getAnimais(): array {
-        return $this->animalModel->getAllAnimais();
+    public function getAnimais($filtros): array {
+        return $this->animalModel->getAllAnimais($filtros);
     }
 
     public function atualizarAnimal(array $data): bool {

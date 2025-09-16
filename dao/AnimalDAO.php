@@ -26,14 +26,33 @@ class AnimalDAO {
     }
     
 
-    public function getAllAnimais(): array {
-        $query = "SELECT a.*, 
-                     e.id AS especie_id,
-                     e.especie AS especie_especie
+    public function getAllAnimais($filtros): array {
+    $query = "SELECT a.*, 
+                     e.id AS especie_id_join,
+                     e.especie AS especie_nome
               FROM animal a
-              LEFT JOIN especie e ON a.especie_id = e.id";
+              LEFT JOIN especie e ON a.especie_id = e.id
+              WHERE 1=1";
+
+    $params = [];
+
+    if (!empty($filtros['nome'])) {
+        $query .= " AND a.nome LIKE ?";
+        $params[] = '%' . $filtros['nome'] . '%';
+    }
+
+    // if (!empty($filtros['tutor_id'])) {
+    //     $query .= " AND a.tutor_id = ?";
+    //     $params[] = $filtros['tutor_id'];
+    // }
+
+    try {
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+
+        // 3. CORREÇÃO: Passamos o array $params para o método execute().
+        // O PDO vai substituir de forma segura cada '?' na query pelo
+        // valor correspondente no array $params.
+        $stmt->execute($params);
 
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -41,7 +60,17 @@ class AnimalDAO {
         }
 
         return $result;
+
+    } catch (PDOException $e) {
+        // É uma boa prática capturar exceções do PDO para depuração
+        // ou para retornar uma mensagem de erro controlada.
+        // Em um ambiente de produção, você poderia logar o erro: error_log($e->getMessage());
+        // E retornar um array vazio ou uma mensagem de erro.
+        http_response_code(500);
+        // die("Erro ao executar a query: " . $e->getMessage()); // Para depuração
+        return []; // Retorna vazio em caso de falha
     }
+}
 
     public function atualizarAnimal(Animal $animal){
         $sql = "UPDATE animal SET 

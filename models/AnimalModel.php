@@ -12,8 +12,8 @@ class AnimalModel {
         return $this->animalDAO->insert($animal);
     }
 
-    public function getAllAnimais(): array {
-        return $this->animalDAO->getAllanimais();
+    public function getAllAnimais($filtros): array {
+        return $this->animalDAO->getAllanimais($filtros);
     }
 
     public function atualizarAnimal( $animal ) {

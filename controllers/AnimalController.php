@@ -19,9 +19,9 @@ class AnimalController {
         }
     }
 
-    public function getAllAnimais(): void {
+    public function getAllAnimais($filtros): void {
         try {
-            $animal = $this->animalFacade->getAnimais();
+            $animal = $this->animalFacade->getAnimais($filtros);
             $response = array_map(fn($animal) => $animal->toArray(), $animal);
             http_response_code(200);
             echo json_encode($response);
