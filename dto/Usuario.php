@@ -17,17 +17,17 @@ class Usuario
     private ?Especialidade $especialidade;
 
     public function __construct(
-        ?int $id, 
-        string $nome, 
-        string $email, 
-        string $senha, 
-        ?string $crmv, 
-        ?string $cpf, 
-        ?int $clinica_id, 
+        ?int $id,
+        string $nome,
+        string $email,
+        string $senha,
+        ?string $crmv,
+        ?string $cpf,
+        ?int $clinica_id,
         ?int $especialidade_id,
         ?Clinica $clinica,
         ?Especialidade $especialidade
-        ){
+    ) {
         $this->id = $id;
         $this->nome = $nome;
         $this->email = $email;
@@ -43,15 +43,14 @@ class Usuario
     public static function fromArray(array $data): self
     {
         $especialidade = null;
-        // Se a query trouxe dados de especialidade, monte o objeto.
-        // A função getAllUsuarios NÃO trará, então $especialidade continuará null.
+
+
         if (!empty($data['especialidade_id_ref'])) {
             $especialidade = Especialidade::fromArray($data);
         }
 
         $clinica = null;
-        // Se a query trouxe dados de clínica, monte o objeto.
-        // A função getAllUsuarios NÃO trará, então $clinica continuará null.
+
         if (!empty($data['clinica_id_ref'])) {
             $clinica = Clinica::fromArray($data);
         }
@@ -60,13 +59,13 @@ class Usuario
             $data['id'] ?? null,
             $data['nome'],
             $data['email'],
-            $data['senha'] ?? '', // Senha pode não vir em getAll
+            $data['senha'] ?? '',
             $data['crmv'] ?? null,
             $data['cpf'] ?? null,
             isset($data['clinica_id']) ? (int) $data['clinica_id'] : null,
             isset($data['especialidade_id']) ? (int) $data['especialidade_id'] : null,
-            $clinica,      // Passa o objeto Clinica (ou null)
-            $especialidade // Passa o objeto Especialidade (ou null)
+            $clinica,
+            $especialidade
         );
     }
 
@@ -151,5 +150,10 @@ class Usuario
     public function getEspecialidadeId()
     {
         return $this->especialidade_id;
+    }
+
+    public function getClinica(): ?Clinica
+    {
+        return $this->clinica;
     }
 }
