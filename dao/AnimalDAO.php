@@ -28,8 +28,8 @@ class AnimalDAO {
 
     public function getAllAnimais($filtros): array {
     $query = "SELECT a.*, 
-                     e.id AS especie_id_join,
-                     e.especie AS especie_nome
+                     e.id AS especie_id,
+                     e.especie AS especie_especie
               FROM animal a
               LEFT JOIN especie e ON a.especie_id = e.id
               WHERE 1=1";
@@ -41,11 +41,13 @@ class AnimalDAO {
         $params[] = '%' . $filtros['nome'] . '%';
     }
 
-    // if (!empty($filtros['tutor_id'])) {
-    //     $query .= " AND a.tutor_id = ?";
-    //     $params[] = $filtros['tutor_id'];
-    // }
-
+    
+    if (!empty($filtros['especie'])) {
+        $query .= " AND e.especie LIKE ?";
+        $params[] = '%' . $filtros['especie'] . '%';
+    }
+    
+    $query .= " order by a.id desc";
     try {
         $stmt = $this->conn->prepare($query);
 
@@ -69,8 +71,8 @@ class AnimalDAO {
         http_response_code(500);
         // die("Erro ao executar a query: " . $e->getMessage()); // Para depuração
         return []; // Retorna vazio em caso de falha
+        }
     }
-}
 
     public function atualizarAnimal(Animal $animal){
         $sql = "UPDATE animal SET 
