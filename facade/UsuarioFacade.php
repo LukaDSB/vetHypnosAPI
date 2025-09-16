@@ -28,4 +28,9 @@ class UsuarioFacade
     {
         return $this->userModel->getAllUsers();
     }
+
+    public function getUsuarioById($id): array
+    {
+        return $this->userModel->getUsuarioById($id);
+    }
 }

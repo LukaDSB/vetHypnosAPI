@@ -55,20 +55,28 @@ switch (true) {
             $data = json_decode(file_get_contents("php://input"), true);
             $authController->login($data);
         }
-        break;
+    break;
 
     case ($path === '/minhaapi/registrar'):
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $controllerUsuario->registrar($data);
         }
-        break;
+    break;
 
     case ($path === '/minhaapi/usuario'):
         if ($method == 'GET') {
             $controllerUsuario->getAllUsers();
         }
-        break;
+    break;
+
+    case (strpos($path, '/minhaapi/usuario') === 0):
+        $parts = explode('/', $path);
+        $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int) $parts[3] : null;
+        if($method == 'GET') {
+            $id? $controllerUsuario->getUsuarioById($id) : $controllerUsuario->getAllUsers();
+        }
+    break;
 
 
     case (strpos($path, '/minhaapi/animal') === 0):
@@ -92,7 +100,7 @@ switch (true) {
             }
             $controllerAnimal->delete($id);
         }
-        break;
+    break;
 
     case (strpos($path, '/minhaapi/medicamento') === 0):
         $parts = explode('/', $path);

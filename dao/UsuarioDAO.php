@@ -51,4 +51,19 @@ class UsuarioDAO
         }
         return $result;
     }
+
+    public function getUsuarioById($id): array
+    {
+        $query = "SELECT * FROM usuario WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(':id', $id);
+
+        $stmt->execute();
+
+        $result = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $result[] = Usuario::fromArray($row);
+        }
+        return $result;
+    }
 }

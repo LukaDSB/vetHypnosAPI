@@ -39,6 +39,11 @@ class UsuarioModel
         return $this->userDAO->getAllUsuarios();
     }
 
+    public function getUsuarioById($id): array
+    {
+        return $this->userDAO->getUsuarioById($id);
+    }
+
     public function emailJaExiste(string $email): bool
     {
         return $this->userDAO->findByEmail($email) !== false;

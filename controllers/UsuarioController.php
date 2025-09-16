@@ -34,4 +34,17 @@ class UsuarioController
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
+
+    public function getUsuarioById($id): void
+    {
+        try {
+            $usuario = $this->userFacade->getUsuarioById($id);
+            $response = array_map(fn($user) => $user->toArray(), $usuario);
+            http_response_code(200);
+            echo json_encode($response);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(["message" => $e->getMessage()]);
+        }
+    }
 }
