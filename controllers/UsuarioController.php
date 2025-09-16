@@ -35,13 +35,23 @@ class UsuarioController
         }
     }
 
-    public function getUsuarioById($id): void
+    public function getUsuarioById($id): void // Controller actions devem retornar void
     {
         try {
+            // 1. A Facade retorna um único objeto Usuario ou null
             $usuario = $this->userFacade->getUsuarioById($id);
-            $response = array_map(fn($user) => $user->toArray(), $usuario);
-            http_response_code(200);
-            echo json_encode($response);
+
+            // 2. Verificamos se o usuário foi encontrado
+            if ($usuario) {
+                // 3. Se sim, convertemos ESSE objeto para array e o encodamos
+                http_response_code(200);
+                echo json_encode($usuario->toArray());
+            } else {
+                // 4. Se não, retornamos um erro 404
+                http_response_code(404);
+                echo json_encode(["message" => "Usuário não encontrado."]);
+            }
+
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode(["message" => $e->getMessage()]);

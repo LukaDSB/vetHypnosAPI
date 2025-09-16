@@ -4,7 +4,7 @@ class Endereco{
     private ?string $rua;
     private ?string $numero;
     private ?string $bairro;
-    private ?int $cidade_id;
+    private ?Cidade $cidade;
 
 
     public function __construct(
@@ -12,41 +12,44 @@ class Endereco{
         ?string $rua, 
         ?string $numero,
         ?string $bairro, 
-        ?int $cidade_id
+        ?Cidade $cidade
         ){
         $this->id = $id;
         $this->rua = $rua;
         $this->numero = $numero;
         $this->bairro = $bairro;
-        $this->cidade_id = $cidade_id;
+        $this->cidade = $cidade;
         }
 
     
     public static function fromArray($data): self {
+        $cidade = null;
+        if (!empty($data['cidade_id_ref'])) {
+            $cidade = Cidade::fromArray($data);
+        }
         return new self(
-        isset($data["endereco_id"]) ? (int) $data["endereco_id"] : null,
-        $data["endereco_rua"],
-        $data['endereco_numero'],
-        $data["endereco_bairro"],
-        $data["cidade_id"]
-
+            $data["endereco_id_ref"] ?? null,
+            $data["endereco_rua"] ?? null,
+            $data['endereco_numero'] ?? null,
+            $data["endereco_bairro"] ?? null,
+            $cidade
         );
     }
 
-    public function toArray(){
-         return [
-            "endereco_id"=>$this->getId(),
-            "endereco_rua"=>$this->getRua(),
-            "endereco_numero"=>$this->getNumero(),
-            "endereco_bairro"=>$this->getBairro(),
-            "cidade_id"=>$this->getCidade(),
-        ];
-    }
+    public function toArray(): array {
+    return [
+        "id" => $this->id,
+        "rua" => $this->rua,
+        "numero" => $this->numero,
+        "bairro" => $this->bairro,
+        "cidade" => $this->cidade ? $this->cidade->toArray() : null,
+    ];
+}
 
     public function getId():?int{return $this->id;}
     public function getRua():?string{return $this->rua;}
     public function getNumero():?string{return $this->numero;}
     public function getBairro():?string{return $this->bairro;}
-    public function getCidade():?string{return $this->cidade_id;}
+    public function getCidade():?Cidade { return $this->cidade; }
 
 }

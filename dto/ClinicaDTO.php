@@ -1,65 +1,53 @@
 <?php
+// Em dto/ClinicaDTO.php
+
 require_once __DIR__ . '/../entity/Clinica.php';
-require_once __DIR__ .'/../dto/EnderecoDTO.php';
-require_once __DIR__ .'/../dto/ContatoDTO.php';
+// Inclua as entidades que serão usadas para criar os objetos
+require_once __DIR__ . '/../entity/Endereco.php'; 
+require_once __DIR__ . '/../entity/Contato.php';
 
-error_reporting(E_ALL & ~E_NOTICE);
-class ClinicaDTO extends Clinica{
+class ClinicaDTO extends Clinica {
 
-    private ?EnderecoDTO $endereco;
-    private ?ContatoDTO $contato;
-
+    // CORREÇÃO: O construtor deve receber os OBJETOS, assim como o pai.
     public function __construct(
-        ?int $id, 
-        string $nome, 
-        ?int $endereco_id,
-        ?int $contato_id, 
-        ?EnderecoDTO $endereco,
-        ?ContatoDTO $contato
-        ){
-        parent::__construct(
-            $id, 
-            $nome,
-            $endereco_id,
-            $contato_id
-            );
-        $this->endereco = $endereco;
-        $this->contato = $contato;
+        ?int $id,
+        ?string $nome,
+        ?Endereco $endereco, // Recebe o objeto Endereco
+        ?Contato $contato     // Recebe o objeto Contato
+    ) {
+        // CORREÇÃO: Passa os OBJETOS recebidos para o construtor do pai.
+        parent::__construct($id, $nome, $endereco, $contato);
     }
 
-    public static function fromArray($data):self{
+    public static function fromArray($data): self {
         $endereco = null;
+        if (!empty($data['endereco_id_ref'])) {
+            // Usamos a Entidade Endereco para criar o objeto
+            $endereco = Endereco::fromArray($data);
+        }
+
         $contato = null;
-
-        if(isset($data['endereco_id']) && isset($data['endereco_rua'])){
-            $endereco = EnderecoDTO::fromArray($data);
-        }
-        if(isset($data['contato_id'])&& isset($data['contato_descricao'])){
-            $contato = ContatoDTO::fromArray($data);
+        if (!empty($data['contato_id_ref'])) {
+            // Usamos a Entidade Contato para criar o objeto
+            $contato = Contato::fromArray($data);
         }
 
-        
         return new self(
-            isset($data['clinica_id']) ? (int) $data['clinica_id']:null,
-             $data['nome'],
-              $data['endereco_id'],
-              $data['contato_id'],
-              $endereco,
-              $contato
-            );
-
-
+            $data['clinica_id_ref'] ?? null,
+            $data['clinica_nome'] ?? null,
+            $endereco, // Passa o objeto Endereco criado
+            $contato   // Passa o objeto Contato criado
+        );
     }
 
-    public function toArray(){
+    // CORREÇÃO: Adiciona o tipo de retorno ": array" para ser compatível com o pai
+    public function toArray(): array {
         return [
-            'clinica_id'=> $this->getId(),
-            'nome'=> $this->getNome(),
-            'endereco_id'=> $this->getEnderecoId(),
-            'contato_id'=> $this->getContatoId(),
-            'endereco' => $this->endereco ? $this->endereco->toArray() : null,
-            'contato' => $this->contato ? $this->contato->toArray() : null
+            'id' => $this->getId(),
+            'nome' => $this->getNome(),
+            // CORREÇÃO: Usa os getters corretos da classe pai
+            'endereco' => $this->getEndereco() ? $this->getEndereco()->toArray() : null,
+            'contato' => $this->getContato() ? $this->getContato()->toArray() : null
         ];
     }
-
 }

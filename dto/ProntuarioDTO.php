@@ -55,6 +55,6 @@ class ProntuarioDTO {
     public function setObservacoes($observacoes){$this->observacoes = $observacoes;}
 
     public function getStatus(){return $this->status;}
-    public function setStatus($observacoes){$this->status = $status;}
+    public function setStatus($status){$this->status = $status;}
     
 }

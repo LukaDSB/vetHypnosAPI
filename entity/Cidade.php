@@ -1,36 +1,36 @@
 <?php
-class Cidade{
-    private ?int $id;
-    private ?string $nome;
-    private ?int $estado_id;
+// Em entity/Cidade.php
 
-    public function __construct(?int $id, ?string $nome, ?int $estado_id){
-        $this->id = $id;
-        $this->nome = $nome;
-        $this->estado_id = $estado_id;
-    }
+class Cidade {
+    public function __construct(
+        public ?int $id,
+        public ?string $nome,
+        public ?Estado $estado // Espera um objeto Estado
+    ) {}
 
-    
     public static function fromArray(array $data): self {
-
+        $estado = null;
+        if (!empty($data['estado_id_ref'])) {
+            $estado = Estado::fromArray($data);
+        }
         return new self(
-            isset($data['cidade_id']) ? (int) $data['cidade_id'] : null,
-            $data['cidade_nome'],
-            $data["estado_id"]
-
+            $data['cidade_id_ref'] ?? null,
+            $data['cidade_nome'] ?? null,
+            $estado
         );
     }
 
-    public function toArray(){
-         return [
-            'cidade_id' => $this->id,
-            'cidade_nome' => $this->nome,
-            'estado_id'=> $this->estado_id
-
+    // MÉTODO toArray() QUE ESTAVA FALTANDO
+    public function toArray(): array {
+        return [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'estado' => $this->estado ? $this->estado->toArray() : null,
         ];
     }
-
-    public function getId(){return $this->id;}
-    public function getNome(){return $this->nome;}
-    public function getEstado_id(){return $this->estado_id;}
+    
+    // Getters
+    public function getId(): ?int { return $this->id; }
+    public function getNome(): ?string { return $this->nome; }
+    public function getEstado(): ?Estado { return $this->estado; }
 }

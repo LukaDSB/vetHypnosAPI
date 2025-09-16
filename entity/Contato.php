@@ -22,13 +22,12 @@ class Contato{
     }
 
     public function toArray(): array {
-        return [
-            'id' => $this->id,
-            'descricao' => $this->descricao,
-            'tipo_contato_id'=> $this->tipo_contato_id,
-            'tipo_contato'=> $this->tipo_contato ? $this->tipo_contato->toArray() : null
-        ];
-    }
+    return [
+        "id" => $this->id,
+        "descricao" => $this->descricao,
+        "tipo_contato" => $this->tipo_contato ? $this->tipo_contato->toArray() : null,
+    ];
+}
 
     public static function fromArray(array $data): self {
         $tipo_contato = null;
@@ -36,8 +35,8 @@ class Contato{
             $tipo_contato = Tipo_Contato::fromArray($data);
         }
         return new self(
-            isset($data['id']) ? (int) $data['id'] : null,
-            $data['descricao'],
+            isset($data['contato_id_ref']) ? (int) $data['id'] : null,
+            $data['contato_descricao'],
             $data['tipo_contato_id'],
             $tipo_contato
         );

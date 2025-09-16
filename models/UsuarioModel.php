@@ -39,7 +39,7 @@ class UsuarioModel
         return $this->userDAO->getAllUsuarios();
     }
 
-    public function getUsuarioById($id): array
+    public function getUsuarioById($id): ?Usuario
     {
         return $this->userDAO->getUsuarioById($id);
     }

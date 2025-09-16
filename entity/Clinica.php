@@ -2,45 +2,57 @@
 class Clinica{
     private ?int $id;
     private ?string $nome;
-    private ?int $endereco_id;
-    private ?int $contato_id;
+    private ?Endereco $endereco;
+
+    private ?Contato $contato;
 
 
     public function __construct(
         ?int $id, 
         ?string $nome, 
-        ?int $endereco_id, 
-        ?int $contato_id
+        ?Endereco $endereco,
+        ?Contato $contato
         ){
         $this->id = $id;
         $this->nome = $nome;
-        $this->endereco_id = $endereco_id;
-        $this->contato_id = $contato_id;
+        $this->endereco = $endereco;
+        $this->contato = $contato;
         }
 
     
     public static function fromArray($data): self {
+        $endereco = null;
+        if (!empty($data['endereco_id_ref'])) {
+            $endereco = Endereco::fromArray($data);
+        }
+
+        $contato = null;
+        if (!empty($data['contato_id_ref'])) {
+            $contato = Contato::fromArray($data);
+        }
 
         return new self(
-    isset($data["clinica_id"]) ? (int) $data["clinica_id"] : null,
-        $data["nome"],
-$data['endereco_id'],
-$data["contato_id"]
+            $data["clinica_id_ref"] ?? null,
+            $data["clinica_nome"] ?? null,
+            $endereco,
+            $contato
         );
     }
 
-    public function toArray(){
-         return [
-            "clinica_id"=>$this->getId(),
-            "nome"=>$this->getNome(),
-            "endereco_id"=>$this->getEnderecoId(),
-            "contato_id"=>$this->getContatoId(),
+    public function toArray(): array {
+        return [
+            "id" => $this->id,
+            "nome" => $this->nome,
+            // Se o objeto endereco existir, chama o toArray() dele. Senão, null.
+            "endereco" => $this->endereco ? $this->endereco->toArray() : null,
+            // Se o objeto contato existir, chama o toArray() dele. Senão, null.
+            "contato" => $this->contato ? $this->contato->toArray() : null,
         ];
     }
 
     public function getId():?int{return $this->id;}
     public function getNome():?string{return $this->nome;}
-    public function getEnderecoId():?int{return $this->endereco_id;}
-    public function getContatoId():?int{return $this->contato_id;}
+    public function getEndereco(): ?Endereco { return $this->endereco; }
+    public function getContato(): ?Contato { return $this->contato; }
 
 }

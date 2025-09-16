@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/../entity/Clinica.php';
+require_once __DIR__ . '/../entity/Especialidade.php';
 class Usuario
 {
     private ?int $id;
@@ -10,8 +13,21 @@ class Usuario
     private ?int $clinica_id;
     private ?int $especialidade_id;
 
-    public function __construct(?int $id, string $nome, string $email, string $senha, ?string $crmv, ?string $cpf, ?int $clinica_id, ?int $especialidade_id)
-    {
+    private ?Clinica $clinica;
+    private ?Especialidade $especialidade;
+
+    public function __construct(
+        ?int $id, 
+        string $nome, 
+        string $email, 
+        string $senha, 
+        ?string $crmv, 
+        ?string $cpf, 
+        ?int $clinica_id, 
+        ?int $especialidade_id,
+        ?Clinica $clinica,
+        ?Especialidade $especialidade
+        ){
         $this->id = $id;
         $this->nome = $nome;
         $this->email = $email;
@@ -20,19 +36,37 @@ class Usuario
         $this->cpf = $cpf;
         $this->clinica_id = $clinica_id;
         $this->especialidade_id = $especialidade_id;
+        $this->clinica = $clinica;
+        $this->especialidade = $especialidade;
     }
 
     public static function fromArray(array $data): self
     {
+        $especialidade = null;
+        // Se a query trouxe dados de especialidade, monte o objeto.
+        // A função getAllUsuarios NÃO trará, então $especialidade continuará null.
+        if (!empty($data['especialidade_id_ref'])) {
+            $especialidade = Especialidade::fromArray($data);
+        }
+
+        $clinica = null;
+        // Se a query trouxe dados de clínica, monte o objeto.
+        // A função getAllUsuarios NÃO trará, então $clinica continuará null.
+        if (!empty($data['clinica_id_ref'])) {
+            $clinica = Clinica::fromArray($data);
+        }
+
         return new self(
             $data['id'] ?? null,
             $data['nome'],
             $data['email'],
-            $data['senha'] ?? '',
+            $data['senha'] ?? '', // Senha pode não vir em getAll
             $data['crmv'] ?? null,
             $data['cpf'] ?? null,
             isset($data['clinica_id']) ? (int) $data['clinica_id'] : null,
-            isset($data['especialidade_id']) ? (int) $data['especialidade_id'] : null
+            isset($data['especialidade_id']) ? (int) $data['especialidade_id'] : null,
+            $clinica,      // Passa o objeto Clinica (ou null)
+            $especialidade // Passa o objeto Especialidade (ou null)
         );
     }
 
@@ -46,6 +80,9 @@ class Usuario
             'cpf' => $this->cpf,
             'clinica_id' => $this->clinica_id,
             'especialidade_id' => $this->especialidade_id,
+            'clinica' => $this->clinica ? $this->clinica->toArray() : null,
+            'especialidade' => $this->especialidade ? $this->especialidade->toArray() : null,
+
         ];
     }
 

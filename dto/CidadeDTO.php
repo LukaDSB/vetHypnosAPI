@@ -1,32 +1,41 @@
 <?php
-require_once __DIR__ .'/../dto/EstadoDTO.php';
-require_once __DIR__ .'/../entity/Cidade.php';
-class CidadeDTO extends Cidade {
-    private ?EstadoDTO $estado;
+// Em dto/CidadeDTO.php
 
-    public function __construct(?int $id, ?string $nome, ?int $estado_id, ?EstadoDTO $estado) {
-        parent::__construct($id, $nome, $estado_id);
-        $this->estado = $estado;
+require_once __DIR__ . '/../entity/Cidade.php';
+require_once __DIR__ . '/../entity/Estado.php'; // Use a entidade, não o DTO, para criar o objeto
+
+class CidadeDTO extends Cidade {
+
+    // CORREÇÃO: O construtor deve ser compatível com o do pai
+    public function __construct(
+        ?int $id,
+        ?string $nome,
+        ?Estado $estado // Recebe o objeto Estado
+    ) {
+        // CORREÇÃO: Passa o objeto Estado para o construtor do pai
+        parent::__construct($id, $nome, $estado);
     }
+
     public static function fromArray($data): self {
         $estado = null;
-        if (isset($data['estado_id'] )&& isset($data["estado_nome"])) {
-            $estado = EstadoDTO::fromArray($data);
+        if (!empty($data['estado_id_ref'])) {
+            $estado = Estado::fromArray($data);
         }
+        
         return new self(
-            $data['cidade_id'] ?? null,
-            $data['cidade_nome'],
-            $data['estado_id'],
-            $estado
+            $data['cidade_id_ref'] ?? null,
+            $data['cidade_nome'] ?? null,
+            $estado // Passa o objeto Estado criado
         );
     }
 
-    public function toArray() {
+    // CORREÇÃO: Adiciona o tipo de retorno ": array" para ser compatível
+    public function toArray(): array {
         return [
-            'cidade_id'=> $this->getId(),
-            'cidade_nome'=> $this->getNome(),
-            'estado_id'=> $this->getEstado_id(),
-            'estado' => $this->estado ? $this->estado->toArray() : null
+            'id' => $this->getId(),
+            'nome' => $this->getNome(),
+            // Usa o getter da classe pai para pegar o objeto e serializá-lo
+            'estado' => $this->getEstado() ? $this->getEstado()->toArray() : null
         ];
     }
 }

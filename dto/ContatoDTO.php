@@ -7,13 +7,13 @@ class ContatoDTO extends Contato{
 
     public static function fromArray(array $data): self {
         $tipo_contato = null;
-        if (!empty($data['tipo_contato_id']) && !empty($data['tipo_contato_descricao'])) {
+        if (!empty($data['tipo_contato_id_ref'])) {
             $tipo_contato = Tipo_Contato::fromArray($data);
         }
         return new self(
-            isset($data['id']) ? (int) $data['id'] : null,
-            $data['contato_descricao'],
-            $data['tipo_contato_id'],
+            $data['contato_id_ref'] ?? null,
+            $data['contato_descricao'] ?? null,
+            $data['tipo_contato_id'] ?? null,
             $tipo_contato
         );
     }

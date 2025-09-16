@@ -17,8 +17,8 @@ class Tipo_Contato {
 
     public static function fromArray(array $data): self {
         return new self(
-            isset($data['tipo_contato_id']) ? (int) $data['tipo_contato_id'] : null,
-            $data['tipo_contato_descricao'],
+            $data['tipo_contato_id_ref'] ?? null,
+            $data['tipo_contato_descricao'] ?? null
         );
     }
 }
