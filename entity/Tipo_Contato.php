@@ -10,8 +10,8 @@ class Tipo_Contato {
 
     public function toArray(): array {
         return [
-            'tipo_contato_id' => $this->id,
-            'tipo_contato_descricao' => $this->descricao,
+            'id' => $this->id,
+            'descricao' => $this->descricao,
         ];
     }
 
