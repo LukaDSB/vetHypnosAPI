@@ -93,9 +93,10 @@ class UsuarioDAO
                 co.id AS contato_id_ref, co.descricao AS contato_descricao,
                 tc.id AS tipo_contato_id_ref, tc.descricao AS tipo_contato_descricao
             FROM contato co
+            JOIN clinica_contatos cc ON co.id = cc.contato_id
             LEFT JOIN tipo_contato tc ON tc.id = co.tipo_contato_id
-            WHERE co.clinica_id = :clinica_id
-        ";
+            WHERE cc.clinica_id = :clinica_id
+            ";
             $contatosStmt = $this->conn->prepare($contatosQuery);
             $contatosStmt->bindValue(':clinica_id', $clinicaId);
             $contatosStmt->execute();
