@@ -9,7 +9,7 @@ class TutorFacade {
     }
 
     public function createTutor(array $data): bool {
-        $tutor = TutorDTO::fromArray($data);
+        $tutor = TutorCompletoDTO::fromArray($data);
         return $this->tutorModel->create($tutor);
     }
 
@@ -26,7 +26,7 @@ class TutorFacade {
 
     public function update($id, array $data): bool {
         !$id ? (throw new InvalidArgumentException("O id do tutor é obrigatório para a atualização.")) : null;
-        $tutor = TutorDTO::fromArray($data);
+        $tutor = TutorCompletoDTO::fromArray($data);
         return $this->tutorModel->update($id, $tutor);
     }
 

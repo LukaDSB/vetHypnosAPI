@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/Database.php';
-require_once __DIR__ . '/../dto/TutorDTO.php';
+require_once __DIR__ . '/../dto/TutorCompletoDTO.php';
 require_once __DIR__ . '/../dto/ContatoDTO.php';
 
 class TutorDAO
@@ -13,7 +13,7 @@ class TutorDAO
         $this->conn = $database->getConnection();
     }
 
-    public function insert(TutorDTO $tutor): bool
+    public function insert(TutorCompletoDTO $tutor): bool
     {
         $this->conn->beginTransaction();
         try {
@@ -105,13 +105,13 @@ class TutorDAO
         foreach ($tutorsData as $tutorData) {
             $tutorId = $tutorData['tutor_id'];
             $tutorData['contatos'] = $contatosByTutorId[$tutorId] ?? [];
-            $result[] = TutorDTO::fromArray($tutorData);
+            $result[] = TutorCompletoDTO::fromArray($tutorData);
         }
 
         return $result;
     }
 
-    public function selectById(int $id): ?TutorDTO
+    public function selectById(int $id): ?TutorCompletoDTO
     {
 
         $query = "
@@ -152,10 +152,10 @@ class TutorDAO
 
 
         $tutorData['contatos'] = $contatosData;
-        return TutorDTO::fromArray($tutorData);
+        return TutorCompletoDTO::fromArray($tutorData);
     }
 
-    public function update($id, TutorDTO $tutor): bool
+    public function update($id, TutorCompletoDTO $tutor): bool
     {
         $this->conn->beginTransaction();
         try {
