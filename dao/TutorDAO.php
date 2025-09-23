@@ -15,63 +15,6 @@ class TutorDAO
         $this->conn = $database->getConnection();
     }
 
-    // public function insert(TutorDTO $tutor): bool{
-    //     $this->conn->beginTransaction();
-    //     try {
-    //         $query = "INSERT INTO tutor (nome, cpf) VALUES (:nome, :cpf)";
-
-    //         if ($tutor instanceof TutorCompletoDTO && $tutor->getEndereco()) {
-    //             $enderecoQuery = "INSERT INTO endereco (cidade_id, rua, numero, bairro) VALUES (:cidade_id, :rua, :numero, :bairro)";
-    //             $enderecoStmt = $this->conn->prepare($enderecoQuery);
-    //             $cidade = $tutor->getEndereco()->getCidadeId();
-    //             $cidadeId = $cidade ? $cidade->getcidadeId() : null;
-    //             $enderecoStmt->bindValue(':cidade_id', $cidadeId);
-    //             $enderecoStmt->bindValue(':rua', $tutor->getEndereco()->getRua());
-    //             $enderecoStmt->bindValue(':numero', $tutor->getEndereco()->getNumero());
-    //             $enderecoStmt->bindValue(':bairro', $tutor->getEndereco()->getBairro());
-    //             $enderecoStmt->execute();
-    //             $enderecoId = $this->conn->lastInsertId();
-
-    //             $query = "INSERT INTO tutor (nome, cpf, endereco_id) VALUES (:nome, :cpf, :endereco_id)";
-    //         }
-
-    //         $stmt = $this->conn->prepare($query);
-    //         $stmt->bindValue(':nome', $tutor->getNome()->getValue());
-    //         $stmt->bindValue(':cpf', $tutor->getCpf()->getValue());
-
-    //         if (isset($enderecoId)) {
-    //             $stmt->bindValue(':endereco_id', $enderecoId);
-    //         }
-
-    //         $stmt->execute();
-    //         $tutorId = $this->conn->lastInsertId();
-
-    //         if ($tutor instanceof TutorCompletoDTO && !empty($tutor->getContatos())) {
-    //             foreach ($tutor->getContatos() as $contato) {
-    //                 $contatoQuery = "INSERT INTO contato (descricao, tipo_contato_id) VALUES (:desc, :tipo_id)";
-    //                 $contatoStmt = $this->conn->prepare($contatoQuery);
-    //                 $contatoStmt->bindValue(':desc', $contato->getDescricao());
-    //                 $contatoStmt->bindValue(':tipo_id', $contato->getTipoContatoId());
-    //                 $contatoStmt->execute();
-    //                 $contatoId = $this->conn->lastInsertId();
-
-    //                 $junctionQuery = "INSERT INTO tutor_contatos (tutor_id, contato_id) VALUES (:tutor_id, :contato_id)";
-    //                 $junctionStmt = $this->conn->prepare($junctionQuery);
-    //                 $junctionStmt->bindValue(':tutor_id', $tutorId);
-    //                 $junctionStmt->bindValue(':contato_id', $contatoId);
-    //                 $junctionStmt->execute();
-    //             }
-    //         }
-
-    //         $this->conn->commit();
-    //         return true;
-    //     } catch (Exception $e) {
-    //         $this->conn->rollBack();
-    //         error_log("Erro ao inserir tutor: " . $e->getMessage());
-    //         return false;
-    //     }
-    // }
-
      public function insert(TutorDTO $tutor): bool
     {
         $this->conn->beginTransaction();

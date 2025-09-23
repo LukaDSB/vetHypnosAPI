@@ -43,7 +43,6 @@ class Tutor
             }
         }
 
-        // CORREÇÃO: Usa os objetos Nome e Cpf
         $nome = new Nome($data['tutor_nome'] ?? '');
         $cpf = new Cpf($data['tutor_cpf'] ?? '');
 
@@ -68,5 +67,4 @@ class Tutor
         ];
     }
     
-    // ... getters e setters
 }

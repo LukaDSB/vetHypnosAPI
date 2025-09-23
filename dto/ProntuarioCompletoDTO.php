@@ -1,5 +1,4 @@
 <?php
-// Em dto/ProntuarioCompletoDTO.php
 
 class ProntuarioCompletoDTO {
     public int $id;

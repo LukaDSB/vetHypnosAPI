@@ -17,7 +17,7 @@ class UsuarioModel
         }
 
         $senhaHash = password_hash($user->getSenha(), PASSWORD_ARGON2ID);
-        $user->setSenha($senhaHash); // Atualiza o objeto com o hash
+        $user->setSenha($senhaHash);
 
         return $this->userDAO->insert($user);
     }

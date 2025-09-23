@@ -1,11 +1,10 @@
 <?php
-// Em entity/Cidade.php
 
 class Cidade {
     public function __construct(
         public ?int $id,
         public ?string $nome,
-        public ?Estado $estado // Espera um objeto Estado
+        public ?Estado $estado
     ) {}
 
     public static function fromArray(array $data): self {
@@ -20,7 +19,6 @@ class Cidade {
         );
     }
 
-    // MÉTODO toArray() QUE ESTAVA FALTANDO
     public function toArray(): array {
         return [
             'id' => $this->id,
@@ -29,7 +27,6 @@ class Cidade {
         ];
     }
     
-    // Getters
     public function getId(): ?int { return $this->id; }
     public function getNome(): ?string { return $this->nome; }
     public function getEstado(): ?Estado { return $this->estado; }

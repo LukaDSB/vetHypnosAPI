@@ -28,13 +28,10 @@ class Endereco{
     public static function fromArray(array $data): self
     {
         $cidade = null;
-        // Verifica se a chave 'cidade_id' existe no array de dados
         if (isset($data['cidade_id'])) {
-            // Cria um objeto Cidade com os dados da consulta
             $cidade = new Cidade(
                 $data['cidade_id'] ?? null,
                 $data['cidade_nome'] ?? null,
-                // Cria um objeto Estado, se os dados existirem
                 isset($data['estado_id']) ? new Estado($data['estado_id'] ?? null, $data['estado_nome'] ?? null, $data['estado_sigla'] ?? null) : null
             );
         }

@@ -17,7 +17,7 @@ class UsuarioController
             http_response_code(201);
             echo json_encode(["message" => "Usuário criado com sucesso."]);
         } catch (Exception $e) {
-            http_response_code(400); // 400 Bad Request é mais apropriado
+            http_response_code(400);
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
@@ -35,19 +35,15 @@ class UsuarioController
         }
     }
 
-    public function getUsuarioById($id): void // Controller actions devem retornar void
+    public function getUsuarioById($id): void
     {
         try {
-            // 1. A Facade retorna um único objeto Usuario ou null
             $usuario = $this->userFacade->getUsuarioById($id);
 
-            // 2. Verificamos se o usuário foi encontrado
             if ($usuario) {
-                // 3. Se sim, convertemos ESSE objeto para array e o encodamos
                 http_response_code(200);
                 echo json_encode($usuario->toArray());
             } else {
-                // 4. Se não, retornamos um erro 404
                 http_response_code(404);
                 echo json_encode(["message" => "Usuário não encontrado."]);
             }

@@ -1,14 +1,8 @@
 <?php
-// Em dto/ContatoDTO.php
-
-// A classe ContatoDTO não precisa herdar da entidade Contato
-// Ela é uma classe de transferência de dados simples e não deve conter
-// a lógica de negócio ou estrutura da entidade completa.
-
 class ContatoDTO
 {
     private ?string $descricao;
-    private ?int $tipoContatoId; // Corrigido para camelCase para seguir a convenção de código
+    private ?int $tipoContatoId;
 
     public function __construct(?string $descricao, ?int $tipoContatoId)
     {
