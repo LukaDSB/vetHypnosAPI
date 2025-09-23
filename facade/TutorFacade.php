@@ -1,16 +1,19 @@
 <?php
 require_once __DIR__ . '/../models/TutorModel.php';
+require_once __DIR__ . '/../dao/TutorDAO.php';
 
 class TutorFacade {
     private $tutorModel;
+    private $tutorDAO;
 
     public function __construct() {
         $this->tutorModel = new TutorModel();
+        $this->tutorDAO = new TutorDAO();
     }
 
-    public function createTutor(array $data): bool {
-        $tutor = TutorCompletoDTO::fromArray($data);
-        return $this->tutorModel->create($tutor);
+    public function createTutor(array $data): bool{
+        $tutorDTO = TutorCompletoDTO::fromArray($data);
+        return $this->tutorDAO->insert($tutorDTO);
     }
 
     public function getAll(): array {
@@ -26,7 +29,7 @@ class TutorFacade {
 
     public function update($id, array $data): bool {
         !$id ? (throw new InvalidArgumentException("O id do tutor é obrigatório para a atualização.")) : null;
-        $tutor = TutorCompletoDTO::fromArray($data);
+        $tutor = TutorCompletDTO::fromArray($data);
         return $this->tutorModel->update($id, $tutor);
     }
 

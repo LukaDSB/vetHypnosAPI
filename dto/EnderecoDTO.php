@@ -1,49 +1,59 @@
 <?php
-// Em dto/EnderecoDTO.php
+class EnderecoDTO
+{
+    private ?int $id;
+    private ?string $rua;
+    private ?string $numero;
+    private ?string $bairro;
+    private ?int $cidadeId;
 
-require_once __DIR__ . '/../entity/Endereco.php';
-require_once __DIR__ . '/../entity/Cidade.php'; // Incluímos a entidade Cidade que será usada
-
-class EnderecoDTO extends Endereco {
-    // As propriedades já são herdadas do pai, não precisa redefinir
-    
     public function __construct(
         ?int $id,
         ?string $rua,
         ?string $numero,
         ?string $bairro,
-        ?Cidade $cidade // Recebe o objeto Cidade, assim como o pai
+        ?int $cidadeId
     ) {
-        // CORREÇÃO: Passa o OBJETO $cidade para o construtor do pai,
-        // em vez de um ID.
-        parent::__construct($id, $rua, $numero, $bairro, $cidade);
+        $this->id = $id;
+        $this->rua = $rua;
+        $this->numero = $numero;
+        $this->bairro = $bairro;
+        $this->cidadeId = $cidadeId;
     }
 
-    public static function fromArray($data): self {
-        $cidade = null;
-        if (!empty($data['cidade_id_ref'])) {
-            // Aqui podemos usar a entidade Cidade diretamente para criar o objeto
-            $cidade = Cidade::fromArray($data);
-        }
-        
+    public static function fromArray(array $data): self
+    {
         return new self(
-            $data['endereco_id_ref'] ?? null,
-            $data['endereco_rua'] ?? null,
-            $data['endereco_numero'] ?? null,
-            $data['endereco_bairro'] ?? null,
-            $cidade // Passa o objeto criado
+            $data['id'] ?? null,
+            $data['rua'] ?? null,
+            $data['numero'] ?? null,
+            $data['bairro'] ?? null,
+            $data['cidade_id'] ?? null
         );
     }
+    
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    // CORREÇÃO: Adiciona o tipo de retorno ": array" para ser compatível com o pai
-    public function toArray(): array {
-        return [
-            'id' => $this->getId(),
-            'rua' => $this->getRua(),
-            'numero' => $this->getNumero(),
-            'bairro' => $this->getBairro(),
-            // Usa o getter corrigido da classe pai para pegar o objeto e serializá-lo
-            'cidade' => $this->getCidade() ? $this->getCidade()->toArray() : null
-        ];
+    public function getRua(): ?string
+    {
+        return $this->rua;
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;
+    }
+
+    public function getBairro(): ?string
+    {
+        return $this->bairro;
+    }
+
+    public function getCidadeId(): ?int
+    {
+        return $this->cidadeId;
     }
 }
