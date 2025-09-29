@@ -20,14 +20,14 @@ final class Cpf
         }
 
         if (preg_match('/^(\d)\1{10}$/', $cpf)) {
-            throw new InvalidArgumentException("CPF com todos os dígitos repetidos é inválido.");
+            throw new InvalidArgumentException("CPF inválido, por favor digite novamente.");
         }
 
         $primeiroDigito = $this->calcularDigitoVerificador(substr($cpf, 0, 9));
         $segundoDigito = $this->calcularDigitoVerificador(substr($cpf, 0, 10));
 
         if ($primeiroDigito != $cpf[9] || $segundoDigito != $cpf[10]) {
-            throw new InvalidArgumentException("CPF com dígito verificador inválido.");
+            throw new InvalidArgumentException("CPF inválido, por favor digite novamente.");
         }
     }
     

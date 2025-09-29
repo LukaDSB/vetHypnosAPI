@@ -1,55 +1,39 @@
 <?php
+require_once __DIR__ . '/ContatoDTO.php';
+require_once __DIR__ . '/EnderecoDTO.php';
+require_once __DIR__ . '/TutorDTO.php';
 
-require_once __DIR__ . '/../dto/EnderecoDTO.php';
-require_once __DIR__ . '/../dto/TutorDTO.php';
-require_once __DIR__ . '/../entity/Nome.php';
-require_once __DIR__ . '/../entity/Cpf.php';
-require_once __DIR__ . '/../dto/ContatoDTO.php';
+class TutorCompletoDTO extends TutorDTO{
+    private Nome $nome;
+    private Cpf $cpf;
+    private array $contatos = [];
+    private ?EnderecoDTO $endereco; 
 
-class TutorCompletoDTO extends TutorDTO
-{
-    private ?EnderecoDTO $endereco;
-    private array $contatos;
-
-    public function __construct(Nome $nome, Cpf $cpf, ?EnderecoDTO $endereco, array $contatos = [])
-    {
-        parent::__construct($nome, $cpf);
-        $this->endereco = $endereco;
+    public function __construct(Nome $nome, Cpf $cpf, array $contatos, ?EnderecoDTO $endereco) {
+        $this->nome = $nome;
+        $this->cpf = $cpf;
         $this->contatos = $contatos;
+        $this->endereco = $endereco;
     }
 
-    public static function fromArray(array $data): TutorCompletoDTO
-    {
-        $nome = new Nome($data['nome'] ?? '');
-        $cpf = new Cpf($data['cpf'] ?? '');
-        
-        $endereco = null;
-        if (!empty($data['endereco'])) {
-            $endereco = EnderecoDTO::fromArray($data['endereco']);
-        }
-
-        $contatos = [];
-        if (!empty($data['contatos']) && is_array($data['contatos'])) {
+    public static function fromArray(array $data): self {
+        $contatosDTO = [];
+        if (!empty($data['contatos'])) {
             foreach ($data['contatos'] as $contatoData) {
-                $contatos[] = ContatoDTO::fromArray($contatoData);
+                $contatosDTO[] = ContatoDTO::fromArray($contatoData);
             }
         }
 
-        return new self(
-            $nome,
-            $cpf,
-            $endereco,
-            $contatos
-        );
-    }
+        $enderecoDTO = isset($data['endereco']) ? EnderecoDTO::fromArray($data['endereco']) : null;
 
-    public function getEndereco(): ?EnderecoDTO
-    {
-        return $this->endereco;
-    }
+        $nomeVO = new Nome($data['nome'] ?? ''); 
+        $cpfVO = new Cpf($data['cpf'] ?? '');
 
-    public function getContatos(): array
-    {
-        return $this->contatos;
+        return new self($nomeVO, $cpfVO, $contatosDTO, $enderecoDTO);
     }
+    
+    public function getNome(): Nome { return $this->nome; }
+    public function getCpf(): Cpf { return $this->cpf; }
+    public function getContatos(): array { return $this->contatos; }
+    public function getEndereco(): ?EnderecoDTO { return $this->endereco; }
 }

@@ -22,19 +22,28 @@ class TutorDAO
             $query = "INSERT INTO tutor (nome, cpf) VALUES (:nome, :cpf)";
 
             if ($tutor instanceof TutorCompletoDTO && $tutor->getEndereco()) {
+            $enderecoDTO = $tutor->getEndereco();
+            $cidadeDTO = $enderecoDTO->cidade;
+
+            if ($cidadeDTO && $cidadeDTO->cidade_nome && $cidadeDTO->estado && $cidadeDTO->estado->estado_nome) {
+                $estadoId = $this->findOrCreateEstado($cidadeDTO->estado->estado_nome);
+
+                $cidadeId = $this->findOrCreateCidade($cidadeDTO->cidade_nome, $estadoId);
+
                 $enderecoQuery = "INSERT INTO endereco (cidade_id, rua, numero, bairro) VALUES (:cidade_id, :rua, :numero, :bairro)";
                 $enderecoStmt = $this->conn->prepare($enderecoQuery);
                 
-                $cidadeId = $tutor->getEndereco()->getCidadeId();
                 $enderecoStmt->bindValue(':cidade_id', $cidadeId);
-                $enderecoStmt->bindValue(':rua', $tutor->getEndereco()->getRua());
-                $enderecoStmt->bindValue(':numero', $tutor->getEndereco()->getNumero());
-                $enderecoStmt->bindValue(':bairro', $tutor->getEndereco()->getBairro());
+                $enderecoStmt->bindValue(':rua', $enderecoDTO->rua);
+                $enderecoStmt->bindValue(':numero', $enderecoDTO->numero);
+                $enderecoStmt->bindValue(':bairro', $enderecoDTO->bairro);
                 $enderecoStmt->execute();
                 $enderecoId = $this->conn->lastInsertId();
 
                 $query = "INSERT INTO tutor (nome, cpf, endereco_id) VALUES (:nome, :cpf, :endereco_id)";
+            } else {
             }
+        }
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':nome', $tutor->getNome()->getValue());
@@ -230,6 +239,48 @@ class TutorDAO
             return false;
         }
     }
+
+    private function findOrCreateEstado(string $nomeEstado): int
+{
+    $query = "SELECT id FROM estado WHERE nome = :nome";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindValue(':nome', $nomeEstado);
+    $stmt->execute();
+    $id = $stmt->fetchColumn();
+
+    if ($id) {
+        return (int) $id;
+    }
+
+    $insertQuery = "INSERT INTO estado (nome) VALUES (:nome)";
+    $insertStmt = $this->conn->prepare($insertQuery);
+    $insertStmt->bindValue(':nome', $nomeEstado);
+    $insertStmt->execute();
+
+    return (int) $this->conn->lastInsertId();
+}
+
+    private function findOrCreateCidade(string $nomeCidade, int $estadoId): int
+{
+    $query = "SELECT id FROM cidade WHERE nome = :nome AND estado_id = :estado_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindValue(':nome', $nomeCidade);
+    $stmt->bindValue(':estado_id', $estadoId);
+    $stmt->execute();
+    $id = $stmt->fetchColumn();
+
+    if ($id) {
+        return (int) $id;
+    }
+
+    $insertQuery = "INSERT INTO cidade (nome, estado_id) VALUES (:nome, :estado_id)";
+    $insertStmt = $this->conn->prepare($insertQuery);
+    $insertStmt->bindValue(':nome', $nomeCidade);
+    $insertStmt->bindValue(':estado_id', $estadoId);
+    $insertStmt->execute();
+
+    return (int) $this->conn->lastInsertId();
+}
 
     public function checkId(int $id)
     {

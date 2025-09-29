@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/Cidade.php';
+require_once __DIR__ . '/Estado.php';
 class Endereco{
     private ?int $id;
     private ?string $rua;
