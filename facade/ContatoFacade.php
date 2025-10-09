@@ -1,6 +1,7 @@
 <?php 
+namespace App\Facade;
 
-require_once __DIR__ . '/../models/ContatoModel.php';
+use App\Models\ContatoModel;
 
 class ContatoFacade{
     private $contatoModel ; 

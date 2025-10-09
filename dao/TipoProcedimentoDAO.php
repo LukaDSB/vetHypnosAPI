@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . '/../config/Database.php';
-require_once __DIR__ . '/../entity/Tipo_Procedimento.php';
+namespace App\DAO;
+
+use App\Config\Database;
+use App\Entity\TipoProcedimento;
+use PDO;
+
 class TipoProcedimentoDAO{
     private $conn;
 

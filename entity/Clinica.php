@@ -1,4 +1,8 @@
 <?php
+namespace App\Entity;
+
+use App\Entity\Endereco;
+use App\DTO\ContatoDTO;
 class Clinica
 {
     private ?int $id;

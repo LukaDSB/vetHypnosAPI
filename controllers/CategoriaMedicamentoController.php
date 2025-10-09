@@ -1,15 +1,17 @@
 <?php
-require_once __DIR__ .'/../facade/Categoria_MedicamentoFacade.php';
+namespace App\Controllers;
 
-class Categoria_MedicamentoController{
-    private $categoria_medicamentoFacade;
+use App\Facade\CategoriaMedicamentoFacade;
+
+class CategoriaMedicamentoController{
+    private $categoriaMedicamentoFacade;
     public function __construct(){
-        $this->categoria_medicamentoFacade = new Categoria_MedicamentoFacade();
+        $this->categoriaMedicamentoFacade = new CategoriaMedicamentoFacade();
     }
 
-    public function createCategoria_Medicamento(array $data){
+    public function createCategoriaMedicamento(array $data){
         try{
-            $this->categoria_medicamentoFacade->validateAndCreateCategoria_Medicamento($data);
+            $this->categoriaMedicamentoFacade->validateAndCreateCategoriaMedicamento($data);
             http_response_code(201);
             echo json_encode(["message" => "Categoria de medicamento criada com sucesso."]);
         }catch(Exception $e){
@@ -18,9 +20,9 @@ class Categoria_MedicamentoController{
         }
     }
 
-    public function updateCategoria_Medicamento(array $data, int $id){
+    public function updateCategoriaMedicamento(array $data, int $id){
         try{
-            $this->categoria_medicamentoFacade->validateAndUpdateCategoria_Medicamento($data, $id);
+            $this->categoriaMedicamentoFacade->validateAndUpdateCategoriaMedicamento($data, $id);
             http_response_code(200);
             echo json_encode(["message" => "Categoria de medicamento atualizada com sucesso."]);
         }catch(Exception $e){
@@ -28,10 +30,10 @@ class Categoria_MedicamentoController{
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
-    public function getAllCategoria_Medicamento(){
+    public function getAllCategoriaMedicamento(){
         try {
-            $categoria_medicamentos = $this->categoria_medicamentoFacade->getCategoria_Medicamentos();
-            $response = array_map(fn($categoria_medicamento) => $categoria_medicamento->toArray(), $categoria_medicamentos);
+            $categoriaMedicamentos = $this->categoriaMedicamentoFacade->getCategoriaMedicamentos();
+            $response = array_map(fn($categoriaMedicamento) => $categoriaMedicamento->toArray(), $categoriaMedicamentos);
             http_response_code(200);
             echo json_encode($response);
         } catch (Exception $e) {
@@ -39,7 +41,7 @@ class Categoria_MedicamentoController{
             echo json_encode(["message" => $e->getMessage()]);
         }
     }
-    public function deleteCategoria_Medicamento($id): void {
+    public function deleteCategoriaMedicamento($id): void {
 
     
         if (empty($id)) {
@@ -48,7 +50,7 @@ class Categoria_MedicamentoController{
         }
     
         try {
-            $deletado = $this->categoria_medicamentoFacade->validateAndDeleteCategoria_Medicamento($id);
+            $deletado = $this->categoriaMedicamentoFacade->validateAndDeleteCategoriaMedicamento($id);
     
             if ($deletado) {
                 http_response_code(200);

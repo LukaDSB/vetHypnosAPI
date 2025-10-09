@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . '/../models/AnimalModel.php';
+namespace App\Facade;
+
+use App\Models\AnimalModel;
+use App\DTO\Animal;
 
 class AnimalFacade {
     private $animalModel;

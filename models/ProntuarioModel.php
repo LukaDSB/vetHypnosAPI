@@ -1,6 +1,7 @@
 <?php
+namespace App\Models;
 
-require_once __DIR__ . '/../dao/prontuarioDAO.php';
+use App\DAO\ProntuarioDAO;
 
 class ProntuarioModel{
 

@@ -1,22 +1,24 @@
 <?php
-require_once __DIR__ . '/../entity/Tipo_Contato.php';
+namespace App\Entity;
+
+use App\Entity\TipoContato;
 class Contato
 {
     private ?int $id;
     private ?string $descricao;
     private ?int $tipo_contato_id;
-    private ?Tipo_Contato $tipo_contato;
+    private ?TipoContato $tipoContato;
 
     public function __construct(
         ?int $id,
         ?string $descricao,
         ?int $tipo_contato_id,
-        ?Tipo_Contato $tipo_contato
+        ?TipoContato $tipoContato
     ) {
         $this->id = $id;
         $this->descricao = $descricao;
         $this->tipo_contato_id = $tipo_contato_id;
-        $this->tipo_contato = $tipo_contato;
+        $this->tipoContato = $tipoContato;
     }
 
     public function toArray(): array
@@ -24,22 +26,22 @@ class Contato
         return [
             "id" => $this->id,
             "descricao" => $this->descricao,
-            "tipo_contato" => $this->tipo_contato ? $this->tipo_contato->toArray() : null,
+            "tipoContato" => $this->tipoContato ? $this->tipoContato->toArray() : null,
         ];
     }
 
     public static function fromArray(array $data): self
     {
-        $tipo_contato = null;
+        $tipoContato = null;
         if (!empty($data['tipo_contato_id_ref'])) {
-            $tipo_contato = Tipo_Contato::fromArray($data);
+            $tipoContato = TipoContato::fromArray($data);
         }
 
         return new self(
             $data['contato_id_ref'] ?? null,
             $data['contato_descricao'] ?? null,
             $data['tipo_contato_id'] ?? null,
-            $tipo_contato
+            $tipoContato
         );
     }
     public function getId()

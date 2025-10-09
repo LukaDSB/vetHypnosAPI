@@ -1,6 +1,8 @@
 <?php
-require_once __DIR__ . '/../models/MedicamentoModel.php';
-require_once __DIR__ .'/../dto/MedicamentoDTO.php';
+namespace App\Facade;
+
+use App\Models\MedicamentoModel;
+use App\DTO\MedicamentoDTO;
 class MedicamentoFacade {
     private $medicamentoModel;
 

@@ -1,6 +1,8 @@
 <?php
-require_once __DIR__ . '/../entity/Nome.php';
-require_once __DIR__ . '/../entity/Cpf.php';
+namespace App\DTO;
+
+use App\Entity\Nome;
+use App\Entity\Cpf;
 
 class TutorDTO
 {

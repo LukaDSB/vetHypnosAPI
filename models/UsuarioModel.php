@@ -1,5 +1,9 @@
 <?php
-require_once __DIR__ . '/../dao/UsuarioDAO.php';
+namespace App\Models;
+
+use App\DAO\UsuarioDAO;
+use App\DTO\Usuario;
+use Exception;
 
 class UsuarioModel
 {

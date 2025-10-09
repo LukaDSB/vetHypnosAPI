@@ -1,7 +1,8 @@
 <?php
-require_once __DIR__ . '/../models/UsuarioModel.php';
-use Firebase\JWT\JWT;
+namespace App\Facade;
 
+use Firebase\JWT\JWT;
+use App\Models\UsuarioModel;
 class AuthFacade
 {
     private $userModel;

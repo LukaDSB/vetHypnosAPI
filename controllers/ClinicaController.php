@@ -1,6 +1,7 @@
 <?php
+namespace App\Controllers;
 
-require_once __DIR__ ."/../facade/ClinicaFacade.php";
+use App\Facade\ClinicaFacade;
 
 class ClinicaController{
     

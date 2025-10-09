@@ -1,6 +1,7 @@
 <?php
+namespace App\Models;
 
-require_once __DIR__ ."/../dao/EspecieDAO.php";
+use App\DAO\EspecieDAO;
 
 class EspecieModel{
     private $especieDAO;

@@ -1,4 +1,6 @@
 <?php
+namespace App\DTO;
+
 class ProntuarioDTO {
     private ?int $id;
     private ?int $animal_id;

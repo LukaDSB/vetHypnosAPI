@@ -1,4 +1,6 @@
 <?php
+namespace App\Entity;
+
 class Especie  {
     private ?int $id;
     private ?string $especie;

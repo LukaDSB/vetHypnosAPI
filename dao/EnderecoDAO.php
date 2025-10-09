@@ -1,8 +1,9 @@
 <?php
+namespace App\DAO;
 
-require_once __DIR__ ."/../config/Database.php";
-require_once __DIR__ ."/../dto/EnderecoDTO.php";
-
+use App\Config\Database;
+use App\DTO\EnderecoDTO;
+use PDO;
 
 class EnderecoDAO{
 

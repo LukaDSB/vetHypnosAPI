@@ -1,9 +1,12 @@
 <?php
-require_once __DIR__ . '/../config/Database.php';
-require_once __DIR__ . '/../dto/TutorCompletoDTO.php';
-require_once __DIR__ . '/../dto/ContatoDTO.php';
-require_once __DIR__ . '/../entity/Tutor.php';
-require_once __DIR__ . '/../entity/Contato.php';
+namespace App\DAO;
+
+use App\Config\Database;
+use App\DTO\TutorDTO;
+use App\DTO\TutorCompletoDTO;
+use App\Entity\Tutor;
+use App\Entity\Contato; 
+use PDO;
 
 class TutorDAO
 {
@@ -75,7 +78,7 @@ class TutorDAO
 
             $this->conn->commit();
             return true;
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             $this->conn->rollBack();
             error_log("Erro ao inserir tutor: " . $e->getMessage());
             return false;

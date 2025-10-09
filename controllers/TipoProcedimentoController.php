@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../facade/TipoProcedimentoFacade.php';
+namespace App\Controllers;
+
+use App\Facade\TipoProcedimentoFacade;
 
 class TipoProcedimentoController {
     private $tipoProcedimentoFacade;

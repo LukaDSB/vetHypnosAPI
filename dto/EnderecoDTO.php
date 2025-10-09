@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/CidadeDTO.php';
+namespace App\DTO;
+
+use App\DTO\CidadeDTO;
 
 class EnderecoDTO {
     public function __construct(

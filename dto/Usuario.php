@@ -1,7 +1,8 @@
 <?php
+namespace App\DTO;
 
-require_once __DIR__ . '/../entity/Clinica.php';
-require_once __DIR__ . '/../entity/Especialidade.php';
+use App\Entity\Clinica;
+use App\Entity\Especialidade;
 class Usuario
 {
     private ?int $id;

@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . '/../config/Database.php';
-require_once __DIR__ . '/../dto/ContatoDTO.php';
+namespace App\DAO;
+
+use App\Config\Database;
+use App\DTO\ContatoDTO;
+use PDO;
+
 class ContatoDAO{
     private $conn;
 

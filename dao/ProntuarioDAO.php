@@ -1,7 +1,10 @@
 <?php
-require_once __DIR__ . '/../dto/ProntuarioDetalhadoDTO.php';
-require_once __DIR__ . '/../dto/ProntuarioCompletoDTO.php';
-require_once __DIR__ . '/../config/Database.php';
+namespace App\DAO;
+
+use App\DTO\ProntuarioDetalhadoDTO;
+use App\DTO\ProntuarioCompletoDTO;
+use App\Config\Database;
+use PDO;
 
 class ProntuarioDAO
 {

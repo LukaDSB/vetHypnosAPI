@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../facade/MedicamentoFacade.php';
+namespace App\Controllers;
+
+use App\Facade\MedicamentoFacade;
  
 class MedicamentoController {
     private $medicamentoFacade;

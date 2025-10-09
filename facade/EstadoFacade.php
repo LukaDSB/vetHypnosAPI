@@ -1,6 +1,7 @@
 <?php
+namespace App\Facade;
 
-require_once __DIR__ ."/../models/EstadoModel.php";
+use App\Models\EstadoModel;
 
 class EstadoFacade{
     private $estadoModel;

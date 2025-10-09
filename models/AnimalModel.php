@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../dao/AnimalDAO.php';
+namespace App\Models;
+
+use App\DAO\AnimalDAO;
 
 class AnimalModel {
     private $animalDAO;

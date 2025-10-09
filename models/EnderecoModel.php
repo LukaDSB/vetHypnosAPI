@@ -1,6 +1,7 @@
 <?php
+namespace App\Models;
 
-require_once __DIR__ ."/../dao/EnderecoDAO.php";
+use App\DAO\EnderecoDAO;
 
 class EnderecoModel{
     private $enderecoDAO;

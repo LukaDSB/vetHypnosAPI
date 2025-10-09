@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ .'/../entity/Medicamento.php';
-require_once __DIR__ .'/../entity/Estoque.php';
+namespace App\DTO;
+
+use App\Entity\Medicamento;
+use App\Entity\Estoque;
+use App\DTO\CategoriaMedicamentoDTO;
+
 error_reporting(E_ALL & ~E_NOTICE);
 
 class MedicamentoDTO extends Medicamento {
@@ -8,7 +12,7 @@ class MedicamentoDTO extends Medicamento {
         $categoria_medicamento = null;
 
         if (!empty($data["categoria_medicamento_id"]) && !empty($data["categoria_medicamento_descricao"])) {
-            $categoria_medicamento = new Categoria_Medicamento($data["categoria_medicamento_id"], $data["categoria_medicamento_descricao"]);
+            $categoria_medicamento = new CategoriaMedicamentoDTO($data["categoria_medicamento_id"], $data["categoria_medicamento_descricao"]);
         }
 
         return new MedicamentoDTO(

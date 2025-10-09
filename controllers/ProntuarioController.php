@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../facade/ProntuarioFacade.php';
+namespace App\Controllers;
+
+use App\Facade\ProntuarioFacade;
 
 class ProntuarioController {
     private $prontuarioFacade;

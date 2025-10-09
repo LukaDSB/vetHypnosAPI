@@ -1,5 +1,9 @@
 <?php
-require_once __DIR__ .'/../entity/Estoque.php';
+namespace App\Entity;
+
+use App\Entity\Estoque;
+use App\DTO\CategoriaMedicamentoDTO;
+
 error_reporting(E_ALL & ~E_NOTICE);
 class Medicamento {
     private ?int  $id;
@@ -12,7 +16,7 @@ class Medicamento {
     private ?float $dose_min = 0;
     private ?float $dose_max = 0;
     private ?int $quantidade;
-    private ?Categoria_Medicamento $categoria_medicamento;
+    private ?CategoriaMedicamentoDTO $categoria_medicamento;
 
 
     public function __construct(
@@ -26,7 +30,7 @@ class Medicamento {
         ?float $dose_min, 
         ?float $dose_max, 
         ?int $quantidade, 
-        ?Categoria_Medicamento $categoria_medicamento
+        ?CategoriaMedicamentoDTO $categoria_medicamento
         ) {
         $this->id = $id;
         $this->nome = $nome;
@@ -45,7 +49,7 @@ class Medicamento {
         $categoria_medicamento = null;
 
         if (!empty($data["categoria_medicamento_id"]) && !empty($data["categoria_medicamento_descricao"])) {
-        $categoria_medicamento = new Categoria_Medicamento($data["categoria_medicamento_id"], $data["categoria_medicamento_descricao"]);
+        $categoria_medicamento = new CategoriaMedicamento($data["categoria_medicamento_id"], $data["categoria_medicamento_descricao"]);
         }
 
 

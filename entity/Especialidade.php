@@ -1,4 +1,6 @@
 <?php
+namespace App\Entity;
+
 class Especialidade {
     private ?int $id;
     private ?string $nome;

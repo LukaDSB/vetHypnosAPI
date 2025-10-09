@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/EstadoDTO.php';
+namespace App\DTO;
+
+use App\DTO\EstadoDTO;
 
 class CidadeDTO {
     public function __construct(

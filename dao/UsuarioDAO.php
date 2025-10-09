@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . '/../dto/Usuario.php';
-require_once __DIR__ . '/../config/Database.php';
+namespace App\DAO;
+
+use App\DTO\Usuario;
+use App\Config\Database;
+use App\DTO\ContatoDTO;
+use PDO;
 
 class UsuarioDAO
 {
@@ -103,7 +107,7 @@ class UsuarioDAO
 
             $contatos = [];
             while ($contatoRow = $contatosStmt->fetch(PDO::FETCH_ASSOC)) {
-                $contatos[] = Contato::fromArray($contatoRow);
+                $contatos[] = ContatoDTO::fromArray($contatoRow);
             }
 
 

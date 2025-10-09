@@ -1,8 +1,9 @@
 <?php
+namespace App\DTO;
 
-require_once __DIR__ . '/../entity/Clinica.php';
-require_once __DIR__ . '/../entity/Endereco.php'; 
-require_once __DIR__ . '/../entity/Contato.php';
+use App\Entity\Clinica;
+use App\Entity\Endereco;
+use App\Entity\Contato;
 
 class ClinicaDTO extends Clinica {
 

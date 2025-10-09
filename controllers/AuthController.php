@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../facade/AuthFacade.php';
+namespace App\Controllers;
+
+use App\Facade\AuthFacade;
 
 class AuthController {
     private $authFacade;

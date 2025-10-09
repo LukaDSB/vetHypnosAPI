@@ -1,6 +1,7 @@
 <?php
+namespace App\Models;
 
-require_once __DIR__ ."/../dao/ClinicaDAO.php";
+use App\DAO\ClinicaDAO;
 
 class ClinicaModel{
     private $clinicaDAO;

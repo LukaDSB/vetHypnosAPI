@@ -1,6 +1,7 @@
 <?php
+namespace App\Models;
 
-require_once __DIR__ ."/../dao/CidadeDAO.php";
+use App\DAO\CidadeDAO;
 
 class CidadeModel{
     private $cidadeDAO;

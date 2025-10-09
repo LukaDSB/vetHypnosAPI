@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . '/../facade/TutorFacade.php';
+namespace App\Controllers;
+
+use App\Facade\TutorFacade;
+use Exception;
 
 class TutorController {
     private $tutorFacade;

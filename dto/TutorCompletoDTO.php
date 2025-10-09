@@ -1,7 +1,11 @@
 <?php
-require_once __DIR__ . '/ContatoDTO.php';
-require_once __DIR__ . '/EnderecoDTO.php';
-require_once __DIR__ . '/TutorDTO.php';
+namespace App\DTO;
+
+use App\DTO\ContatoDTO;
+use App\DTO\EnderecoDTO;
+use App\DTO\TutorDTO;
+use App\Entity\Nome;
+use App\Entity\Cpf;
 
 class TutorCompletoDTO extends TutorDTO{
     private Nome $nome;

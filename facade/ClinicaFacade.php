@@ -1,6 +1,8 @@
 <?php
+namespace App\Facade;
 
-require_once __DIR__ ."/../models/ClinicaModel.php";
+use App\Models\ClinicaModel;
+use App\Entity\Clinica;
 
 class ClinicaFacade{
     private $clinicaModel;
@@ -10,7 +12,7 @@ class ClinicaFacade{
     }
 
     public function createClinica($data){
-        $clinica = ClinicaDTO::fromArray($data);
+        $clinica = Clinica::fromArray($data);
         try{
             return $this->clinicaModel->createClinica($clinica);
         }
@@ -35,7 +37,7 @@ class ClinicaFacade{
     }
 
     public function updateClinica($id, $data){
-        $clinica = ClinicaDTO::fromArray($data);
+        $clinica = Clinica::fromArray($data);
         if(empty($id)){
             throw new \Exception("Id invalido ou necessario para atualização");
         }

@@ -1,7 +1,7 @@
 <?php
+namespace App\Controllers;
 
-require_once __DIR__ .'/../facade/ContatoFacade.php';
-
+use App\Facade\ContatoFacade;
 
 class ContatoController{
     private $contatoFacade;

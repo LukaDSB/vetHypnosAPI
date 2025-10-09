@@ -1,4 +1,8 @@
 <?php
+namespace App\Entity;
+
+use App\Entity\Cidade;
+use App\Entity\Estado;
 
 require_once __DIR__ . '/Cidade.php';
 require_once __DIR__ . '/Estado.php';

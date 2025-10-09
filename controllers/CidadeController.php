@@ -1,6 +1,7 @@
 <?php
+namespace App\Controllers;
 
-require_once __DIR__ ."/../facade/CidadeFacade.php";
+use App\Facade\CidadeFacade;
 
 class CidadeController{
     

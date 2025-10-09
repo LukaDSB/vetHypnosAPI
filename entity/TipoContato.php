@@ -1,5 +1,7 @@
 <?php
-class Tipo_Contato {
+namespace App\Entity;
+
+class TipoContato {
     private $id;
     private $descricao;
 

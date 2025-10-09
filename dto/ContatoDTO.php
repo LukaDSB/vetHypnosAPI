@@ -1,4 +1,6 @@
 <?php
+namespace App\DTO;
+
 class ContatoDTO
 {
     private ?string $descricao;
@@ -8,6 +10,14 @@ class ContatoDTO
     {
         $this->descricao = $descricao;
         $this->tipoContatoId = $tipoContatoId;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            "descricao" => $this->descricao,
+            "tipo_contato_id" => $this->tipoContatoId,
+        ];
     }
 
     public static function fromArray(array $data): self

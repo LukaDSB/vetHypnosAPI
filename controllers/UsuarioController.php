@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../facade/UsuarioFacade.php';
+namespace App\Controllers;
+
+use App\Facade\UsuarioFacade;
 
 class UsuarioController
 {

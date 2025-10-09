@@ -1,5 +1,10 @@
 <?php
-require_once __DIR__ . '/../models/ProntuarioModel.php';
+namespace App\Facade;
+
+use App\Models\ProntuarioModel;
+use App\DTO\ProntuarioDetalhadoDTO;
+use Exception;
+use InvalidArgumentException;
 
 class ProntuarioFacade {
     private $prontuarioModel;

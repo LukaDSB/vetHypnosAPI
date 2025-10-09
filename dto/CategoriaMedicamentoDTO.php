@@ -1,5 +1,7 @@
 <?php
-    class Categoria_Medicamento{
+namespace App\DTO;
+
+    class CategoriaMedicamentoDTO{
         private ? int $id;
         private ?string $descricao;
 

@@ -1,6 +1,7 @@
 <?php
+namespace App\Models;
 
-require_once __DIR__ . '/../dao/TutorDAO.php';
+use App\DAO\TutorDAO;
 
 class TutorModel{
     private $tutorDAO;

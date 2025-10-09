@@ -1,6 +1,7 @@
 <?php
+namespace App\Facade;
 
-require_once __DIR__ ."/../models/EnderecoModel.php";
+use App\Models\EnderecoModel;
 
 class EnderecoFacade{
     private $enderecoModel;

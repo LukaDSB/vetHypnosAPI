@@ -1,6 +1,7 @@
 <?php
+namespace App\Facade;
 
-require_once __DIR__ ."/../models/CidadeModel.php";
+use App\Models\CidadeModel;
 
 class CidadeFacade{
     private $cidadeModel;

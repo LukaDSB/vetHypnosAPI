@@ -1,6 +1,7 @@
 <?php
+namespace App\Models;
 
-require_once __DIR__ ."/../dao/EstadoDAO.php";
+use App\DAO\EstadoDAO;
 
 class EstadoModel{
     private $estadoDAO;

@@ -1,6 +1,9 @@
 <?php
-require_once __DIR__ . '/../dto/Animal.php';
-require_once __DIR__ . '/../config/Database.php';
+namespace App\DAO;
+
+use App\DTO\Animal;
+use App\Config\Database;
+use PDO;
 
 class AnimalDAO {
     private $conn;

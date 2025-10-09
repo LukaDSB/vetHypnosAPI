@@ -1,4 +1,6 @@
 <?php
+namespace App\Entity;
+
 class TipoProcedimento{
     private ?int $id;
     private ?string $tipo_procedimento;

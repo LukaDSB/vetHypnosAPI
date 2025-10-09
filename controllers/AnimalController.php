@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../facade/AnimalFacade.php';
+namespace App\Controllers;
+
+use App\Facade\AnimalFacade;
 
 class AnimalController {
     private $animalFacade;

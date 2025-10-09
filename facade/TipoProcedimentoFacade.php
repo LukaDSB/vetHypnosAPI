@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../models/TipoProcedimentoModel.php';
+namespace App\Facade;
+
+use App\Models\TipoProcedimentoModel;
 
 class TipoProcedimentoFacade{
     private $tiposProcedimentoModel;

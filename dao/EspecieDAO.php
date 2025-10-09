@@ -1,8 +1,9 @@
 <?php
+namespace App\DAO;
 
-require_once __DIR__ ."/../config/Database.php";
-require_once __DIR__ ."/../dto/EspecieDTO.php";
-
+use App\Config\Database;
+use App\DTO\EspecieDTO;
+use PDO;
 
 class EspecieDAO{
 

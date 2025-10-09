@@ -1,10 +1,12 @@
 <?php
+namespace App\DAO;
+
+use App\Config\Database;
+use App\DTO\CategoriaMedicamentoDTO;
+use PDO;
 
 
-require_once __DIR__ . '/../config/Database.php';
-require_once __DIR__ . '/../dto/Categoria_Medicamento.php';
-
-class Categoria_MedicamentoDAO{
+class CategoriaMedicamentoDAO{
     private $conn;
     public function __construct(){
         $database = new Database();
@@ -18,7 +20,7 @@ class Categoria_MedicamentoDAO{
         return $stmt->execute();
     }
 
-    public function update(int $id, Categoria_Medicamento $categoria_medicamento): bool {
+    public function update(int $id, CategoriaMedicamentoDTO $categoria_medicamento): bool {
          
         $sql = "UPDATE categoria_medicamento SET 
                     descricao = :descricao
@@ -59,7 +61,7 @@ class Categoria_MedicamentoDAO{
         $stmt->execute();
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = Categoria_Medicamento::fromArray($row);
+            $result[] = CategoriaMedicamentoDTO::fromArray($row);
         }
 
         return $result;

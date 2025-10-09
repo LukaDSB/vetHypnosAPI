@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ ."/../entity/Especie.php";
+namespace App\DTO;
+
+use App\Entity\Especie;
 class EspecieDTO extends Especie{
     public static function fromArray(array $data): EspecieDTO {
 

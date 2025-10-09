@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . '/../models/UsuarioModel.php';
+namespace App\Facade;
+
+use App\Models\UsuarioModel;
+use App\DTO\Usuario;
 
 class UsuarioFacade
 {

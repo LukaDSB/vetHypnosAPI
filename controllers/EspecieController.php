@@ -1,6 +1,7 @@
 <?php
+namespace App\Controllers;
 
-require_once __DIR__ ."/../facade/EspecieFacade.php";
+use App\Facade\EspecieFacade;
 
 class EspecieController{
     

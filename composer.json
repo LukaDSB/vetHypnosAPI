@@ -1,10 +1,17 @@
 {
-    "require": {
-        "firebase/php-jwt": "^6.10"
-    },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\Controllers\\": "controllers/",
+            "App\\DAO\\": "dao/",
+            "App\\DTO\\": "dto/",
+            "App\\Entity\\": "entity/",
+            "App\\Facade\\": "facade/",
+            "App\\Models\\": "models/",
+            "App\\Middleware\\": "middleware/",
+            "App\\Config\\": "config/"
         }
+    },
+    "require": {
+        "firebase/php-jwt": "^6.10"
     }
 }

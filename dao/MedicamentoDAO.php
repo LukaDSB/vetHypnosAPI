@@ -1,6 +1,9 @@
 <?php
-require_once __DIR__ . '/../dto/MedicamentoDTO.php';
-require_once __DIR__ . '/../config/Database.php';
+namespace App\DAO;
+
+use App\DTO\MedicamentoDTO;
+use App\Config\Database;
+use PDO;
 
 class MedicamentoDAO {
     private $conn;
@@ -69,7 +72,7 @@ class MedicamentoDAO {
     public function getAllMedicamentos(): array {
         $query = "SELECT m.*, 
         c.descricao as categoria_medicamento_descricao
-        FROM medicamento m LEFT JOIN categoria_medicamento c ON m.categoria_medicamento_id = c.id";
+        FROM medicamento m LEFT JOIN categoria_medicamento c ON m.categoria_medicamento_id = c.id order by m.id desc";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         

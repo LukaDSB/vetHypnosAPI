@@ -7,21 +7,21 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once 'vendor/autoload.php';
 
-require_once 'controllers/AuthController.php';
-require_once 'controllers/UsuarioController.php';
-require_once 'controllers/AnimalController.php';
-require_once 'controllers/MedicamentoController.php';
-require_once 'controllers/Categoria_MedicamentoController.php';
-require_once 'controllers/ContatoController.php';
-require_once 'controllers/ProntuarioController.php';
-require_once 'controllers/TutorController.php';
-require_once 'controllers/EstadoController.php';
-require_once 'controllers/CidadeController.php';
-require_once 'controllers/EnderecoController.php';
-require_once 'controllers/ClinicaController.php';
-require_once 'controllers/EspecieController.php';
-require_once 'controllers/TipoProcedimentoController.php';
-require_once 'middleware/AuthMiddleware.php';
+use App\Controllers\AuthController;
+use App\Controllers\UsuarioController;
+use App\Controllers\AnimalController;
+use App\Controllers\MedicamentoController;
+use App\Controllers\CategoriaMedicamentoController;
+use App\Controllers\ContatoController;
+use App\Controllers\ProntuarioController;
+use App\Controllers\TutorController;
+use App\Controllers\EstadoController;
+use App\Controllers\CidadeController;
+use App\Controllers\EnderecoController;
+use App\Controllers\ClinicaController;
+use App\Controllers\EspecieController;
+use App\Controllers\TipoProcedimentoController;
+use App\Middleware\AuthMiddleware;
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -38,7 +38,7 @@ $authMiddleware = new AuthMiddleWare();
 $controllerUsuario = new UsuarioController();
 $controllerAnimal = new AnimalController();
 $controllerMedicamento = new MedicamentoController();
-$controllerCategoria_Medicamento = new Categoria_MedicamentoController();
+$controllerCategoriaMedicamento = new CategoriaMedicamentoController();
 $controllerContato = new ContatoController();
 $controllerProntuario = new ProntuarioController();
 $controllerTutor = new TutorController();
@@ -132,14 +132,14 @@ switch (true) {
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int) $parts[3] : null;
         if ($method === 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerCategoria_Medicamento->createCategoria_Medicamento($data);
+            $controllerCategoriaMedicamento->createCategoriaMedicamento($data);
         } elseif ($method === 'GET') {
-            $controllerCategoria_Medicamento->getAllCategoria_Medicamento();
+            $controllerCategoriaMedicamento->getAllCategoriaMedicamento();
         } elseif ($method === 'DELETE') {
-            $controllerCategoria_Medicamento->deleteCategoria_Medicamento($id);
+            $controllerCategoriaMedicamento->deleteCategoria_Medicamento($id);
         } elseif ($method === 'PUT') {
             $data = json_decode(file_get_contents("php://input"), true);
-            $controllerCategoria_Medicamento->updateCategoria_Medicamento($data, $id);
+            $controllerCategoriaMedicamento->updateCategoriaMedicamento($data, $id);
         }
         break;
 

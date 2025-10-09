@@ -1,4 +1,7 @@
 <?php
+namespace App\Controllers;
+
+use App\Facade\EnderecoFacade;
 
 require_once __DIR__ ."/../facade/EnderecoFacade.php";
 

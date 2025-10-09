@@ -1,7 +1,9 @@
 <?php
+namespace App\DAO;
 
-require_once __DIR__ ."/../config/Database.php";
-require_once __DIR__ ."/../dto/ClinicaDTO.php";
+use App\Config\Database;
+use App\DTO\ClinicaDTO;
+use PDO;
 
 
 class ClinicaDAO{

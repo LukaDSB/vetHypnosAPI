@@ -1,6 +1,6 @@
 <?php
-
 declare(strict_types=1);
+namespace App\Entity;
 
 final class Nome
 {
@@ -16,11 +16,11 @@ final class Nome
     private function validar(string $nome): void
     {
         if ($nome === '') {
-            throw new InvalidArgumentException("O nome não pode ser vazio.");
+            throw new \InvalidArgumentException("O nome não pode ser vazio.");
         }
 
         if (!preg_match('/^[\p{L}\s]+$/u', $nome)) {
-            throw new InvalidArgumentException("O nome deve conter apenas letras e espaços.");
+            throw new \InvalidArgumentException("O nome deve conter apenas letras e espaços.");
         }
     }
 

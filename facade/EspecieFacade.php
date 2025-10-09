@@ -1,6 +1,7 @@
 <?php
+namespace App\Facade;
 
-require_once __DIR__ ."/../models/EspecieModel.php";
+use App\Models\EspecieModel;
 
 class EspecieFacade{
     private $especieModel;

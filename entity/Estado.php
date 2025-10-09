@@ -1,4 +1,5 @@
 <?php
+namespace App\Entity;
 
 class Estado{
    public function __construct(public ?int $id, public ?string $nome) {}

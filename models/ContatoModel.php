@@ -1,6 +1,7 @@
 <?php
+namespace App\Models;
 
-require_once __DIR__ . '/../dao/ContatoDAO.php';
+use App\DAO\ContatoDAO;
 
 class ContatoModel{
     private $contatoDAO;

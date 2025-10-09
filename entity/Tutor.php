@@ -1,8 +1,11 @@
 <?php
-require_once __DIR__ . '/Endereco.php';
-require_once __DIR__ . '/Contato.php';
-require_once __DIR__ . '/Nome.php';
-require_once __DIR__ . '/Cpf.php';
+
+namespace App\Entity;
+
+use App\Entity\Endereco;
+use App\Entity\Contato;
+use App\Entity\Nome;
+use App\Entity\Cpf;
 
 class Tutor
 {

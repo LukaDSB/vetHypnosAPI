@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . '/../models/TutorModel.php';
-require_once __DIR__ . '/../dao/TutorDAO.php';
+namespace App\Facade;
+
+use App\Models\TutorModel;
+use App\DAO\TutorDAO;
+use InvalidArgumentException;
+use App\DTO\TutorCompletoDTO;
 
 class TutorFacade {
     private $tutorModel;

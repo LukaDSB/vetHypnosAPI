@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../dao/TipoProcedimentoDAO.php';
+namespace App\Models;
+
+use App\DAO\TipoProcedimentoDAO;
 
 class TipoProcedimentoModel{
 

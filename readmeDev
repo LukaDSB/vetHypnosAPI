@@ -1,2 +1,6 @@
 start server at debug mode
     php -S localhost:8000 -d xdebug.mode=debug -d xdebug.start_with_request=yes
+
+
+composer autoload
+    composer dump-autoload
