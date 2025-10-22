@@ -5,6 +5,7 @@ use App\DTO\CidadeDTO;
 
 class EnderecoDTO {
     public function __construct(
+        public ?int $id,
         public ?string $rua,
         public ?string $numero,
         public ?string $bairro,
@@ -15,6 +16,7 @@ class EnderecoDTO {
         $cidadeDTO = isset($data['cidade']) ? CidadeDTO::fromArray($data['cidade']) : null;
         
         return new self(
+            $data['id'] ?? null,
             $data['rua'] ?? null,
             $data['numero'] ?? null,
             $data['bairro'] ?? null,

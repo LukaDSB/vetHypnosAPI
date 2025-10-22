@@ -5,6 +5,7 @@ use App\DTO\EstadoDTO;
 
 class CidadeDTO {
     public function __construct(
+        public ?int $id,
         public ?string $cidade_nome,
         public ?EstadoDTO $estado
     ) {}
@@ -13,6 +14,7 @@ class CidadeDTO {
         $estadoDTO = isset($data['estado']) ? EstadoDTO::fromArray($data['estado']) : null;
         
         return new self(
+            $data['id'] ?? null,
             $data['cidade_nome'] ?? null,
             $estadoDTO
         );
