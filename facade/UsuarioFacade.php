@@ -3,6 +3,7 @@ namespace App\Facade;
 
 use App\Models\UsuarioModel;
 use App\DTO\Usuario;
+use Exception;
 
 class UsuarioFacade
 {
