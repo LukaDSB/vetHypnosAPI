@@ -14,9 +14,9 @@ class Especialidade {
 
     public static function fromArray(array $data): self {
         return new self(
-            $data['especialidade_id_ref'] ?? null,
-            $data['especialidade_nome'] ?? null,
-            $data['especialidade_descricao'] ?? null
+            $data['id'] ?? null,
+            $data['nome'] ?? null,
+            $data['descricao'] ?? null
         );
     }
 

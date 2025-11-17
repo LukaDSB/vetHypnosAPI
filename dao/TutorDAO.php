@@ -173,7 +173,7 @@ class TutorDAO
                 $enderecoId = $this->upsertEndereco($tutor->getEndereco());
             }
 
-            $query = "INSERT INTO tutor (nome, cpf, endereco_id) VALUES (:nome, :cpf, :endereco_id)";
+            $query = "INSERT INTO tutor (nome, cpf, endereco_id, ativo) VALUES (:nome, :cpf, :endereco_id, 1)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':nome', $tutor->getNome()->getValue());
             $stmt->bindValue(':cpf', $tutor->getCpf()->getValue());
@@ -207,6 +207,8 @@ class TutorDAO
             LEFT JOIN endereco e ON e.id = t.endereco_id
             LEFT JOIN cidade ci ON ci.id = e.cidade_id
             LEFT JOIN estado es ON es.id = ci.estado_id
+            WHERE t.ativo = 1
+            ORDER BY t.id DESC
         ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -349,10 +351,10 @@ class TutorDAO
         try {
             $deleteJunctionQuery = "DELETE FROM tutor_contatos WHERE tutor_id = :tutor_id";
             $deleteStmt = $this->conn->prepare($deleteJunctionQuery);
-            $deleteStmt->bindValue(':tutor_id', $id);
+            $deleteStmt->bindValue(':id', $id);
             $deleteStmt->execute();
             
-            $query = "DELETE FROM tutor WHERE id = :id";
+            $query = "UPDATE tutor SET ativo = 0 WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();

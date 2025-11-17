@@ -21,6 +21,8 @@ use App\Controllers\EnderecoController;
 use App\Controllers\ClinicaController;
 use App\Controllers\EspecieController;
 use App\Controllers\TipoProcedimentoController;
+use App\Controllers\EspecialidadeController;
+
 use App\Middleware\AuthMiddleware;
 
 $request = $_SERVER['REQUEST_URI'];
@@ -47,6 +49,8 @@ $cidadeController = new CidadeController();
 $enderecoController = new EnderecoController();
 $clinicaController = new ClinicaController();
 $especieController = new EspecieController();
+$especialidadeController = new EspecialidadeController();
+
 $tiposProcedimentoController = new TipoProcedimentoController();
 
 switch (true) {
@@ -303,7 +307,6 @@ switch (true) {
 
         break;
 
-        
     case (strpos($path, '/minhaapi/tipo_procedimento') === 0):
     $parts = explode('/', $path);
     $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int) $parts[3] : null;
@@ -315,6 +318,15 @@ switch (true) {
             exit();
         }
         $tiposProcedimentoController->getTiposProcedimento();
+    }
+    break;
+
+    case (strpos($path, '/minhaapi/especialidade') === 0):
+    $parts = explode('/', $path);
+    $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int) $parts[3] : null;
+
+    if ($method === 'GET') {
+        $especialidadeController->getEspecialidades();
     }
     break;
     

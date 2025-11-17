@@ -14,7 +14,7 @@ class AnimalDAO {
     }
 
     public function insert(Animal $animal): bool {
-        $query = "INSERT INTO animal (nome, especie_id, data_nascimento, sexo, peso, tutor_id, obito) VALUES (:nome, :especie_id, :data_nascimento, :sexo, :peso, :tutor_id, :obito)";
+        $query = "INSERT INTO animal (nome, especie_id, data_nascimento, sexo, peso, tutor_id, obito, ativo) VALUES (:nome, :especie_id, :data_nascimento, :sexo, :peso, :tutor_id, :obito, 1)";
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(':nome', $animal->getNome());
@@ -35,7 +35,8 @@ class AnimalDAO {
                      e.especie AS especie_especie
               FROM animal a
               LEFT JOIN especie e ON a.especie_id = e.id
-              WHERE 1=1";
+              LEFT join tutor t on a.tutor_id = t.id
+              WHERE a.ativo = 1";
 
     $params = [];
 
@@ -48,6 +49,11 @@ class AnimalDAO {
     if (!empty($filtros['especie'])) {
         $query .= " AND e.especie LIKE ?";
         $params[] = '%' . $filtros['especie'] . '%';
+    }
+
+    if (!empty($filtros['tutor'])) {
+        $query .= " AND t.nome LIKE ?";
+        $params[] = '%' . $filtros['tutor'] . '%';
     }
     
     $query .= " order by a.id desc";
@@ -95,7 +101,7 @@ class AnimalDAO {
     }
 
     public function delete(Int $id) : bool{
-        $query = "DELETE FROM animal WHERE id = :id";
+        $query = "UPDATE animal SET ativo = 0 WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
