@@ -305,7 +305,7 @@ switch (true) {
         $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int) $parts[3] : null;
         $method === 'GET' ? $especieController->getAllEspecies() : null;
 
-        break;
+    break;
 
     case (strpos($path, '/minhaapi/tipo_procedimento') === 0):
     $parts = explode('/', $path);
@@ -318,6 +318,20 @@ switch (true) {
             exit();
         }
         $tiposProcedimentoController->getTiposProcedimento();
+    }
+    break;
+
+    case (strpos($path, '/minhaapi/tipo_procedimento_com_contagem') === 0):
+    $parts = explode('/', $path);
+    $id = (isset($parts[3]) && is_numeric($parts[3])) ? (int) $parts[3] : null;
+
+    if ($method === 'GET') {
+
+        if (is_numeric($id)) {
+            $tiposProcedimentoController->getProcedimentosComContagem($id);
+            exit();
+        }
+        $tiposProcedimentoController->getProcedimentosComContagem();
     }
     break;
 

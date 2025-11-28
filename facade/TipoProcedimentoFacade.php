@@ -2,6 +2,7 @@
 namespace App\Facade;
 
 use App\Models\TipoProcedimentoModel;
+use App\DTO\TipoProcedimentoContagemDTO; // CORRIGIDO: Namespace maiúsculo
 
 class TipoProcedimentoFacade{
     private $tiposProcedimentoModel;
@@ -21,4 +22,17 @@ class TipoProcedimentoFacade{
             throw new \Exception($e->getMessage());
         }
     }
+
+    /**
+     * Busca os procedimentos com contagem e força a serialização 
+     * para array antes de retornar à Controller.
+     */
+   public function getProcedimentosComContagem(): array {
+    $dtos = $this->tiposProcedimentoModel->getProcedimentosComContagem();
+    
+    // Força a serialização para array (resolve o problema do JSON)
+    return array_map(function(TipoProcedimentoContagemDTO $dto) {
+        return $dto->toArray();
+    }, $dtos);
+}
 }

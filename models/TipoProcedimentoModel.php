@@ -17,4 +17,8 @@ class TipoProcedimentoModel{
     public function getProntuarioById(int $id){
         return $this->tiposProcedimentoDAO->getProntuarioById($id);
     }
+
+    public function getProcedimentosComContagem(){
+        return $this->tiposProcedimentoDAO->getProcedimentosComContagem();
+    }
 }

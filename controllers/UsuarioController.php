@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Facade\UsuarioFacade;
+use Exception;
 
 class UsuarioController
 {
@@ -21,6 +22,9 @@ class UsuarioController
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode(["message" => $e->getMessage()]);
+        } catch (\Throwable $e) {
+            http_response_code(500);
+            echo json_encode(["message" => "Erro interno no servidor: " . $e->getMessage()]);
         }
     }
 

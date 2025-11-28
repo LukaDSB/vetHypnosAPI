@@ -12,12 +12,15 @@ class MedicamentoDAO {
         $database = new Database();
         $this->conn = $database->getConnection();
     }
-    
-    public function update(int $id, MedicamentoDTO $medicamento, object $dadosUsuario): bool {
-        
-        $nomeUsuario = $dadosUsuario->nome;
-        $this->conn->exec("SET @app_user = '{$nomeUsuario}'");
 
+public function update(int $id, MedicamentoDTO $medicamento, object $dadosUsuario): bool {
+    
+    $this->conn->beginTransaction();
+    try {
+        $nomeUsuario = $dadosUsuario->nome;
+        $nomeUsuarioSanitized = $this->conn->quote($nomeUsuario); 
+        $this->conn->exec("SET @app_user = {$nomeUsuarioSanitized}");
+        
         $sql = 
             "UPDATE medicamento SET 
                     nome = :nome, 
@@ -31,16 +34,26 @@ class MedicamentoDAO {
         
         $stmt = $this->conn->prepare($sql);
         
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':nome', $medicamento->getNome());
-        $stmt->bindParam(':concentracao', $medicamento->getConcentracao());
-        $stmt->bindParam('categoria_medicamento_id', $medicamento->getCategoria_medicamento_id());
-        $stmt->bindParam('fabricante', $medicamento->getFabricante());
-        $stmt->bindParam('lote', $medicamento->getLote());
-        $stmt->bindParam('validade', $medicamento->getValidade());
-        $stmt->bindParam('quantidade', $medicamento->getQuantidade());
-        return $stmt->execute();
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':nome', $medicamento->getNome());
+        $stmt->bindValue(':concentracao', $medicamento->getConcentracao());
+        $stmt->bindValue(':categoria_medicamento_id', $medicamento->getCategoria_medicamento_id(), PDO::PARAM_INT);
+        $stmt->bindValue(':fabricante', $medicamento->getFabricante());
+        $stmt->bindValue(':lote', $medicamento->getLote());
+        $stmt->bindValue(':validade', $medicamento->getValidade());
+        $stmt->bindValue(':quantidade', $medicamento->getQuantidade());
+        
+        $result = $stmt->execute();
+        
+        $this->conn->commit();
+        return $result;
+
+    } catch (\PDOException $e) {
+        $this->conn->rollBack();
+        error_log("Erro ao atualizar medicamento e setar log: " . $e->getMessage());
+        return false;
     }
+}
     
     
     public function insert(MedicamentoDTO $medicamento): bool {
