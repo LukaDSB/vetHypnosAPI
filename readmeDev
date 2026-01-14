@@ -4,3 +4,77 @@ start server at debug mode
 
 composer autoload
     composer dump-autoload
+
+
+🐘 VetHypnos - Backend (API)
+
+Este diretório contém toda a lógica de servidor, regras de negócio e comunicação com o banco de dados do sistema VetHypnos. O projeto foi construído utilizando PHP 8+ (Nativo) seguindo o padrão MVC e arquitetura em camadas (Services, Repositories, Controllers).
+
+🚀 Como Rodar o Backend
+
+Como utilizamos PHP Puro, não é necessário um comando de "start" específico se estiver usando o XAMPP ou Docker. O servidor Apache gerencia a execução.
+    php -S localhost:8000 (padrão) 
+    php -S localhost:8000 -d xdebug.mode=debug -d xdebug.start_with_request=yes (com debugger)
+
+
+Passo 1: Verificar o Servidor
+
+Certifique-se de que o Apache e o MySQL estão rodando no painel do XAMPP (ou serviço equivalente).
+
+Passo 2: Testar a API
+
+Configure os endpoints no seu Postman com a rota: http://localhost:8000/minhaapi/
+
+
+📦 Gerenciamento de Dependências
+
+Se o projeto utiliza bibliotecas externas (como PHPMailer, FPDF, etc.), elas são gerenciadas pelo Composer.
+
+Instalar/Baixar Dependências (Primeira vez ou após clonar)
+
+Sempre que baixar o projeto ou se a pasta vendor/ não existir, rode:
+
+    composer install
+
+
+Atualizar Dependências
+
+Se um colega adicionar uma nova biblioteca ao projeto, você precisará atualizar o seu ambiente local:
+
+    composer update
+
+
+🔄 Como Atualizar o Projeto (Git)
+
+Antes de começar a trabalhar, garanta que seu código está sincronizado com a branch principal para evitar conflitos.
+
+Baixar as últimas alterações:
+
+    git pull origin develop
+
+
+(Troque develop pela branch que você está utilizando)
+
+Verificar Mudanças no Banco de Dados:
+Sempre pergunte ou verifique no Trello/Slack se houve alteração na estrutura do banco (novas tabelas ou colunas). Se houver, importe o arquivo SQL mais recente localizado em database/updates/.
+
+📂 Estrutura de Pastas
+
+/config: Arquivos de conexão com o banco e configurações globais.
+
+/controllers: Recebem as requisições HTTP do Frontend e decidem o que fazer.
+
+/models: Representam as tabelas do banco (DTOs).
+
+/services: Contém a lógica pesada de negócio (cálculos, validações).
+
+/utils: Funções auxiliares e helpers.
+
+/vendor: Bibliotecas externas (não mexer aqui).
+
+🛠️ Solução de Problemas Comuns
+
+Erro 500 ou Tela Branca: Verifique os logs de erro do Apache (xampp/apache/logs/error.log). Geralmente é erro de sintaxe no PHP.
+
+Erro de CORS: Se o Angular não conseguir acessar o PHP, verifique se o arquivo index.php ou o Controller específico possui os headers:
+header("Access-Control-Allow-Origin: *");
